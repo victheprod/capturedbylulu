@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 /**
- * Regenerate portfolio data from public/portfolio/*
- * Run: node scripts/generate-portfolio-data.mjs
+ * Regenerate portfolio data from public/portfolio/* (local source, gitignored).
+ * For production/Vercel, use the curated set instead:
+ *   npm run curate:site-images
+ *
+ * This script is for local full-library regeneration only.
  */
 import fs from "fs";
 import path from "path";
@@ -11,8 +14,10 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const base = path.join(root, "public/portfolio");
-const webBase = path.join(base, "_web");
-const heroBase = path.join(base, "_hero");
+const siteBase = path.join(root, "public/site-images");
+const webBase = path.join(siteBase, "_web");
+const heroBase = path.join(siteBase, "_hero");
+const PUBLIC_PREFIX = "/site-images";
 
 const MAX_BYTES = 4 * 1024 * 1024;
 const WEB_MAX_PX = 1600;
@@ -32,10 +37,25 @@ function isDuplicateExport(file) {
 function resolveWebPath(dir, file, maxPx = WEB_MAX_PX, outRoot = webBase) {
   const absSource = path.join(base, dir, file);
   if (!fs.existsSync(absSource)) {
-    return `/portfolio/${dir}/${file}`;
+    return `${PUBLIC_PREFIX}/${dir}/${file}`;
   }
 
   const { size } = fs.statSync(absSource);
+  const isDirectCopy = outRoot === webBase && size <= MAX_BYTES && maxPx === WEB_MAX_PX;
+
+  if (isDirectCopy) {
+    const directDir = path.join(siteBase, dir);
+    fs.mkdirSync(directDir, { recursive: true });
+    const directAbs = path.join(directDir, file);
+    if (
+      !fs.existsSync(directAbs) ||
+      fs.statSync(directAbs).mtimeMs < fs.statSync(absSource).mtimeMs
+    ) {
+      fs.copyFileSync(absSource, directAbs);
+    }
+    return `${PUBLIC_PREFIX}/${dir}/${file}`;
+  }
+
   const webDir = path.join(outRoot, dir);
   fs.mkdirSync(webDir, { recursive: true });
   const webAbs = path.join(webDir, file);
@@ -43,11 +63,6 @@ function resolveWebPath(dir, file, maxPx = WEB_MAX_PX, outRoot = webBase) {
     .replace(path.join(root, "public"), "")
     .split(path.sep)
     .join("/");
-
-  const needsResize = size > MAX_BYTES || maxPx > WEB_MAX_PX;
-  if (!needsResize && outRoot === webBase && size <= MAX_BYTES) {
-    return `/portfolio/${dir}/${file}`;
-  }
 
   if (
     !fs.existsSync(webAbs) ||
@@ -201,7 +216,8 @@ const portfolioScrollShowcase = [
   "events/DSC09870",
   "weddings/DSC02657",
 ].map((id) => {
-  const [dir, file] = id.split("/");
+  const [dir, rawFile] = id.split("/");
+  const file = rawFile.includes(".") ? rawFile : `${rawFile}.jpg`;
   const src =
     id === "weddings/DSC07841"
       ? siteImages.hero

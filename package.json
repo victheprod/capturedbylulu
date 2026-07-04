@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:portfolio": "node scripts/generate-portfolio-data.mjs"
+    "generate:portfolio": "node scripts/generate-portfolio-data.mjs",
+    "sync:site-images": "node scripts/sync-site-images.mjs",
+    "curate:site-images": "node scripts/curate-site-images.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
