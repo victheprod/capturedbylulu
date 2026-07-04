@@ -17,7 +17,7 @@ INSERT INTO packages (id, category_id, name, price, duration, features, is_popul
   ('family-small', 'families', 'Small Family', '$300', '45 minutes', '["Up to 5 people","12 edited photos"]', false, 1, true),
   ('family-standard', 'families', 'Standard Family', '$425', '60 minutes', '["Up to 8 people","20 edited photos"]', true, 2, true),
   ('wedding-intimate', 'weddings', 'Intimate', '$1,500', '4 hours', '["200+ edited photos","Online gallery"]', false, 1, true),
-  ('wedding-classic', 'weddings', 'Classic', '$2,500', '8 hours', '["400+ edited photos","Engagement session"]', true, 2, true),
+  ('wedding-classic', 'weddings', 'Classic', '$2,500', '8 hours', '["400+ edited photos"]', true, 2, true),
   ('headshot-quick', 'headshots', 'Quick Headshot', '$150', '15 minutes', '["3 edited photos"]', false, 1, true),
   ('brand-starter', 'brand', 'Starter Brand Session', '$350', '1 hour', '["15 edited photos","1 look"]', false, 1, true)
 ON CONFLICT (id) DO NOTHING;
@@ -64,6 +64,22 @@ INSERT INTO testimonials (client_name, review, rating, session_type, is_featured
     'Birthday Photoshoot',
     true,
     5
+  ),
+  (
+    'Eniola Tanimonu',
+    'Working with her was an incredible experience from start to finish. She made the entire shoot feel comfortable and natural, and her attention to detail was evident in every part of the process. The photos exceeded my expectations — they were beautifully edited, captured genuine moments, and reflected exactly the vision I had in mind. Beyond her talent behind the camera, she''s professional, communicates clearly, and truly cares about delivering high-quality work. If you''re looking for someone who is creative, reliable, and passionate about photography, I couldn''t recommend her more. I''ll definitely be booking with her again.',
+    5,
+    'Client',
+    true,
+    6
+  ),
+  (
+    'Oba Bunmi',
+    'The word captured literally defines the quality and expression of joy you will experience the moment your service is booked. Whether you are celebrating a small milestone or a major achievement you can absolutely count on Lulu to make it a memorable moment. 5 plus star.',
+    5,
+    'Client',
+    true,
+    7
   );
 
 INSERT INTO site_content (key, value) VALUES

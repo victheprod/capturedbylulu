@@ -135,9 +135,6 @@ export function PortfolioLightbox({
                 {index + 1} / {items.length}
               </span>
             </div>
-            <p className="mt-3 text-xs text-foreground/35">
-              Use arrow keys to navigate · Esc to close
-            </p>
           </motion.div>
         </motion.div>
       )}

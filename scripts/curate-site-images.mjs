@@ -16,22 +16,26 @@ const stagingRoot = path.join(root, "public/.site-images-staging");
 const GALLERY_MAX_PX = 1400;
 const HERO_MAX_PX = 1800;
 const JPEG_QUALITY = 82;
-const HERO_ID = "weddings/DSC07841";
+const HERO_ID = "weddings/DSC00201";
 
 const MUST_KEEP = {
   Weddings: [
-    "weddings/DSC07841",
+    "weddings/DSC00201",
+    "weddings/DSC02783",
+    "weddings/DSC02836",
     "weddings/DSC07766",
     "weddings/DSC07789",
-    "weddings/DSC02657",
+    "weddings/DSC00181",
     "weddings/DSC02726",
     "weddings/DSC03291",
     "weddings/DSC08756",
     "weddings/DSC09871",
     "weddings/DSC09882",
-    "weddings/DSC09996",
+    "weddings/DSC02608",
+    "weddings/DSC03062",
   ],
   Portraits: [
+    "portraits/DSC08765",
     "portraits/DSC08205",
     "portraits/DSC07888",
     "portraits/DSC08173",
@@ -97,6 +101,7 @@ function findSourceAbs(id) {
     path.join(siteRoot, "_hero", dir, file),
     path.join(siteRoot, "_web", dir, file),
     path.join(siteRoot, dir, file),
+    path.join(root, "public/portfolio", dir, file),
   ];
   for (const abs of candidates) {
     if (fs.existsSync(abs)) return abs;
@@ -237,11 +242,11 @@ const siteImages = {
   hero: ref(HERO_ID, true),
   about: ref("families/IMG_3621"),
   aboutTeaser: ref("weddings/DSC07766"),
-  cta: ref("weddings/DSC02657"),
+  cta: ref("weddings/DSC00181"),
   servicesBanner: ref("portraits/DSC08205"),
-  weddingsBanner: ref("weddings/DSC07841"),
-  weddingsDetail1: ref("weddings/DSC07766"),
-  weddingsDetail2: ref("weddings/DSC07789"),
+  weddingsBanner: ref("weddings/DSC00201"),
+  weddingsDetail1: ref("weddings/DSC02783"),
+  weddingsDetail2: ref("weddings/DSC02836"),
   brandBanner: ref("portraits/DSC07888"),
   brandDetail: ref("portraits/DSC08173"),
   eventsBanner: ref("events/DSC09813"),
@@ -258,7 +263,7 @@ const siteImageFraming = Object.fromEntries(
 
 const homePortfolioPreview = [
   {
-    id: "weddings/DSC07841",
+    id: "weddings/DSC00201",
     label: "Weddings",
     src: siteImages.hero,
     href: "/weddings",
@@ -337,7 +342,10 @@ const servicesTeaserImages = [
 ];
 
 const showcaseIds = [
-  "weddings/DSC07841",
+  "weddings/DSC00201",
+  "weddings/DSC02783",
+  "weddings/DSC02836",
+  "portraits/DSC08765",
   "weddings/DSC07766",
   "weddings/DSC07789",
   "portraits/DSC08205",
@@ -348,7 +356,7 @@ const showcaseIds = [
   "families/IMG_3649",
   "events/DSC09813",
   "events/DSC09870",
-  "weddings/DSC02657",
+  "weddings/DSC00181",
 ];
 
 const portfolioScrollShowcase = showcaseIds

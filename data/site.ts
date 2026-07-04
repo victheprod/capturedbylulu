@@ -12,11 +12,81 @@ export const siteConfig = {
 
 export const navLinks = [
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Services", href: "/services" },
-  { label: "Weddings", href: "/weddings" },
-  { label: "Brand Photography", href: "/brand-photography" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },
+] as const;
+
+/** Desktop shifting dropdown — Services mega panel */
+export const servicesNavTabs = [
+  {
+    id: 1,
+    title: "Sessions",
+    links: [
+      {
+        label: "Weddings",
+        href: "/weddings",
+        description: "Full-day coverage, pre-wedding, and intimate ceremonies.",
+      },
+      {
+        label: "Portraits & Families",
+        href: "/services",
+        description: "Portraits, family sessions, events, and headshots.",
+      },
+      {
+        label: "Brand Photography",
+        href: "/brand-photography",
+        description: "Editorial imagery for entrepreneurs and businesses.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "Plan",
+    links: [
+      {
+        label: "Pricing",
+        href: "/services",
+        description: "Transparent packages for every session type.",
+      },
+      {
+        label: "Portfolio",
+        href: "/portfolio",
+        description: "Browse weddings, portraits, families, and events.",
+      },
+      {
+        label: "Contact Lulu",
+        href: "/contact",
+        description: "Check availability or ask a question — no pressure.",
+      },
+    ],
+  },
+] as const;
+
+export const servicePaths = [
+  "/services",
+  "/weddings",
+  "/brand-photography",
+] as const;
+
+/** Mobile nav groups */
+export const mobileNavGroups = [
+  {
+    title: "Work",
+    links: [
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Weddings", href: "/weddings" },
+      { label: "Services & Pricing", href: "/services" },
+      { label: "Brand Photography", href: "/brand-photography" },
+    ],
+  },
+  {
+    title: "Studio",
+    links: [
+      { label: "About Lulu", href: "/about" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
 ] as const;
 
 export const trustItems = [

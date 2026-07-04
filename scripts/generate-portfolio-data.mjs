@@ -111,14 +111,14 @@ function framingFromSrc(src) {
 }
 
 const siteImageSources = {
-  hero: ["weddings", "DSC07841.jpg"],
+  hero: ["weddings", "DSC00201.jpg"],
   about: ["families", "IMG_3621.jpg"],
   aboutTeaser: ["weddings", "DSC07766.jpg"],
-  cta: ["weddings", "DSC02657.jpg"],
+  cta: ["weddings", "DSC00181.jpg"],
   servicesBanner: ["portraits", "DSC08205.jpg"],
-  weddingsBanner: ["weddings", "DSC07841.jpg"],
-  weddingsDetail1: ["weddings", "DSC07766.jpg"],
-  weddingsDetail2: ["weddings", "DSC07789.jpg"],
+  weddingsBanner: ["weddings", "DSC00201.jpg"],
+  weddingsDetail1: ["weddings", "DSC02783.jpg"],
+  weddingsDetail2: ["weddings", "DSC02836.jpg"],
   brandBanner: ["portraits", "DSC07888.jpg"],
   brandDetail: ["portraits", "DSC08173.jpg"],
   eventsBanner: ["events", "DSC09813.jpg"],
@@ -145,7 +145,7 @@ const siteImageFraming = Object.fromEntries(
 /** One tile per category — used if portfolio strip is enabled elsewhere */
 const homePortfolioPreview = [
   {
-    id: "weddings/DSC07841",
+    id: "weddings/DSC00201",
     label: "Weddings",
     src: siteImages.hero,
     href: "/weddings",
@@ -203,7 +203,7 @@ const servicesTeaserImages = [
 
 /** Curated horizontal scroll strip on /portfolio */
 const portfolioScrollShowcase = [
-  "weddings/DSC07841",
+  "weddings/DSC00201",
   "weddings/DSC07766",
   "weddings/DSC07789",
   "portraits/DSC08205",
@@ -214,12 +214,12 @@ const portfolioScrollShowcase = [
   "families/IMG_3649",
   "events/DSC09813",
   "events/DSC09870",
-  "weddings/DSC02657",
+  "weddings/DSC00181",
 ].map((id) => {
   const [dir, rawFile] = id.split("/");
   const file = rawFile.includes(".") ? rawFile : `${rawFile}.jpg`;
   const src =
-    id === "weddings/DSC07841"
+    id === "weddings/DSC00201"
       ? siteImages.hero
       : id === "weddings/DSC07766"
         ? siteImages.weddingsDetail1
@@ -237,7 +237,7 @@ const portfolioScrollShowcase = [
                     ? siteImages.eventsBanner
                     : id === "events/DSC09870"
                       ? siteImages.eventsDetail
-                      : id === "weddings/DSC02657"
+                      : id === "weddings/DSC00181"
                         ? siteImages.cta
                         : resolveWebPath(dir, file);
   const category =

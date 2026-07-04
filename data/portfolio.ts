@@ -65,14 +65,14 @@ export type PortfolioScrollItem = {
 export const portfolioItems = itemsJson as PortfolioItem[];
 
 export const siteImages = {
-  "hero": "/site-images/_hero/weddings/DSC07841.jpg",
+  "hero": "/site-images/_hero/weddings/DSC00201.jpg",
   "about": "/site-images/families/IMG_3621.jpg",
   "aboutTeaser": "/site-images/weddings/DSC07766.jpg",
-  "cta": "/site-images/weddings/DSC02657.jpg",
+  "cta": "/site-images/weddings/DSC00181.jpg",
   "servicesBanner": "/site-images/portraits/DSC08205.jpg",
-  "weddingsBanner": "/site-images/weddings/DSC07841.jpg",
-  "weddingsDetail1": "/site-images/weddings/DSC07766.jpg",
-  "weddingsDetail2": "/site-images/weddings/DSC07789.jpg",
+  "weddingsBanner": "/site-images/weddings/DSC00201.jpg",
+  "weddingsDetail1": "/site-images/weddings/DSC02783.jpg",
+  "weddingsDetail2": "/site-images/weddings/DSC02836.jpg",
   "brandBanner": "/site-images/portraits/DSC07888.jpg",
   "brandDetail": "/site-images/portraits/DSC08173.jpg",
   "eventsBanner": "/site-images/events/DSC09813.jpg",
@@ -83,7 +83,7 @@ export const siteImages = {
 export const siteImageFraming: Record<keyof typeof siteImages, SiteImageFraming> = {
   "hero": {
     "width": 1800,
-    "height": 1200,
+    "height": 1012,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
   },
@@ -101,7 +101,7 @@ export const siteImageFraming: Record<keyof typeof siteImages, SiteImageFraming>
   },
   "cta": {
     "width": 1400,
-    "height": 932,
+    "height": 787,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
   },
@@ -113,21 +113,21 @@ export const siteImageFraming: Record<keyof typeof siteImages, SiteImageFraming>
   },
   "weddingsBanner": {
     "width": 1400,
-    "height": 933,
+    "height": 787,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
   },
   "weddingsDetail1": {
-    "width": 932,
+    "width": 933,
     "height": 1400,
     "objectPosition": "50% 18%",
     "aspectRatio": "3/4"
   },
   "weddingsDetail2": {
-    "width": 932,
-    "height": 1400,
-    "objectPosition": "50% 18%",
-    "aspectRatio": "3/4"
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "50% 50%",
+    "aspectRatio": "4/3"
   },
   "brandBanner": {
     "width": 1400,
@@ -163,12 +163,12 @@ export const siteImageFraming: Record<keyof typeof siteImages, SiteImageFraming>
 
 export const homePortfolioPreview: HomePreviewItem[] = [
   {
-    "id": "weddings/DSC07841",
+    "id": "weddings/DSC00201",
     "label": "Weddings",
-    "src": "/site-images/_hero/weddings/DSC07841.jpg",
+    "src": "/site-images/_hero/weddings/DSC00201.jpg",
     "href": "/weddings",
     "width": 1800,
-    "height": 1200,
+    "height": 1012,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3",
     "tall": false
@@ -209,7 +209,7 @@ export const homePortfolioPreview: HomePreviewItem[] = [
 ];
 
 export const instagramPhotos = [
-  "/site-images/_hero/weddings/DSC07841.jpg",
+  "/site-images/_hero/weddings/DSC00201.jpg",
   "/site-images/portraits/DSC08205.jpg",
   "/site-images/families/IMG_3621.jpg",
   "/site-images/events/DSC09813.jpg",
@@ -222,7 +222,7 @@ export const instagramPhotos = [
 
 export const instagramPhotoFraming = [
   {
-    "src": "/site-images/_hero/weddings/DSC07841.jpg",
+    "src": "/site-images/_hero/weddings/DSC00201.jpg",
     "objectPosition": "50% 50%"
   },
   {
@@ -262,10 +262,10 @@ export const instagramPhotoFraming = [
 export const servicesTeaserImages: ServiceTeaserImage[] = [
   {
     "label": "Weddings",
-    "src": "/site-images/weddings/DSC07841.jpg",
+    "src": "/site-images/weddings/DSC00201.jpg",
     "href": "/weddings",
     "width": 1400,
-    "height": 933,
+    "height": 787,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
   },
@@ -300,12 +300,36 @@ export const servicesTeaserImages: ServiceTeaserImage[] = [
 
 export const portfolioScrollShowcase: PortfolioScrollItem[] = [
   {
-    "id": "weddings/DSC07841",
-    "src": "/site-images/_hero/weddings/DSC07841.jpg",
+    "id": "weddings/DSC00201",
+    "src": "/site-images/_hero/weddings/DSC00201.jpg",
     "category": "Weddings",
     "width": 1800,
-    "height": 1200,
+    "height": 1012,
     "objectPosition": "50% 50%"
+  },
+  {
+    "id": "weddings/DSC02783",
+    "src": "/site-images/weddings/DSC02783.jpg",
+    "category": "Weddings",
+    "width": 933,
+    "height": 1400,
+    "objectPosition": "50% 18%"
+  },
+  {
+    "id": "weddings/DSC02836",
+    "src": "/site-images/weddings/DSC02836.jpg",
+    "category": "Weddings",
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "50% 50%"
+  },
+  {
+    "id": "portraits/DSC08765",
+    "src": "/site-images/portraits/DSC08765.jpg",
+    "category": "Portraits",
+    "width": 933,
+    "height": 1400,
+    "objectPosition": "50% 18%"
   },
   {
     "id": "weddings/DSC07766",
@@ -388,11 +412,11 @@ export const portfolioScrollShowcase: PortfolioScrollItem[] = [
     "objectPosition": "50% 50%"
   },
   {
-    "id": "weddings/DSC02657",
-    "src": "/site-images/weddings/DSC02657.jpg",
+    "id": "weddings/DSC00181",
+    "src": "/site-images/weddings/DSC00181.jpg",
     "category": "Weddings",
     "width": 1400,
-    "height": 932,
+    "height": 787,
     "objectPosition": "50% 50%"
   }
 ];

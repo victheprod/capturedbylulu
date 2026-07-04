@@ -174,7 +174,7 @@ export const weddingPackages: Package[] = [
     price: "$2,200",
     duration: "8 hours",
     popular: true,
-    features: ["400+ photos", "Engagement session included"],
+    features: ["400+ photos"],
   },
   {
     id: "wedding-signature",
