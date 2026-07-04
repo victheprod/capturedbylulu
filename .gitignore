@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local portfolio originals (~12GB) — host via Supabase Storage, CDN, or copy on deploy
+/public/portfolio/
