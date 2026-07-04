@@ -32,55 +32,69 @@ export const portraitPackages: Package[] = [
   {
     id: "portrait-mini",
     name: "Mini",
-    price: "$125",
+    price: "$150",
     duration: "20 minutes",
-    features: ["5 edited photos", "1 outfit", "Online gallery"],
+    features: [
+      "5 professionally edited photos",
+      "1 outfit",
+      "Online gallery",
+    ],
   },
   {
     id: "portrait-basic",
     name: "Basic",
-    price: "$200",
+    price: "$250",
     duration: "40 minutes",
-    features: ["10 edited photos", "1 outfit", "Online gallery"],
+    features: [
+      "10 professionally edited photos",
+      "1 outfit",
+      "Online gallery",
+    ],
   },
   {
     id: "portrait-standard",
     name: "Standard",
-    price: "$275",
+    price: "$350",
     duration: "60 minutes",
     popular: true,
     features: [
-      "20 edited photos",
+      "20 professionally edited photos",
       "2 outfits",
       "Online gallery",
-      "Light retouching",
+      "Light skin retouching",
     ],
   },
   {
     id: "portrait-premium",
     name: "Premium",
-    price: "$400",
+    price: "$500",
     duration: "90 minutes",
     features: [
-      "30 edited photos",
+      "30 professionally edited photos",
       "3 outfits",
-      "Online gallery + print release",
+      "Online gallery",
       "Advanced retouching",
+      "Priority gallery delivery",
     ],
   },
   {
     id: "portrait-luxury",
     name: "Luxury",
-    price: "$550",
+    price: "$700",
     duration: "2 hours",
     features: [
-      "40+ edited photos",
+      "40+ professionally edited photos",
       "Unlimited outfits",
-      "Multiple locations",
-      "Priority editing",
+      "Up to 2 locations",
+      "Online gallery",
+      "Advanced retouching",
+      "Priority editing (3–5 business days)",
     ],
   },
 ];
+
+export const portraitCategoryNote =
+  "Graduation, birthday, couples, and more.";
 
 export const familyPackages: Package[] = [
   {
@@ -88,103 +102,136 @@ export const familyPackages: Package[] = [
     name: "Small Family",
     price: "$300",
     duration: "45 minutes",
-    features: ["Up to 5 people", "12 edited photos"],
+    features: [
+      "Up to 5 people",
+      "12 professionally edited photos",
+      "Online gallery",
+      "Print release",
+    ],
   },
   {
     id: "family-standard",
     name: "Standard Family",
-    price: "$425",
+    price: "$450",
     duration: "60 minutes",
     popular: true,
-    features: ["Up to 8 people", "20 edited photos"],
+    features: [
+      "Up to 8 people",
+      "20 professionally edited photos",
+      "Online gallery",
+      "Print release",
+      "Light retouching",
+    ],
   },
   {
     id: "family-extended",
     name: "Extended Family",
-    price: "$600",
+    price: "$650",
     duration: "90 minutes",
-    features: ["8+ people", "30 edited photos"],
+    features: [
+      "8+ people",
+      "30 professionally edited photos",
+      "Online gallery",
+      "Print release",
+      "Light retouching",
+    ],
   },
 ];
 
 export const eventPackages: Package[] = [
   {
     id: "event-2hr",
-    name: "2 Hour Coverage",
-    price: "$300",
+    name: "2-Hour Coverage",
+    price: "$400",
     duration: "2 hours",
     features: [
       "1 photographer",
-      "40–50 edited images",
+      "40–60 professionally edited images",
       "Online gallery",
+      "Print release",
     ],
   },
   {
     id: "event-4hr",
-    name: "4 Hour Coverage",
-    price: "$550",
+    name: "4-Hour Coverage",
+    price: "$700",
     duration: "4 hours",
     popular: true,
     features: [
+      "1 photographer",
       "Full event coverage",
-      "80–100 edited images",
+      "80–120 professionally edited images",
       "Online gallery",
+      "Print release",
     ],
   },
   {
     id: "event-6hr",
-    name: "6 Hour Coverage",
-    price: "$800",
+    name: "6-Hour Coverage",
+    price: "$950",
     duration: "6 hours",
     features: [
+      "1 photographer",
       "Full event coverage",
       "Priority editing",
-      "120–150 edited images",
+      "120–180 professionally edited images",
       "Online gallery",
+      "Print release",
     ],
   },
   {
     id: "event-full-day",
-    name: "Full Day Event",
-    price: "$1,000+",
-    duration: "Full day",
+    name: "Full-Day Coverage",
+    price: "Starting at $1,300",
+    duration: "Up to 8 hours",
     features: [
       "Full event coverage",
       "Priority editing",
-      "200–250 edited images",
+      "250+ professionally edited images",
       "Online gallery",
+      "Print release",
     ],
   },
 ];
 
 export const eventCategoryNote =
-  "Final image count varies based on event activities, timeline, and guest participation.";
+  "Birthdays, baby showers, bridal showers, corporate events, and parties. Final image count varies based on event activities, timeline, and guest participation.";
 
 export const weddingPackages: Package[] = [
   {
     id: "wedding-intimate",
     name: "Intimate",
-    price: "$1,200",
+    price: "$1,500",
     duration: "4 hours",
-    features: ["150+ photos"],
+    features: [
+      "150+ professionally edited photos",
+      "Online gallery",
+      "Print release",
+    ],
   },
   {
     id: "wedding-classic",
     name: "Classic",
-    price: "$2,200",
+    price: "$2,500",
     duration: "8 hours",
     popular: true,
-    features: ["400+ photos"],
+    features: [
+      "400+ professionally edited photos",
+      "Complimentary engagement session",
+      "Online gallery",
+    ],
   },
   {
     id: "wedding-signature",
     name: "Signature",
-    price: "$3,200",
+    price: "$4,000",
     duration: "10 hours",
     features: [
-      "600+ photos",
+      "600+ professionally edited photos",
       "2 photographers",
-      "Sneak peeks in 48 hrs",
+      "Sneak peeks within 48 hours",
+      "Complimentary engagement session",
+      "Online gallery",
     ],
   },
 ];
@@ -330,7 +377,7 @@ export const addons = [
 
 /** General session packages shown on the Services page */
 export const servicesPageCategories: PackageCategory[] = [
-  { id: "portraits", category: "Portraits", packages: portraitPackages },
+  { id: "portraits", category: "Portraits", packages: portraitPackages, note: portraitCategoryNote },
   { id: "families", category: "Families", packages: familyPackages },
   {
     id: "events",

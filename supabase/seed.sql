@@ -11,13 +11,21 @@ INSERT INTO package_categories (id, name, slug, display_order, is_active) VALUES
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO packages (id, category_id, name, price, duration, features, is_popular, display_order, is_active) VALUES
-  ('portrait-mini', 'portraits', 'Mini', '$125', '20 minutes', '["5 edited photos","1 outfit","Online gallery"]', false, 1, true),
-  ('portrait-basic', 'portraits', 'Basic', '$200', '40 minutes', '["10 edited photos","1 outfit","Online gallery"]', false, 2, true),
-  ('portrait-standard', 'portraits', 'Standard', '$275', '60 minutes', '["20 edited photos","2 outfits","Online gallery","Light retouching"]', true, 3, true),
-  ('family-small', 'families', 'Small Family', '$300', '45 minutes', '["Up to 5 people","12 edited photos"]', false, 1, true),
-  ('family-standard', 'families', 'Standard Family', '$425', '60 minutes', '["Up to 8 people","20 edited photos"]', true, 2, true),
-  ('wedding-intimate', 'weddings', 'Intimate', '$1,500', '4 hours', '["200+ edited photos","Online gallery"]', false, 1, true),
-  ('wedding-classic', 'weddings', 'Classic', '$2,500', '8 hours', '["400+ edited photos"]', true, 2, true),
+  ('portrait-mini', 'portraits', 'Mini', '$150', '20 minutes', '["5 professionally edited photos","1 outfit","Online gallery"]', false, 1, true),
+  ('portrait-basic', 'portraits', 'Basic', '$250', '40 minutes', '["10 professionally edited photos","1 outfit","Online gallery"]', false, 2, true),
+  ('portrait-standard', 'portraits', 'Standard', '$350', '60 minutes', '["20 professionally edited photos","2 outfits","Online gallery","Light skin retouching"]', true, 3, true),
+  ('portrait-premium', 'portraits', 'Premium', '$500', '90 minutes', '["30 professionally edited photos","3 outfits","Online gallery","Advanced retouching","Priority gallery delivery"]', false, 4, true),
+  ('portrait-luxury', 'portraits', 'Luxury', '$700', '2 hours', '["40+ professionally edited photos","Unlimited outfits","Up to 2 locations","Online gallery","Advanced retouching","Priority editing (3–5 business days)"]', false, 5, true),
+  ('family-small', 'families', 'Small Family', '$300', '45 minutes', '["Up to 5 people","12 professionally edited photos","Online gallery","Print release"]', false, 1, true),
+  ('family-standard', 'families', 'Standard Family', '$450', '60 minutes', '["Up to 8 people","20 professionally edited photos","Online gallery","Print release","Light retouching"]', true, 2, true),
+  ('family-extended', 'families', 'Extended Family', '$650', '90 minutes', '["8+ people","30 professionally edited photos","Online gallery","Print release","Light retouching"]', false, 3, true),
+  ('event-2hr', 'events', '2-Hour Coverage', '$400', '2 hours', '["1 photographer","40–60 professionally edited images","Online gallery","Print release"]', false, 1, true),
+  ('event-4hr', 'events', '4-Hour Coverage', '$700', '4 hours', '["1 photographer","Full event coverage","80–120 professionally edited images","Online gallery","Print release"]', true, 2, true),
+  ('event-6hr', 'events', '6-Hour Coverage', '$950', '6 hours', '["1 photographer","Full event coverage","Priority editing","120–180 professionally edited images","Online gallery","Print release"]', false, 3, true),
+  ('event-full-day', 'events', 'Full-Day Coverage', 'Starting at $1,300', 'Up to 8 hours', '["Full event coverage","Priority editing","250+ professionally edited images","Online gallery","Print release"]', false, 4, true),
+  ('wedding-intimate', 'weddings', 'Intimate', '$1,500', '4 hours', '["150+ professionally edited photos","Online gallery","Print release"]', false, 1, true),
+  ('wedding-classic', 'weddings', 'Classic', '$2,500', '8 hours', '["400+ professionally edited photos","Complimentary engagement session","Online gallery"]', true, 2, true),
+  ('wedding-signature', 'weddings', 'Signature', '$4,000', '10 hours', '["600+ professionally edited photos","2 photographers","Sneak peeks within 48 hours","Complimentary engagement session","Online gallery"]', false, 3, true),
   ('headshot-quick', 'headshots', 'Quick Headshot', '$150', '15 minutes', '["3 edited photos"]', false, 1, true),
   ('brand-starter', 'brand', 'Starter Brand Session', '$350', '1 hour', '["15 edited photos","1 look"]', false, 1, true)
 ON CONFLICT (id) DO NOTHING;
