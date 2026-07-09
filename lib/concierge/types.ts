@@ -34,6 +34,17 @@ export type Timeline =
 
 export type LocationPref = "local" | "texas-travel" | "out-of-state";
 
+/** Estimated coverage window the client has in mind */
+export type CoverageDuration =
+  | "under-1hr"
+  | "1-2hr"
+  | "2-4hr"
+  | "4-6hr"
+  | "6-8hr"
+  | "full-day";
+
+export type SettingPref = "indoor" | "outdoor" | "both";
+
 export type Deliverable =
   | "digital-gallery"
   | "rush-delivery"
@@ -41,13 +52,26 @@ export type Deliverable =
   | "multi-location"
   | "engagement-session";
 
+/** Add-on interests — some map to published add-ons, others are inquiry topics */
+export type AddonInterest =
+  | "rush-delivery"
+  | "extra-photos"
+  | "extra-hours"
+  | "second-shooter"
+  | "engagement-session"
+  | "albums-prints"
+  | "video";
+
 export type ConciergeAnswers = {
   occasion?: Occasion;
-  vision?: Vision;
-  scale?: Scale;
   timeline?: Timeline;
   location?: LocationPref;
+  scale?: Scale;
+  coverage?: CoverageDuration;
+  setting?: SettingPref;
+  vision?: Vision;
   deliverables: Deliverable[];
+  addonInterests: AddonInterest[];
   budgetMax: number;
 };
 
@@ -57,18 +81,24 @@ export type ConciergeRecommendation = {
   packageId: string;
   reasons: string[];
   investmentLabel: string;
-  addons: { name: string; price: string; reason: string }[];
+  investmentRange?: string;
+  addons: { name: string; price: string; reason: string; inquiryOnly?: boolean }[];
+  nextSteps: string[];
   contactHref: string;
+  summaryNote: string;
   alternatePackage?: { category: string; package: Package; packageId: string };
 };
 
 export type ConciergeStepId =
   | "welcome"
   | "occasion"
-  | "vision"
-  | "scale"
   | "timeline"
   | "location"
+  | "scale"
+  | "coverage"
+  | "setting"
+  | "vision"
   | "deliverables"
+  | "addons"
   | "investment"
   | "result";

@@ -10,20 +10,25 @@ import { ConciergeRecommendationReveal } from "@/components/concierge/ConciergeR
 import {
   BUDGET_MAX,
   BUDGET_MIN,
+  coverageForOccasion,
   recommendPackage,
   scalesForOccasion,
   visionsForOccasion,
 } from "@/lib/concierge/recommend";
 import {
+  addonInterestOptions,
   conciergeSteps,
+  coverageOptions,
   deliverableOptions,
   locationOptions,
   occasionOptions,
   scaleOptions,
+  settingOptions,
   timelineOptions,
   visionOptions,
 } from "@/lib/concierge/questions";
 import type {
+  AddonInterest,
   ConciergeAnswers,
   ConciergeStepId,
   Deliverable,
@@ -32,17 +37,21 @@ import { cn } from "@/lib/utils";
 
 const initialAnswers: ConciergeAnswers = {
   deliverables: ["digital-gallery"],
+  addonInterests: [],
   budgetMax: 500,
 };
 
 const stepOrder: ConciergeStepId[] = [
   "welcome",
   "occasion",
-  "vision",
-  "scale",
   "timeline",
   "location",
+  "scale",
+  "coverage",
+  "setting",
+  "vision",
   "deliverables",
+  "addons",
   "investment",
   "result",
 ];
@@ -50,15 +59,12 @@ const stepOrder: ConciergeStepId[] = [
 const slideVariants = {
   enter: (direction: number) => ({
     opacity: 0,
-    x: direction > 0 ? 40 : -40,
+    x: direction > 0 ? 32 : -32,
   }),
-  center: {
-    opacity: 1,
-    x: 0,
-  },
+  center: { opacity: 1, x: 0 },
   exit: (direction: number) => ({
     opacity: 0,
-    x: direction > 0 ? -24 : 24,
+    x: direction > 0 ? -20 : 20,
   }),
 };
 
@@ -76,7 +82,7 @@ function StepIntro({
       <p className="mb-3 text-[11px] tracking-[0.28em] uppercase text-primary">
         {eyebrow}
       </p>
-      <h2 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-light leading-[1.12] text-foreground">
+      <h2 className="text-balance font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-light leading-[1.12] text-foreground">
         {title}
       </h2>
       <p className="mt-4 text-sm leading-relaxed text-foreground/52 lg:text-[0.95rem]">
@@ -98,12 +104,11 @@ export function CaptureConcierge() {
     [answers, currentStep],
   );
 
-  const visionChoices = visionsForOccasion(answers.occasion).map(
-    (v) => visionOptions[v],
-  );
-  const scaleChoices = scalesForOccasion(answers.occasion).map(
-    (s) => scaleOptions[s],
-  );
+  const scaleChoices = scalesForOccasion(answers.occasion).map((s) => scaleOptions[s]);
+  const visionChoices = visionsForOccasion(answers.occasion).map((v) => visionOptions[v]);
+  const coverageChoices = coverageForOccasion(answers.occasion)
+    .map((c) => coverageOptions.find((o) => o.value === c))
+    .filter(Boolean) as typeof coverageOptions;
 
   function goNext() {
     setDirection(1);
@@ -122,18 +127,22 @@ export function CaptureConcierge() {
   }
 
   function toggleDeliverable(value: Deliverable) {
-    setAnswers((prev) => {
-      const has = prev.deliverables.includes(value);
-      if (value === "digital-gallery") {
-        return prev;
-      }
-      return {
-        ...prev,
-        deliverables: has
-          ? prev.deliverables.filter((d) => d !== value)
-          : [...prev.deliverables, value],
-      };
-    });
+    if (value === "digital-gallery") return;
+    setAnswers((prev) => ({
+      ...prev,
+      deliverables: prev.deliverables.includes(value)
+        ? prev.deliverables.filter((d) => d !== value)
+        : [...prev.deliverables, value],
+    }));
+  }
+
+  function toggleAddonInterest(value: AddonInterest) {
+    setAnswers((prev) => ({
+      ...prev,
+      addonInterests: prev.addonInterests.includes(value)
+        ? prev.addonInterests.filter((a) => a !== value)
+        : [...prev.addonInterests, value],
+    }));
   }
 
   const canContinue = (() => {
@@ -142,16 +151,22 @@ export function CaptureConcierge() {
         return true;
       case "occasion":
         return Boolean(answers.occasion);
-      case "vision":
-        return Boolean(answers.vision);
-      case "scale":
-        return Boolean(answers.scale);
       case "timeline":
         return Boolean(answers.timeline);
       case "location":
         return Boolean(answers.location);
+      case "scale":
+        return Boolean(answers.scale);
+      case "coverage":
+        return Boolean(answers.coverage);
+      case "setting":
+        return Boolean(answers.setting);
+      case "vision":
+        return Boolean(answers.vision);
       case "deliverables":
         return answers.deliverables.length > 0;
+      case "addons":
+        return true;
       case "investment":
         return answers.budgetMax >= BUDGET_MIN;
       default:
@@ -162,10 +177,7 @@ export function CaptureConcierge() {
   return (
     <div className="relative min-h-[70dvh]">
       {currentStep !== "welcome" && currentStep !== "result" ? (
-        <ConciergeProgress
-          current={progressStep}
-          total={conciergeSteps.length}
-        />
+        <ConciergeProgress current={progressStep} total={conciergeSteps.length} />
       ) : null}
 
       <AnimatePresence mode="wait" custom={direction}>
@@ -176,7 +188,7 @@ export function CaptureConcierge() {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
         >
           {currentStep === "welcome" && (
             <div className="mx-auto max-w-3xl text-center">
@@ -184,16 +196,16 @@ export function CaptureConcierge() {
                 Capture Concierge
               </p>
               <h1 className="font-serif text-[clamp(2.5rem,6vw,4.25rem)] font-light leading-[1.05] text-foreground">
-                Let&apos;s find the experience{" "}
-                <span className="text-foreground/45">meant for you.</span>
+                A personal consultation to find your{" "}
+                <span className="text-foreground/45">perfect package.</span>
               </h1>
               <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-foreground/55 lg:text-base">
-                A brief, guided consultation — not a form. Answer a few thoughtful
-                questions and receive a personalized package recommendation from
-                Lulu&apos;s actual offerings.
+                Answer a few thoughtful questions about your session, vision, and
+                investment comfort. You&apos;ll receive a recommendation drawn from
+                Lulu&apos;s published packages — with clear next steps to inquire.
               </p>
-              <p className="mx-auto mt-4 max-w-md text-xs tracking-wide text-foreground/35">
-                About 2 minutes · No account required
+              <p className="mx-auto mt-4 text-xs tracking-wide text-foreground/35">
+                About 3 minutes · Recommendations based on real pricing
               </p>
               <button
                 type="button"
@@ -201,10 +213,7 @@ export function CaptureConcierge() {
                 className="group mt-10 inline-flex items-center gap-3 bg-primary px-9 py-4 text-[11px] tracking-[0.22em] uppercase text-primary-foreground transition-colors hover:bg-[#d4b87a]"
               >
                 Begin consultation
-                <ArrowRight
-                  size={14}
-                  className="transition-transform group-hover:translate-x-1"
-                />
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           )}
@@ -212,9 +221,9 @@ export function CaptureConcierge() {
           {currentStep === "occasion" && (
             <div>
               <StepIntro
-                eyebrow="First, the occasion"
-                title="What brings you to CapturedByLulu?"
-                description="Choose the experience that best matches what you're dreaming of. We'll tailor everything from here."
+                eyebrow="Session type"
+                title="What are you looking to capture?"
+                description="Choose the experience that best describes your session or event."
               />
               <div className="grid gap-3 sm:grid-cols-2">
                 {occasionOptions.map((option) => (
@@ -228,58 +237,11 @@ export function CaptureConcierge() {
                       setAnswers((prev) => ({
                         ...prev,
                         occasion: option.value,
-                        vision: undefined,
                         scale: undefined,
+                        coverage: undefined,
+                        vision: undefined,
                       }))
                     }
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {currentStep === "vision" && (
-            <div>
-              <StepIntro
-                eyebrow="Your vision"
-                title="How should these photographs feel?"
-                description="There's no wrong answer — this helps Lulu match you with the right session rhythm and style."
-              />
-              <div className="grid gap-3">
-                {visionChoices.map((option) => (
-                  <ChoiceCard
-                    key={option.value}
-                    label={option.label}
-                    description={option.description}
-                    selected={answers.vision === option.value}
-                    onClick={() =>
-                      setAnswers((prev) => ({ ...prev, vision: option.value }))
-                    }
-                    layout="compact"
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {currentStep === "scale" && (
-            <div>
-              <StepIntro
-                eyebrow="The details"
-                title="Tell me about the gathering."
-                description="Guest count and scale help determine coverage hours and the right package tier."
-              />
-              <div className="grid gap-3 sm:grid-cols-2">
-                {scaleChoices.map((option) => (
-                  <ChoiceCard
-                    key={option.value}
-                    label={option.label}
-                    description={option.description}
-                    selected={answers.scale === option.value}
-                    onClick={() =>
-                      setAnswers((prev) => ({ ...prev, scale: option.value }))
-                    }
-                    layout="compact"
                   />
                 ))}
               </div>
@@ -289,9 +251,9 @@ export function CaptureConcierge() {
           {currentStep === "timeline" && (
             <div>
               <StepIntro
-                eyebrow="Timeline"
+                eyebrow="Date & timeframe"
                 title="When are you hoping to shoot?"
-                description="This helps with availability planning and whether rush delivery might matter."
+                description="Your timeline helps with availability and whether rush delivery might matter."
               />
               <div className="grid gap-3 sm:grid-cols-2">
                 {timelineOptions.map((option) => (
@@ -334,10 +296,106 @@ export function CaptureConcierge() {
             </div>
           )}
 
+          {currentStep === "scale" && (
+            <div>
+              <StepIntro
+                eyebrow="Group size"
+                title="Who will be in front of the camera?"
+                description="Guest count and scale help determine the right package tier and coverage."
+              />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {scaleChoices.map((option) => (
+                  <ChoiceCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={answers.scale === option.value}
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, scale: option.value }))
+                    }
+                    layout="compact"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {currentStep === "coverage" && (
+            <div>
+              <StepIntro
+                eyebrow="Coverage time"
+                title="How much time do you need covered?"
+                description="Estimated coverage hours — we'll match you to a package with the right window."
+              />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {coverageChoices.map((option) => (
+                  <ChoiceCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={answers.coverage === option.value}
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, coverage: option.value }))
+                    }
+                    layout="compact"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {currentStep === "setting" && (
+            <div>
+              <StepIntro
+                eyebrow="Environment"
+                title="Indoor, outdoor, or both?"
+                description="Lulu works beautifully in studios, venues, gardens, and golden-hour landscapes."
+              />
+              <div className="grid gap-3 sm:grid-cols-3">
+                {settingOptions.map((option) => (
+                  <ChoiceCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={answers.setting === option.value}
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, setting: option.value }))
+                    }
+                    layout="compact"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {currentStep === "vision" && (
+            <div>
+              <StepIntro
+                eyebrow="Desired style"
+                title="How should these photographs feel?"
+                description="Your aesthetic preference guides the session rhythm and package tier."
+              />
+              <div className="grid gap-3">
+                {visionChoices.map((option) => (
+                  <ChoiceCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={answers.vision === option.value}
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, vision: option.value }))
+                    }
+                    layout="compact"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {currentStep === "deliverables" && (
             <div>
               <StepIntro
-                eyebrow="Deliverables"
+                eyebrow="Must-have deliverables"
                 title="What matters most in what you receive?"
                 description="Select all that apply. Every package includes a private online gallery."
               />
@@ -362,12 +420,33 @@ export function CaptureConcierge() {
             </div>
           )}
 
+          {currentStep === "addons" && (
+            <div>
+              <StepIntro
+                eyebrow="Add-on interests"
+                title="Anything else you're curious about?"
+                description="Optional — select any add-ons you'd like Lulu to factor into your proposal. Skip if none apply."
+              />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {addonInterestOptions.map((option) => (
+                  <MultiChoiceCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={answers.addonInterests.includes(option.value)}
+                    onClick={() => toggleAddonInterest(option.value)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {currentStep === "investment" && (
             <div>
               <StepIntro
-                eyebrow="Investment"
+                eyebrow="Budget range"
                 title="What feels comfortable for this experience?"
-                description="Slide to your comfort zone — we'll recommend the best fit within Lulu's published packages."
+                description="Slide to your comfort zone — we'll recommend the strongest fit within Lulu's published pricing."
               />
               <ConciergeSlider
                 value={answers.budgetMax}
@@ -423,11 +502,8 @@ export function CaptureConcierge() {
               !canContinue && "pointer-events-none opacity-40",
             )}
           >
-            Continue
-            <ArrowRight
-              size={14}
-              className="transition-transform group-hover:translate-x-0.5"
-            />
+            {currentStep === "addons" ? "See my recommendation" : "Continue"}
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
           </button>
         </div>
       ) : null}

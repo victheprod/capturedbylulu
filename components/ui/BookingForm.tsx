@@ -128,15 +128,37 @@ function BookingFormFields({
       }));
       return;
     }
+
+    const fromConcierge = searchParams.get("from") === "concierge";
+    const prefilledMessage = searchParams.get("message");
+    const prefilledLocation =
+      searchParams.get("concierge_location") ?? searchParams.get("location");
+
     const packageId = searchParams.get("package");
-    if (!packageId) return;
-    const entry = getPackageEntryById(packageId);
-    if (!entry) return;
-    setForm((current) => ({
-      ...current,
-      sessionType: entry.category,
-      package: getPackageBookingValue(entry.category, entry.pkg),
-    }));
+    if (packageId) {
+      const entry = getPackageEntryById(packageId);
+      if (entry) {
+        setForm((current) => ({
+          ...current,
+          sessionType: entry.category,
+          package: getPackageBookingValue(entry.category, entry.pkg),
+          location: prefilledLocation || current.location,
+          message:
+            fromConcierge && prefilledMessage
+              ? prefilledMessage
+              : current.message,
+        }));
+        return;
+      }
+    }
+
+    if (fromConcierge && (prefilledMessage || prefilledLocation)) {
+      setForm((current) => ({
+        ...current,
+        location: prefilledLocation || current.location,
+        message: prefilledMessage ? prefilledMessage : current.message,
+      }));
+    }
   }, [searchParams, initialPackage]);
 
   const isDateBlocked = (date: string) => blockedDates.includes(date);

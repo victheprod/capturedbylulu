@@ -18,8 +18,17 @@ export function ConciergeRecommendationReveal({
   onRestart,
   className,
 }: ConciergeRecommendationProps) {
-  const { package: pkg, category, reasons, investmentLabel, addons, contactHref, alternatePackage } =
-    recommendation;
+  const {
+    package: pkg,
+    category,
+    reasons,
+    investmentLabel,
+    investmentRange,
+    addons,
+    nextSteps,
+    contactHref,
+    alternatePackage,
+  } = recommendation;
 
   return (
     <motion.div
@@ -59,8 +68,9 @@ export function ConciergeRecommendationReveal({
           transition={{ delay: 0.3 }}
           className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/55"
         >
-          Based on what you shared, this {category.toLowerCase()} package is the
-          strongest fit for your vision, timeline, and investment comfort.
+          Based on your consultation, this {category.toLowerCase()} package is
+          the strongest match for your vision, coverage needs, and investment
+          comfort.
         </motion.p>
       </div>
 
@@ -73,10 +83,10 @@ export function ConciergeRecommendationReveal({
         <div className="flex flex-col gap-6 border-b border-foreground/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[11px] tracking-[0.22em] uppercase text-foreground/45">
-              {category}
+              Recommended package
             </p>
             <h3 className="mt-2 font-serif text-3xl font-light text-foreground">
-              {pkg.name}
+              {category} · {pkg.name}
             </h3>
             <p className="mt-2 text-sm text-foreground/50">{pkg.duration}</p>
           </div>
@@ -85,8 +95,13 @@ export function ConciergeRecommendationReveal({
               Estimated investment
             </p>
             <p className="mt-1 font-serif text-3xl font-light text-foreground">
-              {investmentLabel}
+              {investmentRange ?? investmentLabel}
             </p>
+            {investmentRange && investmentRange !== investmentLabel ? (
+              <p className="mt-1 text-xs text-foreground/40">
+                Package base: {investmentLabel}
+              </p>
+            ) : null}
           </div>
         </div>
 
@@ -120,9 +135,7 @@ export function ConciergeRecommendationReveal({
                 key={feature}
                 className="flex items-start gap-2 text-sm text-foreground/58"
               >
-                <span className="text-primary" aria-hidden>
-                  ·
-                </span>
+                <span className="text-primary" aria-hidden>·</span>
                 {feature}
               </li>
             ))}
@@ -138,13 +151,18 @@ export function ConciergeRecommendationReveal({
           className="mx-auto max-w-3xl"
         >
           <p className="mb-5 text-center text-[11px] tracking-[0.22em] uppercase text-primary">
-            Worth considering
+            Suggested add-ons
           </p>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {addons.map((addon) => (
               <div
                 key={addon.name}
-                className="border border-foreground/10 bg-card/30 p-5"
+                className={cn(
+                  "border p-5",
+                  addon.inquiryOnly
+                    ? "border-foreground/8 bg-card/20"
+                    : "border-foreground/10 bg-card/30",
+                )}
               >
                 <p className="text-sm font-medium text-foreground">{addon.name}</p>
                 <p className="mt-1 text-xs text-primary">{addon.price}</p>
@@ -157,16 +175,37 @@ export function ConciergeRecommendationReveal({
         </motion.div>
       ) : null}
 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.62 }}
+        className="glass-panel-subtle mx-auto max-w-3xl p-8"
+      >
+        <p className="mb-5 text-[11px] tracking-[0.22em] uppercase text-primary">
+          What happens next
+        </p>
+        <ol className="space-y-4">
+          {nextSteps.map((step, i) => (
+            <li key={step} className="flex gap-4 text-sm text-foreground/58">
+              <span className="font-serif text-lg font-light text-primary/50">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="pt-0.5 leading-relaxed">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </motion.div>
+
       {alternatePackage ? (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.62 }}
+          transition={{ delay: 0.68 }}
           className="mx-auto max-w-2xl text-center text-sm text-foreground/45"
         >
           Also worth exploring:{" "}
           <Link
-            href={`/contact?package=${encodeURIComponent(alternatePackage.packageId)}`}
+            href={`/contact?package=${encodeURIComponent(alternatePackage.packageId)}&from=concierge`}
             className="text-primary transition-colors hover:text-foreground"
           >
             {alternatePackage.package.name} ({alternatePackage.package.price})
@@ -177,11 +216,11 @@ export function ConciergeRecommendationReveal({
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.68 }}
+        transition={{ delay: 0.72 }}
         className="flex flex-col items-center justify-center gap-4 sm:flex-row"
       >
-        <Button href={contactHref} className="min-w-[240px]">
-          Begin your inquiry
+        <Button href={contactHref} className="min-w-[260px]">
+          Inquire with answers prefilled
           <ArrowRight size={14} />
         </Button>
         <button
