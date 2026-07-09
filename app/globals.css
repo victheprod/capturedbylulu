@@ -185,7 +185,7 @@ textarea:focus-visible {
   }
 }
 
-/* Brand loader — cinematic splash + route transitions */
+/* Brand loader — lens shutter + viewfinder */
 .brand-loader-grain {
   opacity: 0.14;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
@@ -196,37 +196,181 @@ textarea:focus-visible {
   background: radial-gradient(
     circle at 50% 45%,
     transparent 0%,
-    rgba(0, 0, 0, 0.35) 72%,
-    rgba(0, 0, 0, 0.82) 100%
+    rgba(0, 0, 0, 0.42) 70%,
+    rgba(0, 0, 0, 0.88) 100%
   );
 }
 
-.brand-loader-aperture {
+.brand-shutter {
   position: relative;
   border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 0 48px rgba(200, 169, 106, 0.12);
-  animation: brand-aperture-spin 14s linear infinite;
+  overflow: hidden;
 }
 
-.brand-loader-aperture-blade {
+.brand-shutter-arm {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+}
+
+.brand-shutter-blade {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 52%;
-  height: 52%;
-  margin-left: -26%;
-  margin-top: -26%;
+  width: 54%;
+  height: 54%;
+  margin-left: -27%;
+  margin-top: -54%;
   transform-origin: 50% 100%;
   background: linear-gradient(
     to top,
-    rgba(8, 7, 6, 0.95) 0%,
-    rgba(8, 7, 6, 0.55) 58%,
-    transparent 100%
+    #050504 0%,
+    #0a0908 72%,
+    #12100e 100%
   );
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.brand-shutter-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--primary) 32%, transparent);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 40px rgba(200, 169, 106, 0.08);
+  pointer-events: none;
+}
+
+.brand-shutter-fullscreen {
+  overflow: hidden;
+}
+
+.brand-shutter-fullscreen-arm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200vmax;
+  height: 200vmax;
+  margin-left: -100vmax;
+  margin-top: -100vmax;
+  transform-origin: 50% 50%;
+}
+
+.brand-shutter-fullscreen-blade {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14%;
+  height: 50%;
+  margin-left: -7%;
+  margin-top: -50%;
+  transform-origin: 50% 100%;
+  background: #050504;
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+
+.brand-viewfinder-corner {
+  position: absolute;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-color: rgba(200, 169, 106, 0.55);
+  border-style: solid;
+  border-width: 0;
+}
+
+.brand-viewfinder-corner-tl {
+  left: 10%;
+  top: 10%;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.brand-viewfinder-corner-tr {
+  right: 10%;
+  top: 10%;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.brand-viewfinder-corner-bl {
+  left: 10%;
+  bottom: 10%;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.brand-viewfinder-corner-br {
+  right: 10%;
+  bottom: 10%;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.brand-viewfinder-crosshair-h,
+.brand-viewfinder-crosshair-v {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(200, 169, 106, 0.22);
+  transform: translate(-50%, -50%);
+}
+
+.brand-viewfinder-crosshair-h {
+  width: 1.75rem;
+  height: 1px;
+}
+
+.brand-viewfinder-crosshair-v {
+  width: 1px;
+  height: 1.75rem;
+}
+
+.brand-viewfinder-meta {
+  position: absolute;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  font-variant-numeric: tabular-nums;
+}
+
+.brand-viewfinder-meta-tl {
+  left: 14%;
+  top: 14%;
+}
+
+.brand-viewfinder-meta-tr {
+  right: 14%;
+  top: 14%;
+}
+
+.brand-viewfinder-meta-bl {
+  left: 14%;
+  bottom: 14%;
+}
+
+.brand-viewfinder-rec {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.28em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.brand-viewfinder-rec-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: #dc2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.65);
+  animation: brand-rec-pulse 1.4s ease-in-out infinite;
 }
 
 .brand-loader-scanline {
@@ -241,17 +385,20 @@ textarea:focus-visible {
   opacity: 0.75;
 }
 
-@keyframes brand-aperture-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes brand-rec-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    opacity: 0.55;
+    transform: scale(0.88);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand-loader-aperture {
+  .brand-viewfinder-rec-dot {
     animation: none;
   }
 }
