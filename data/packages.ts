@@ -23,9 +23,11 @@ export type BookingPackageGroup = {
 };
 
 export const pricingNotes = {
-  serviceArea: "Serving San Antonio and surrounding areas.",
+  serviceArea: "Texas-based photographer — available throughout Texas and for travel nationwide.",
   deposit:
     "A deposit may be required to reserve your date. Final details are confirmed during inquiry.",
+  travel:
+    "Travel outside the local service area is billed separately (starts at $50), quoted per booking based on distance and location.",
 } as const;
 
 export const portraitPackages: Package[] = [
@@ -106,7 +108,6 @@ export const familyPackages: Package[] = [
       "Up to 5 people",
       "12 professionally edited photos",
       "Online gallery",
-      "Print release",
     ],
   },
   {
@@ -119,7 +120,6 @@ export const familyPackages: Package[] = [
       "Up to 8 people",
       "20 professionally edited photos",
       "Online gallery",
-      "Print release",
       "Light retouching",
     ],
   },
@@ -132,7 +132,6 @@ export const familyPackages: Package[] = [
       "8+ people",
       "30 professionally edited photos",
       "Online gallery",
-      "Print release",
       "Light retouching",
     ],
   },
@@ -148,7 +147,6 @@ export const eventPackages: Package[] = [
       "1 photographer",
       "40–60 professionally edited images",
       "Online gallery",
-      "Print release",
     ],
   },
   {
@@ -162,7 +160,6 @@ export const eventPackages: Package[] = [
       "Full event coverage",
       "80–120 professionally edited images",
       "Online gallery",
-      "Print release",
     ],
   },
   {
@@ -176,7 +173,6 @@ export const eventPackages: Package[] = [
       "Priority editing",
       "120–180 professionally edited images",
       "Online gallery",
-      "Print release",
     ],
   },
   {
@@ -189,7 +185,6 @@ export const eventPackages: Package[] = [
       "Priority editing",
       "250+ professionally edited images",
       "Online gallery",
-      "Print release",
     ],
   },
 ];
@@ -206,7 +201,6 @@ export const weddingPackages: Package[] = [
     features: [
       "150+ professionally edited photos",
       "Online gallery",
-      "Print release",
     ],
   },
   {
@@ -366,13 +360,12 @@ export const brandPackages: Package[] = [
 export const addons = [
   { name: "Extra edited photos", price: "$10 per photo or $50 for 10" },
   { name: "Rush editing (24–48 hrs)", price: "$75–$150" },
-  { name: "BTS video", price: "$50–$100" },
-  { name: "Highlight reel", price: "$100–$250" },
   { name: "Additional location", price: "$50" },
   { name: "Extra outfit", price: "$25" },
-  { name: "Travel outside San Antonio", price: "Starts at $50" },
-  { name: "Full gallery upgrade", price: "$100–$200" },
-  { name: "Advanced retouching", price: "$15–$25 per image" },
+  {
+    name: "Full gallery upgrade — includes all raw photos",
+    price: "$100–$200",
+  },
 ] as const;
 
 /** General session packages shown on the Services page */

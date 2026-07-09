@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
+import { siteBranding } from "@/data/site";
 import { siteImages } from "@/data/portfolio";
 import { framingForSrc } from "@/lib/photo-framing";
 import { Button } from "@/components/ui/Button";
@@ -92,7 +93,7 @@ const fadeUpVariants = {
 };
 
 export function HeroGeometric({
-  eyebrow = "San Antonio, Texas",
+  eyebrow = siteBranding.eyebrow,
   title,
   subtitle,
   imageSrc = siteImages.hero,
@@ -107,7 +108,7 @@ export function HeroGeometric({
       <div className="absolute inset-0">
         <PhotoImage
           src={imageSrc}
-          alt="CapturedByLulu — luxury photography in San Antonio"
+          alt="CapturedByLulu — Texas-based luxury photography"
           fill
           priority
           objectPosition={framing.objectPosition}

@@ -5,12 +5,14 @@ type PricingNotesProps = {
   className?: string;
   showServiceArea?: boolean;
   showDeposit?: boolean;
+  showTravel?: boolean;
 };
 
 export function PricingNotes({
   className,
   showServiceArea = true,
   showDeposit = true,
+  showTravel = true,
 }: PricingNotesProps) {
   return (
     <div
@@ -20,6 +22,7 @@ export function PricingNotes({
       )}
     >
       {showServiceArea && <p>{pricingNotes.serviceArea}</p>}
+      {showTravel && <p>{pricingNotes.travel}</p>}
       {showDeposit && <p>{pricingNotes.deposit}</p>}
     </div>
   );

@@ -21,9 +21,9 @@ export const faqSections: FAQSection[] = [
           "Life happens — I totally understand. I offer one complimentary reschedule for portrait sessions with 2+ weeks notice. Wedding rescheduling is handled on a case-by-case basis per the contract terms.",
       },
       {
-        question: "Do you travel outside San Antonio?",
+        question: "Do you travel outside the local area?",
         answer:
-          "Absolutely. I travel throughout Texas and nationally for weddings and brand sessions. Travel fees apply for sessions more than 60 miles from downtown San Antonio.",
+          "Yes — I’m Texas-based and travel throughout the state and nationally for weddings and brand sessions. Travel is quoted separately (starts at $50) based on distance and location.",
       },
     ],
   },

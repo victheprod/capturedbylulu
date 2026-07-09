@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { pricingNotes } from "@/data/packages";
-import { siteConfig } from "@/data/site";
 import { siteImages } from "@/data/portfolio";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import { BookingForm } from "@/components/ui/BookingForm";
 import { PricingNotes } from "@/components/ui/PricingNotes";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { PageHeroBanner } from "@/components/ui/Hero";
-import { PageHeading } from "@/components/ui/SectionHeading";
+import { ContactJourneyIntro } from "@/components/contact/ContactJourneyIntro";
 import { formatTelHref } from "@/lib/utils";
 import { pageMetadata } from "@/lib/metadata";
 import { getPublicSiteConfig } from "@/lib/cms/site";
@@ -22,7 +20,7 @@ import { getPublicBlockedDates } from "@/lib/cms/availability";
 export const metadata: Metadata = pageMetadata({
   title: "Book a Session",
   description:
-    "Inquire about wedding, portrait, family, brand, or event photography with Lulu at CapturedByLulu in San Antonio.",
+    "Inquire about wedding, portrait, family, brand, or event photography with Lulu at CapturedByLulu.",
   path: "/contact",
   image: siteImages.contactBanner,
 });
@@ -59,22 +57,23 @@ export default async function ContactPage({ searchParams }: PageProps) {
 
   return (
     <div>
-      <PageHeroBanner
-        eyebrow="Book a Session"
-        title="Let's create something beautiful"
-        description="Fill out the form and Lulu will be in touch within 24–48 hours. Every inquiry is read personally."
-        imageSrc={siteImages.contactBanner}
-      />
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
-          <FadeIn className="order-2 lg:order-1">
-            <PageHeading
-              eyebrow="Get in Touch"
-              title="Start your inquiry"
-              description="Share your vision — wedding date, session type, location, or anything else that helps Lulu understand what you're looking for."
-            />
+      <ContactJourneyIntro />
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <FadeIn className="order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
+            <p className="mb-3 text-[11px] tracking-[0.28em] uppercase text-primary">
+              Direct line to Lulu
+            </p>
+            <h2 className="font-serif text-3xl font-light text-foreground lg:text-4xl">
+              Prefer to reach out directly?
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-foreground/55">
+              Share your vision — wedding date, session type, location, or
+              anything else that helps Lulu understand what you&apos;re looking
+              for.
+            </p>
 
-            <div className="mb-8 mt-10 space-y-4">
+            <div className="mb-10 mt-10 space-y-5">
               {[
                 {
                   icon: Mail,
@@ -98,9 +97,9 @@ export default async function ContactPage({ searchParams }: PageProps) {
                   href: undefined,
                 },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-3.5">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-primary/40 text-primary">
-                    <item.icon size={13} />
+                <div key={item.label} className="flex items-center gap-4">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-primary/35 text-primary">
+                    <item.icon size={14} />
                   </div>
                   {item.href ? (
                     <a
@@ -120,19 +119,21 @@ export default async function ContactPage({ searchParams }: PageProps) {
               ))}
             </div>
 
-            <PricingNotes className="mb-8" showDeposit={false} />
+            <PricingNotes className="mb-10" showDeposit={false} />
 
-            <div className="border border-foreground/10 bg-card p-7">
-              <p className="mb-5 text-[11px] tracking-[0.2em] uppercase text-primary">
-                What Happens Next
+            <div className="border-t border-foreground/10 pt-10">
+              <p className="mb-6 text-[11px] tracking-[0.22em] uppercase text-primary">
+                What happens next
               </p>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {nextSteps.map((step) => (
-                  <div key={step.n} className="flex items-center gap-3.5">
-                    <span className="w-6 shrink-0 text-[11px] tracking-wider text-primary">
+                  <div key={step.n} className="flex items-start gap-4">
+                    <span className="font-serif text-xl font-light text-primary/50">
                       {step.n}
                     </span>
-                    <span className="text-sm text-foreground/58">{step.t}</span>
+                    <span className="pt-0.5 text-sm leading-relaxed text-foreground/58">
+                      {step.t}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -140,7 +141,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
           </FadeIn>
 
           <FadeIn delay={0.1} className="order-1 lg:order-2">
-            <div className="border border-foreground/10 bg-card/40 p-6 sm:p-8">
+            <div className="border border-foreground/10 bg-card/30 p-6 sm:p-9 lg:p-10">
               <BookingForm
                 packageGroups={packageGroups}
                 blockedDates={blockedDates}

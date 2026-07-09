@@ -262,39 +262,94 @@ export const instagramPhotoFraming = [
 export const servicesTeaserImages: ServiceTeaserImage[] = [
   {
     "label": "Weddings",
-    "src": "/site-images/weddings/DSC00201.jpg",
+    "src": "/site-images/weddings/DSC02880.jpg",
     "href": "/weddings",
     "width": 1400,
-    "height": 787,
+    "height": 933,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
   },
   {
     "label": "Portraits",
-    "src": "/site-images/portraits/DSC08205.jpg",
+    "src": "/site-images/portraits/DSC04123.jpg",
     "href": "/portfolio",
-    "width": 933,
+    "width": 932,
     "height": 1400,
     "objectPosition": "50% 18%",
     "aspectRatio": "3/4"
   },
   {
     "label": "Families",
-    "src": "/site-images/families/IMG_3621.jpg",
+    "src": "/site-images/families/DSC00439.jpg",
     "href": "/portfolio",
     "width": 1400,
-    "height": 1223,
+    "height": 933,
     "objectPosition": "50% 35%",
     "aspectRatio": "4/3"
   },
   {
     "label": "Events",
-    "src": "/site-images/events/DSC09813.jpg",
+    "src": "/site-images/events/DSC01224.jpg",
     "href": "/portfolio",
     "width": 1400,
     "height": 933,
     "objectPosition": "50% 50%",
     "aspectRatio": "4/3"
+  }
+];
+
+/** Homepage Instagram strip — unique from hero, philosophy, scroll, and services */
+export const homeInstagramStrip = [
+  {
+    "src": "/site-images/weddings/DSC02774.jpg",
+    "objectPosition": "50% 18%"
+  },
+  {
+    "src": "/site-images/weddings/DSC02813.jpg",
+    "objectPosition": "50% 50%"
+  },
+  {
+    "src": "/site-images/portraits/DSC05533.jpg",
+    "objectPosition": "50% 18%"
+  },
+  {
+    "src": "/site-images/portraits/DSC08149.jpg",
+    "objectPosition": "50% 18%"
+  },
+  {
+    "src": "/site-images/families/DSC00572.jpg",
+    "objectPosition": "50% 35%"
+  },
+  {
+    "src": "/site-images/families/DSC00602.jpg",
+    "objectPosition": "50% 35%"
+  },
+  {
+    "src": "/site-images/events/DSC06941.jpg",
+    "objectPosition": "50% 50%"
+  },
+  {
+    "src": "/site-images/weddings/DSC03295.jpg",
+    "objectPosition": "50% 50%"
+  }
+];
+
+export const weddingsEditorialPair = [
+  {
+    "id": "weddings/DSC07789",
+    "src": "/site-images/weddings/DSC07789.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 932,
+    "height": 1400,
+    "objectPosition": "50% 18%"
+  },
+  {
+    "id": "weddings/DSC02748",
+    "src": "/site-images/weddings/DSC02748.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 933,
+    "height": 1400,
+    "objectPosition": "50% 18%"
   }
 ];
 
@@ -417,6 +472,57 @@ export const portfolioScrollShowcase: PortfolioScrollItem[] = [
     "category": "Weddings",
     "width": 1400,
     "height": 787,
+    "objectPosition": "50% 50%"
+  }
+];
+
+export const weddingsHighlightGallery = [
+  {
+    "id": "weddings/DSC02783",
+    "src": "/site-images/weddings/DSC02783.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 933,
+    "height": 1400,
+    "objectPosition": "50% 18%"
+  },
+  {
+    "id": "weddings/DSC02836",
+    "src": "/site-images/weddings/DSC02836.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "50% 50%"
+  },
+  {
+    "id": "weddings/DSC02880",
+    "src": "/site-images/weddings/DSC02880.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "50% 50%"
+  },
+  {
+    "id": "weddings/DSC02813",
+    "src": "/site-images/weddings/DSC02813.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "50% 50%"
+  },
+  {
+    "id": "weddings/DSC02774",
+    "src": "/site-images/weddings/DSC02774.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 933,
+    "height": 1400,
+    "objectPosition": "50% 18%"
+  },
+  {
+    "id": "weddings/DSC03295",
+    "src": "/site-images/weddings/DSC03295.jpg",
+    "alt": "Wedding photography by CapturedByLulu",
+    "width": 1400,
+    "height": 933,
     "objectPosition": "50% 50%"
   }
 ];

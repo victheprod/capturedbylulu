@@ -18,16 +18,25 @@ const HERO_MAX_PX = 1800;
 const JPEG_QUALITY = 82;
 const HERO_ID = "weddings/DSC00201";
 
+/** Never include in public gallery (client request) */
+const EXCLUDED_IDS = new Set(["portraits/DSC00189"]);
+
 const MUST_KEEP = {
   Weddings: [
     "weddings/DSC00201",
+    "weddings/DSC02748",
+    "weddings/DSC02774",
     "weddings/DSC02783",
+    "weddings/DSC02813",
+    "weddings/DSC02819",
     "weddings/DSC02836",
-    "weddings/DSC07766",
-    "weddings/DSC07789",
+    "weddings/DSC02880",
+    "weddings/DSC03291",
+    "weddings/DSC03295",
     "weddings/DSC00181",
     "weddings/DSC02726",
-    "weddings/DSC03291",
+    "weddings/DSC07766",
+    "weddings/DSC07789",
     "weddings/DSC08756",
     "weddings/DSC09871",
     "weddings/DSC09882",
@@ -65,7 +74,7 @@ const MUST_KEEP = {
 };
 
 const TARGET_COUNTS = {
-  Weddings: 15,
+  Weddings: 19,
   Portraits: 12,
   Events: 12,
   Families: 10,
@@ -191,7 +200,7 @@ function pickCuratedIds(allItems) {
 
 const allItems = JSON.parse(
   fs.readFileSync(path.join(root, "data/portfolio-items.json"), "utf8"),
-);
+).filter((item) => !EXCLUDED_IDS.has(item.id));
 const CURATED_IDS = pickCuratedIds(allItems);
 
 rmDir(stagingRoot);
@@ -386,6 +395,29 @@ const portfolioScrollShowcase = showcaseIds
     };
   });
 
+const weddingsHighlightIds = [
+  "weddings/DSC02783",
+  "weddings/DSC02836",
+  "weddings/DSC02880",
+  "weddings/DSC02813",
+  "weddings/DSC02774",
+  "weddings/DSC03295",
+];
+
+const weddingsHighlightGallery = weddingsHighlightIds.map((id) => {
+  const entry = optimized.get(id);
+  const dims = entry?.dims ?? { width: 1400, height: 933 };
+  const src = entry?.publicSrc ?? ref(id);
+  return {
+    id,
+    src,
+    alt: "Wedding photography by CapturedByLulu",
+    width: dims.width,
+    height: dims.height,
+    objectPosition: framingForDimensions(dims.width, dims.height).objectPosition,
+  };
+});
+
 rmDir(siteRoot);
 fs.renameSync(stagingRoot, siteRoot);
 
@@ -473,6 +505,8 @@ export const instagramPhotoFraming = ${JSON.stringify(instagramPhotoFraming, nul
 export const servicesTeaserImages: ServiceTeaserImage[] = ${JSON.stringify(servicesTeaserImages, null, 2)};
 
 export const portfolioScrollShowcase: PortfolioScrollItem[] = ${JSON.stringify(portfolioScrollShowcase, null, 2)};
+
+export const weddingsHighlightGallery = ${JSON.stringify(weddingsHighlightGallery, null, 2)};
 `;
 
 fs.writeFileSync(path.join(root, "data/portfolio.ts"), tsOutput);

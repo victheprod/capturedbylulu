@@ -14,7 +14,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Brand Photography",
   description:
-    "Brand photography packages in San Antonio — editorial imagery for entrepreneurs and businesses by CapturedByLulu.",
+    "Brand photography packages in Texas — editorial imagery for entrepreneurs and businesses by CapturedByLulu.",
   path: "/brand-photography",
   image: siteImages.brandBanner,
 });

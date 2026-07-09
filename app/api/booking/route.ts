@@ -1,3 +1,4 @@
+import { sendInquiryNotification } from "@/lib/email/inquiry-notification";
 import { checkDateAvailability } from "@/lib/cms/availability";
 import { siteConfig } from "@/data/site";
 import { validateBookingInquiry } from "@/lib/validation/booking";
@@ -61,6 +62,8 @@ export async function POST(request: Request) {
       console.log("Notify:", siteConfig.email);
       console.log("====================================================\n");
     }
+
+    await sendInquiryNotification(inquiry);
 
     return Response.json({
       success: true,

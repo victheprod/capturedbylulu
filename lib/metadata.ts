@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/data/site";
-import { siteImages } from "@/data/portfolio";
+import { siteConfig, siteBranding } from "@/data/site";
 
 export function getSiteUrl() {
   return (
@@ -13,7 +12,7 @@ export function pageMetadata({
   title,
   description,
   path = "/",
-  image = siteImages.hero,
+  image = siteBranding.ogImage,
 }: {
   title: string;
   description: string;

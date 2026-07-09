@@ -13,11 +13,27 @@ export type PublicTestimonial = {
   photoUrl?: string;
 };
 
+/** Canonical quotes when CMS copy drifted from approved client wording */
+const canonicalQuotesByName: Record<string, string> = Object.fromEntries(
+  staticTestimonials.map((t) => [t.name, t.quote]),
+);
+
+function normalizeQuote(name: string, quote: string): string {
+  const canonical = canonicalQuotesByName[name];
+  if (!canonical) return quote;
+
+  const usesFeminine = /\b(she|her|she's)\b/i.test(quote);
+  const usesMasculine = /\b(he|him|he's)\b/i.test(quote);
+  if (usesFeminine && !usesMasculine) return canonical;
+
+  return quote;
+}
+
 function mapStatic(items: typeof staticTestimonials): PublicTestimonial[] {
   return items.map(({ name, type, quote, stars }) => ({
     name,
     type,
-    quote,
+    quote: normalizeQuote(name, quote),
     stars,
   }));
 }
@@ -38,7 +54,7 @@ export async function getPublicTestimonials(
     return rows.map((t) => ({
       name: t.client_name,
       type: t.session_type,
-      quote: t.review,
+      quote: normalizeQuote(t.client_name, t.review),
       stars: t.rating,
       photoUrl: t.photo_url ?? undefined,
     }));
@@ -62,7 +78,7 @@ export async function getFeaturedTestimonials(): Promise<PublicTestimonial[]> {
     return rows.map((t) => ({
       name: t.client_name,
       type: t.session_type,
-      quote: t.review,
+      quote: normalizeQuote(t.client_name, t.review),
       stars: t.rating,
       photoUrl: t.photo_url ?? undefined,
     }));

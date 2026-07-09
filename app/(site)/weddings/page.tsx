@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { getPublicWeddingCategories } from "@/lib/cms/packages";
 import { CinematicHero, CTASection } from "@/components/ui/Hero";
@@ -6,13 +7,14 @@ import { PricingCategorySection } from "@/components/ui/PricingCategorySection";
 import { PricingNotes } from "@/components/ui/PricingNotes";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { siteImages, siteImageFraming } from "@/data/portfolio";
+import { siteImages, weddingsHighlightGallery, weddingsEditorialPair } from "@/data/portfolio";
 import { pageMetadata } from "@/lib/metadata";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = pageMetadata({
   title: "Wedding Photography",
   description:
-    "Wedding and pre-wedding photography in San Antonio. Collections from intimate ceremonies to full-day celebrations.",
+    "Wedding and pre-wedding photography across Texas. Collections from intimate ceremonies to full-day celebrations.",
   path: "/weddings",
   image: siteImages.weddingsBanner,
 });
@@ -69,31 +71,67 @@ export default async function WeddingsPage() {
               tears, the chaos and the stillness.
             </p>
             <p className="leading-relaxed text-foreground/58">
-              With a documentary heart and an editorial eye, she captures the
+              With a documentary heart and an editorial eye, he captures the
               truth of your day while crafting imagery that feels completely
               timeless.
             </p>
           </FadeIn>
           <FadeInStagger className="grid grid-cols-2 gap-3">
-            <FadeInItem className="aspect-[3/4] overflow-hidden bg-card">
-              <PhotoImage
-                src={siteImages.weddingsDetail1}
-                alt="Wedding photography by Lulu"
-                width={600}
-                height={800}
-                objectPosition={siteImageFraming.weddingsDetail1.objectPosition}
-              />
-            </FadeInItem>
-            <FadeInItem className="mt-12 aspect-[3/4] overflow-hidden bg-card">
-              <PhotoImage
-                src={siteImages.weddingsDetail2}
-                alt="Wedding ceremony photography"
-                width={600}
-                height={800}
-                objectPosition={siteImageFraming.weddingsDetail2.objectPosition}
-              />
-            </FadeInItem>
+            {weddingsEditorialPair.map((photo, i) => (
+              <FadeInItem
+                key={photo.id}
+                className={cn(
+                  "aspect-[3/4] overflow-hidden bg-card",
+                  i === 1 && "mt-12",
+                )}
+              >
+                <PhotoImage
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={600}
+                  height={800}
+                  objectPosition={photo.objectPosition}
+                />
+              </FadeInItem>
+            ))}
           </FadeInStagger>
+        </div>
+      </section>
+
+      <section className="border-t border-foreground/10 px-6 py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+          <FadeIn className="mb-10 text-center">
+            <SectionHeading
+              eyebrow="Real Weddings"
+              title="Celebrations across cultures & venues"
+              description="Ceremony, bridal party, and reception moments from recent celebrations."
+              align="center"
+            />
+          </FadeIn>
+          <FadeInStagger className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
+            {weddingsHighlightGallery.map((photo) => (
+              <FadeInItem
+                key={photo.id}
+                className="aspect-[3/4] overflow-hidden bg-card md:aspect-[4/5]"
+              >
+                <PhotoImage
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  objectPosition={photo.objectPosition}
+                />
+              </FadeInItem>
+            ))}
+          </FadeInStagger>
+          <FadeIn className="mt-10 text-center">
+            <Link
+              href="/portfolio"
+              className="text-[11px] tracking-[0.2em] uppercase text-primary transition-colors hover:text-primary/80"
+            >
+              View full portfolio →
+            </Link>
+          </FadeIn>
         </div>
       </section>
 
@@ -156,7 +194,7 @@ export default async function WeddingsPage() {
       <CTASection
         eyebrow="Limited Availability"
         title="Dates are limited"
-        description="Lulu books only a select number of weddings each year to ensure every couple receives her complete focus and creative dedication."
+        description="Lulu books only a select number of weddings each year to ensure every couple receives his complete focus and creative dedication."
         ctaLabel="Check Availability"
         ctaHref="/contact"
         imageSrc={siteImages.weddingsBanner}

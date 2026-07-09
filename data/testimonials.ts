@@ -57,10 +57,19 @@ export const testimonials: Testimonial[] = [
     showOnHomepage: true,
   },
   {
-    name: "Eniola Tanimonu",
+    name: "Eniola Taniomnu",
     type: "Client",
     quote:
-      "Working with her was an incredible experience from start to finish. She made the entire shoot feel comfortable and natural, and her attention to detail was evident in every part of the process. The photos exceeded my expectations — they were beautifully edited, captured genuine moments, and reflected exactly the vision I had in mind. Beyond her talent behind the camera, she's professional, communicates clearly, and truly cares about delivering high-quality work. If you're looking for someone who is creative, reliable, and passionate about photography, I couldn't recommend her more. I'll definitely be booking with her again.",
+      "Working with him was an incredible experience from start to finish. He made the entire shoot feel comfortable and natural, and his attention to detail was evident in every part of the process. The photos exceeded my expectations, they were beautifully edited, captured genuine moments, and reflected exactly the vision I had in mind. Beyond his talent behind the camera, he's professional, communicates clearly, and truly cares about delivering high-quality work. If you're looking for someone who is creative, reliable, and passionate about photography, I couldn't recommend him more. I'll definitely be booking with him again.",
+    stars: 5,
+    featured: true,
+    showOnHomepage: true,
+  },
+  {
+    name: "Tomisola",
+    type: "Client",
+    quote:
+      "Lulu is very professional at what he does, gets all your angles well and makes sure your experience is spectacular.",
     stars: 5,
     featured: true,
     showOnHomepage: true,

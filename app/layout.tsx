@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans } from "next/font/google";
-import { siteConfig } from "@/data/site";
-import { siteImages } from "@/data/portfolio";
+import { siteConfig, siteBranding } from "@/data/site";
 import { getSiteUrl } from "@/lib/metadata";
 import { AppToaster } from "@/components/admin/Toaster";
 import "./globals.css";
@@ -21,35 +20,35 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "CapturedByLulu | Luxury Photography in San Antonio",
+    default: "CapturedByLulu | Texas-Based Luxury Photography",
     template: "%s | CapturedByLulu",
   },
   description: siteConfig.description,
   keywords: [
-    "San Antonio photographer",
-    "wedding photography San Antonio",
+    "Texas photographer",
+    "wedding photography Texas",
     "portrait photographer Texas",
-    "family photography San Antonio",
+    "family photography Texas",
     "CapturedByLulu",
   ],
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: siteConfig.name,
-    title: "CapturedByLulu | Luxury Photography in San Antonio",
+    title: "CapturedByLulu | Texas-Based Luxury Photography",
     description: siteConfig.description,
     images: [
       {
-        url: siteImages.hero,
-        width: 1200,
-        height: 630,
-        alt: "Wedding photography by CapturedByLulu in San Antonio",
+        url: siteBranding.ogImage,
+        width: 512,
+        height: 512,
+        alt: `${siteConfig.name} logo`,
       },
     ],
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: siteBranding.ogImage,
+    apple: siteBranding.ogImage,
   },
 };
 

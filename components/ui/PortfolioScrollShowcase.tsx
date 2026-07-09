@@ -14,9 +14,13 @@ import {
   type PortfolioScrollItem,
 } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+import { excludeIds, excludeImageKeys } from "@/lib/image-dedupe";
 
 type PortfolioScrollShowcaseProps = {
   items?: PortfolioScrollItem[];
+  hideHeader?: boolean;
+  excludeIds?: string[];
+  excludeSrcs?: string[];
 };
 
 function subscribeToCoarsePointer(onStoreChange: () => void) {
@@ -100,13 +104,15 @@ function ShowcaseHeader({ count }: { count: number }) {
 function NativeScrollShowcase({
   items,
   onOpen,
+  hideHeader,
 }: {
   items: PortfolioScrollItem[];
   onOpen: (index: number) => void;
+  hideHeader?: boolean;
 }) {
   return (
     <section className="border-b border-foreground/10 bg-background pb-12">
-      <ShowcaseHeader count={items.length} />
+      {!hideHeader && <ShowcaseHeader count={items.length} />}
       <div
         className={cn(
           "flex gap-3 overflow-x-auto px-6 pb-2 lg:gap-4 lg:px-10",
@@ -133,16 +139,18 @@ function NativeScrollShowcase({
 function ScrollLinkedShowcase({
   items,
   onOpen,
+  hideHeader,
 }: {
   items: PortfolioScrollItem[];
   onOpen: (index: number) => void;
+  hideHeader?: boolean;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   return (
     <ScrollXCarousel className="bg-background">
       <ScrollXCarouselContainer>
-        <ShowcaseHeader count={items.length} />
+        {!hideHeader && <ShowcaseHeader count={items.length} />}
 
         <div className="flex flex-1 items-center overflow-hidden">
           <ScrollXCarouselWrap
@@ -170,6 +178,9 @@ function ScrollLinkedShowcase({
 
 export function PortfolioScrollShowcase({
   items = portfolioScrollShowcase,
+  hideHeader = false,
+  excludeIds: excludeIdList = [],
+  excludeSrcs = [],
 }: PortfolioScrollShowcaseProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const prefersNativeScroll = useSyncExternalStore(
@@ -178,24 +189,43 @@ export function PortfolioScrollShowcase({
     getCoarsePointerServerSnapshot,
   );
 
+  const displayItems = useMemo(() => {
+    let filtered = items;
+    if (excludeIdList.length) {
+      filtered = excludeIds(filtered, excludeIdList);
+    }
+    if (excludeSrcs.length) {
+      filtered = excludeImageKeys(filtered, excludeSrcs);
+    }
+    return filtered;
+  }, [items, excludeIdList, excludeSrcs]);
+
   const lightboxItems = useMemo(
     () =>
-      items.map((item) => ({
+      displayItems.map((item) => ({
         id: item.id,
         category: item.category,
         width: item.width,
         height: item.height,
         imageUrl: item.src,
       })),
-    [items],
+    [displayItems],
   );
 
   return (
     <>
       {prefersNativeScroll ? (
-        <NativeScrollShowcase items={items} onOpen={setLightboxIndex} />
+        <NativeScrollShowcase
+          items={displayItems}
+          onOpen={setLightboxIndex}
+          hideHeader={hideHeader}
+        />
       ) : (
-        <ScrollLinkedShowcase items={items} onOpen={setLightboxIndex} />
+        <ScrollLinkedShowcase
+          items={displayItems}
+          onOpen={setLightboxIndex}
+          hideHeader={hideHeader}
+        />
       )}
 
       <PortfolioLightbox

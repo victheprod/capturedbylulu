@@ -14,7 +14,7 @@ export function Footer() {
           <div className="sm:col-span-2">
             <Logo size="lg" className="mb-5" />
             <p className="mb-6 max-w-sm text-sm leading-relaxed text-foreground/55">
-              San Antonio photographer specializing in weddings, portraits,
+              Texas-based photographer specializing in weddings, portraits,
               families, and events. Every inquiry is read personally by Lulu.
             </p>
             <div className="flex flex-wrap items-center gap-3">

@@ -26,7 +26,7 @@ import {
   validateBookingStep,
 } from "@/lib/validation/booking";
 import { Button } from "@/components/ui/Button";
-import { ProgressSteps } from "@/components/ui/ProgressSteps";
+import { ProgressSteps, BookingStepIntro } from "@/components/ui/ProgressSteps";
 import { cn } from "@/lib/utils";
 
 type FormState = {
@@ -115,6 +115,16 @@ function BookingFormFields({
         ...current,
         sessionType: initialPackage.sessionType,
         package: initialPackage.package,
+      }));
+      return;
+    }
+    if (searchParams.get("review") === "1") {
+      setForm((current) => ({
+        ...current,
+        sessionType: current.sessionType || "Other / Not sure",
+        message:
+          current.message ||
+          "I'd like to share a review from my session with Lulu:\n\n",
       }));
       return;
     }
@@ -322,6 +332,18 @@ function BookingFormFields({
         >
           {step === 1 && (
             <div className="space-y-8">
+              <div className="border-b border-foreground/10 pb-8">
+                <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
+                  Step one
+                </p>
+                <h3 className="mt-2 font-serif text-2xl font-light text-foreground lg:text-3xl">
+                  Choose your experience
+                </h3>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/50">
+                  Select the type of session you&apos;re dreaming of. Lulu will
+                  help refine the details together.
+                </p>
+              </div>
               <div>
                 <p className={labelClass}>Session Type</p>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -413,7 +435,13 @@ function BookingFormFields({
           )}
 
           {step === 2 && (
-            <div className="space-y-5">
+            <div className="space-y-8">
+              <BookingStepIntro
+                step="Step two"
+                title="A little about you"
+                description="Lulu reads every inquiry personally. Share how to reach you — you'll hear back within 24–48 hours."
+              />
+              <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={labelClass}>
@@ -478,11 +506,18 @@ function BookingFormFields({
                 />
                 <FieldError message={fieldErrors.phone} />
               </div>
+              </div>
             </div>
           )}
 
           {step === 3 && (
-            <div className="space-y-5">
+            <div className="space-y-8">
+              <BookingStepIntro
+                step="Step three"
+                title="Shape your session"
+                description="Share your preferred date, location, and anything Lulu should know about your vision."
+              />
+              <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="preferredDate" className={labelClass}>
@@ -521,7 +556,7 @@ function BookingFormFields({
                     value={form.location}
                     onChange={(e) => updateField("location", e.target.value)}
                     className={cn(inputClass, "border-foreground/12")}
-                    placeholder="San Antonio or surrounding area"
+                    placeholder="City / area in Texas"
                   />
                 </div>
               </div>
@@ -547,15 +582,17 @@ function BookingFormFields({
                 />
                 <FieldError message={fieldErrors.message} />
               </div>
+              </div>
             </div>
           )}
 
           {step === 4 && (
-            <div className="space-y-6">
-              <p className="text-sm leading-relaxed text-foreground/55">
-                Review your inquiry before sending. Lulu will respond personally
-                within 24–48 hours.
-              </p>
+            <div className="space-y-8">
+              <BookingStepIntro
+                step="Step four"
+                title="One last look"
+                description="Everything look right? Send your inquiry — Lulu will respond personally within 24–48 hours."
+              />
               <dl className="divide-y divide-foreground/10 border border-foreground/10 bg-card">
                 {[
                   ["Session", form.sessionType],

@@ -114,3 +114,9 @@ textarea:focus-visible {
     gap: 1rem;
   }
 }
+
+@media (min-width: 1024px) {
+  .service-row-image {
+    aspect-ratio: var(--service-aspect, 4 / 3);
+  }
+}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Check, Plus, Minus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Package } from "@/data/packages";
-import { getContactHref } from "@/data/packages";
+import { getContactHref, pricingNotes } from "@/data/packages";
 import { cn } from "@/lib/utils";
 
 type PricingCardProps = {
@@ -84,6 +84,10 @@ export function PricingCard({
         </>
       )}
 
+      <p className="mb-4 text-[10px] leading-relaxed text-foreground/40">
+        {pricingNotes.travel}
+      </p>
+
       <Link
         href={href}
         className={cn(
@@ -144,6 +148,9 @@ export function PricingCardCompact({
       {note && (
         <p className="mb-6 text-xs italic text-foreground/35">{note}</p>
       )}
+      <p className="mb-4 text-[10px] leading-relaxed text-foreground/40">
+        {pricingNotes.travel}
+      </p>
       <Link
         href={href}
         className={cn(

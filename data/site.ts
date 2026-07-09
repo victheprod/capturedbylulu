@@ -1,13 +1,18 @@
 export const siteConfig = {
   name: "CapturedByLulu",
-  tagline: "Luxury photography in San Antonio",
+  tagline: "Texas-based luxury photography",
   description:
-    "Luxury photography for weddings, portraits, families, and events in San Antonio and surrounding areas.",
+    "Luxury photography for weddings, portraits, families, and events across Texas and beyond.",
   email: "Capturedbylulu63@gmail.com",
   phone: "+1 (346) 907-1945",
-  location: "San Antonio, Texas",
+  location: "Texas Based",
   instagram: "@capturedbylulu_",
   instagramUrl: "https://www.instagram.com/capturedbylulu_/",
+} as const;
+
+export const siteBranding = {
+  eyebrow: "Texas Based",
+  ogImage: "/logo.png",
 } as const;
 
 export const navLinks = [
@@ -89,9 +94,15 @@ export const mobileNavGroups = [
   },
 ] as const;
 
+export const serviceCategories = [
+  "Weddings",
+  "Portraits",
+  "Families",
+  "Events",
+] as const;
+
 export const trustItems = [
-  { label: "Weddings · Portraits · Families · Events" },
-  { label: "San Antonio & Surrounding Areas" },
+  { label: "Texas Based · Travel Available" },
   { label: "Cinematic, Editorial Style" },
   { label: "Every Inquiry Read Personally by Lulu" },
   {

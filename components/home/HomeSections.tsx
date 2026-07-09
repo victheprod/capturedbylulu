@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { ArrowRight } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
-import { siteConfig, trustItems } from "@/data/site";
+import { siteConfig, siteBranding, trustItems, serviceCategories } from "@/data/site";
 import {
   homePortfolioPreview,
   instagramPhotoFraming,
@@ -33,7 +33,7 @@ export function HomeHero({
 }) {
   return (
     <HeroGeometric
-      eyebrow={content?.eyebrow ?? "San Antonio, Texas"}
+      eyebrow={content?.eyebrow ?? siteBranding.eyebrow}
       title={
         content?.title ? (
           content.title
@@ -58,49 +58,77 @@ export function HomeHero({
 export function StoryBridge() {
   return (
     <Section tone="compact" className="relative overflow-hidden">
-      <FadeIn className="mx-auto max-w-3xl text-center">
-        <p className="mb-6 text-[11px] tracking-[0.3em] uppercase text-primary">
-          The CapturedByLulu Philosophy
-        </p>
-        <blockquote className="font-serif text-2xl leading-snug font-light text-foreground sm:text-3xl lg:text-4xl lg:leading-snug">
-          &ldquo;The best photographs aren&apos;t taken — they&apos;re felt. I
-          create space for the in-between moments that become your most treasured
-          memories.&rdquo;
-        </blockquote>
-        <p className="mt-8 text-[11px] tracking-[0.2em] uppercase text-foreground/40">
-          — Lulu, Founder & Photographer
-        </p>
-      </FadeIn>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <FadeIn className="relative aspect-[4/5] overflow-hidden bg-card lg:max-w-md">
+          <PhotoImage
+            src={siteImages.aboutTeaser}
+            alt="Portrait photography by Lulu — CapturedByLulu"
+            width={700}
+            height={875}
+            objectPosition={siteImageFraming.aboutTeaser.objectPosition}
+          />
+        </FadeIn>
+        <FadeIn delay={0.08} className="text-center lg:text-left">
+          <p className="mb-6 text-[11px] tracking-[0.3em] uppercase text-primary">
+            The CapturedByLulu Philosophy
+          </p>
+          <blockquote className="font-serif text-2xl leading-snug font-light text-foreground sm:text-3xl lg:leading-snug">
+            &ldquo;The best photographs aren&apos;t taken — they&apos;re felt. I
+            create space for the in-between moments that become your most treasured
+            memories.&rdquo;
+          </blockquote>
+          <p className="mt-8 text-[11px] tracking-[0.2em] uppercase text-foreground/40">
+            — Lulu, Founder & Photographer
+          </p>
+        </FadeIn>
+      </div>
     </Section>
   );
 }
 
 export function TrustBar() {
   return (
-    <section className="border-y border-foreground/10 bg-surface/50 py-5 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-3 px-6 lg:gap-x-14 lg:px-10">
-        {trustItems.map((item) =>
-          "href" in item && item.href ? (
-            <a
-              key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-center text-[10px] tracking-[0.16em] uppercase text-foreground/40 transition-colors hover:text-primary sm:text-[11px] sm:tracking-[0.18em]"
-            >
-              {item.label}
-            </a>
-          ) : (
-            <span
-              key={item.label}
-              className="text-center text-[10px] tracking-[0.16em] uppercase text-foreground/40 sm:text-[11px] sm:tracking-[0.18em]"
-            >
-              {item.label}
+    <div className="border-y border-foreground/10 bg-surface/50 py-7 backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <p className="flex flex-wrap items-center justify-center text-center text-[10px] tracking-[0.2em] uppercase text-foreground/40 sm:text-[11px]">
+          {serviceCategories.map((category, index) => (
+            <span key={category} className="inline-flex items-center">
+              <span>{category}</span>
+              {index < serviceCategories.length - 1 ? (
+                <span
+                  aria-hidden
+                  className="mx-3 inline-flex items-center text-base leading-none text-primary/70 sm:mx-4 sm:text-lg"
+                >
+                  ·
+                </span>
+              ) : null}
             </span>
-          ),
-        )}
+          ))}
+        </p>
+        <div className="mx-auto mt-5 flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-foreground/10 pt-5 sm:gap-x-12">
+          {trustItems.map((item) =>
+            "href" in item && item.href ? (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center text-[10px] tracking-[0.18em] uppercase text-foreground/40 transition-colors hover:text-primary sm:text-[11px]"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <span
+                key={item.label}
+                className="text-center text-[10px] tracking-[0.18em] uppercase text-foreground/40 sm:text-[11px]"
+              >
+                {item.label}
+              </span>
+            ),
+          )}
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -205,10 +233,10 @@ export function AboutTeaser() {
             </div>
             <div className="absolute right-0 bottom-0 bg-primary px-5 py-3 sm:-right-4 sm:-bottom-5 sm:px-6 sm:py-4 lg:-right-8 lg:-bottom-6">
               <div className="font-serif text-3xl leading-none text-primary-foreground">
-                SA
+                TX
               </div>
               <div className="mt-1 text-[10px] tracking-[0.15em] uppercase text-primary-foreground/70">
-                Based in San Antonio
+                Texas Based
               </div>
             </div>
           </FadeIn>
@@ -219,9 +247,9 @@ export function AboutTeaser() {
               title="A photographer who sees what others feel"
             />
             <p className="mt-6 leading-relaxed text-foreground/58">
-              CapturedByLulu is Lulu&apos;s photography studio in San Antonio —
+              CapturedByLulu is Lulu&apos;s Texas-based photography studio —
               specializing in weddings, portraits, family sessions, and events
-              across Texas. The work is cinematic and editorial, with an eye for
+              across Texas and beyond. The work is cinematic and editorial, with an eye for
               the quiet moments that matter most.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/58">
