@@ -36,6 +36,7 @@ export function ChoiceCard({
         selected
           ? "glass-panel border-primary/35 shadow-[0_12px_48px_rgba(0,0,0,0.22)]"
           : "border border-foreground/10 bg-card/40 hover:border-foreground/20 hover:bg-card/60",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
         className,
       )}
       aria-pressed={selected}
@@ -78,7 +79,7 @@ export function ChoiceCard({
       </div>
       {selected ? (
         <motion.span
-          layoutId="choice-glow"
+          layoutId="choice-glow-concierge"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
         />
       ) : null}

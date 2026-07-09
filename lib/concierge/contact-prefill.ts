@@ -2,6 +2,7 @@ import {
   getPackageBookingValue,
   getPackageEntryById,
 } from "@/data/packages";
+import { saveConciergePrefill } from "./session";
 import type { ConciergeAnswers, ConciergeRecommendation } from "./types";
 import {
   labelForCoverage,
@@ -55,12 +56,32 @@ export function buildConciergeContactHref(
   answers: ConciergeAnswers,
   recommendation: ConciergeRecommendation,
 ): string {
+  const entry = getPackageEntryById(recommendation.packageId);
+  const packageValue = entry
+    ? getPackageBookingValue(entry.category, entry.pkg)
+    : `${recommendation.category} — ${recommendation.package.name} (${recommendation.package.price})`;
+
+  const summary = buildConciergeSummary(answers);
+  const message = `${summary}\n\nRecommended: ${recommendation.category} — ${recommendation.package.name} (${recommendation.package.price})`;
+
+  const locationLabel = answers.location
+    ? locationLabels[answers.location]
+    : undefined;
+
+  saveConciergePrefill({
+    packageId: recommendation.packageId,
+    sessionType: recommendation.category,
+    package: packageValue,
+    location: locationLabel,
+    message,
+  });
+
   const params = new URLSearchParams();
   params.set("package", recommendation.packageId);
   params.set("from", "concierge");
 
-  if (answers.location) {
-    params.set("concierge_location", locationLabels[answers.location]);
+  if (locationLabel) {
+    params.set("concierge_location", locationLabel);
   }
   if (answers.timeline) {
     params.set("concierge_timeline", timelineLabels[answers.timeline]);
@@ -68,12 +89,6 @@ export function buildConciergeContactHref(
   if (answers.setting) {
     params.set("concierge_setting", settingLabels[answers.setting]);
   }
-
-  const summary = buildConciergeSummary(answers);
-  params.set(
-    "message",
-    `${summary}\n\nRecommended: ${recommendation.category} — ${recommendation.package.name} (${recommendation.package.price})`,
-  );
 
   return `/contact?${params.toString()}`;
 }

@@ -103,7 +103,7 @@ function UnsureLink({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="mt-5 text-[11px] tracking-[0.14em] text-foreground/40 underline-offset-4 transition-colors hover:text-primary hover:underline"
+      className="mt-5 text-[11px] tracking-[0.14em] text-foreground/40 underline-offset-4 transition-colors hover:text-primary hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       {conciergeMicrocopy.unsure}
     </button>
@@ -511,7 +511,7 @@ export function CaptureConcierge({
           <button
             type="button"
             onClick={goBack}
-            className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-foreground/45 transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-foreground/45 transition-colors hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             <ArrowLeft size={14} />
             {conciergeMicrocopy.back}
@@ -521,7 +521,7 @@ export function CaptureConcierge({
             onClick={goNext}
             disabled={!canContinue}
             className={cn(
-              "group inline-flex items-center gap-2 bg-primary px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-primary-foreground transition-all hover:bg-[#d4b87a]",
+              "group inline-flex items-center gap-2 bg-primary px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-primary-foreground transition-all hover:bg-[#d4b87a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
               !canContinue && "pointer-events-none opacity-40",
             )}
           >

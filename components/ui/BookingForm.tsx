@@ -28,6 +28,10 @@ import {
 import { Button } from "@/components/ui/Button";
 import { ProgressSteps, BookingStepIntro } from "@/components/ui/ProgressSteps";
 import { cn } from "@/lib/utils";
+import {
+  clearConciergePrefill,
+  loadConciergePrefill,
+} from "@/lib/concierge/session";
 
 type FormState = {
   name: string;
@@ -130,24 +134,32 @@ function BookingFormFields({
     }
 
     const fromConcierge = searchParams.get("from") === "concierge";
-    const prefilledMessage = searchParams.get("message");
+    const storedPrefill = fromConcierge ? loadConciergePrefill() : null;
+    const prefilledMessage =
+      storedPrefill?.message ?? searchParams.get("message");
     const prefilledLocation =
-      searchParams.get("concierge_location") ?? searchParams.get("location");
+      storedPrefill?.location ??
+      searchParams.get("concierge_location") ??
+      searchParams.get("location");
 
-    const packageId = searchParams.get("package");
+    const packageId =
+      storedPrefill?.packageId ?? searchParams.get("package");
     if (packageId) {
       const entry = getPackageEntryById(packageId);
       if (entry) {
         setForm((current) => ({
           ...current,
           sessionType: entry.category,
-          package: getPackageBookingValue(entry.category, entry.pkg),
+          package:
+            storedPrefill?.package ??
+            getPackageBookingValue(entry.category, entry.pkg),
           location: prefilledLocation || current.location,
           message:
             fromConcierge && prefilledMessage
               ? prefilledMessage
               : current.message,
         }));
+        if (storedPrefill) clearConciergePrefill();
         return;
       }
     }
@@ -158,6 +170,7 @@ function BookingFormFields({
         location: prefilledLocation || current.location,
         message: prefilledMessage ? prefilledMessage : current.message,
       }));
+      if (storedPrefill) clearConciergePrefill();
     }
   }, [searchParams, initialPackage]);
 

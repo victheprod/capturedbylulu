@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { ConciergeAnswers, ConciergeStepId } from "@/lib/concierge/types";
@@ -20,9 +21,11 @@ import {
 
 type ConciergeContextValue = {
   isOpen: boolean;
+  hydrated: boolean;
   open: () => void;
   close: () => void;
   toggle: () => void;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   stepIndex: number;
   setStepIndex: (index: number | ((prev: number) => number)) => void;
   answers: ConciergeAnswers;
@@ -41,6 +44,7 @@ export function ConciergeProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [session, setSession] = useState<ConciergeSession>(initialConciergeSession);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setSession(loadConciergeSession());
@@ -104,9 +108,11 @@ export function ConciergeProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<ConciergeContextValue>(
     () => ({
       isOpen,
+      hydrated,
       open,
       close,
       toggle,
+      triggerRef,
       stepIndex: session.stepIndex,
       setStepIndex,
       answers: session.answers,
@@ -118,6 +124,7 @@ export function ConciergeProvider({ children }: { children: React.ReactNode }) {
     }),
     [
       isOpen,
+      hydrated,
       open,
       close,
       toggle,

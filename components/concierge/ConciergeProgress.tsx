@@ -19,7 +19,7 @@ export function ConciergeProgress({
   const progress = Math.min(100, (current / total) * 100);
 
   return (
-    <div className={cn("mb-10 lg:mb-12", className)}>
+    <div className={cn("mb-8 lg:mb-10", className)}>
       <div className="mb-4 flex items-center justify-between gap-4">
         <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
           {label}
@@ -28,7 +28,14 @@ export function ConciergeProgress({
           Step {current} of {total}
         </p>
       </div>
-      <div className="relative h-px overflow-hidden bg-foreground/10">
+      <div
+        className="relative h-px overflow-hidden bg-foreground/10"
+        role="progressbar"
+        aria-valuenow={current}
+        aria-valuemin={1}
+        aria-valuemax={total}
+        aria-label={`Consultation progress: step ${current} of ${total}`}
+      >
         <motion.div
           className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary/50 via-primary to-primary/70"
           initial={false}
