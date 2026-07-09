@@ -12,6 +12,7 @@ import {
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { siteConfig } from "@/data/site";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
+import { luluPortrait } from "@/data/lulu";
 
 export function AboutEditorial() {
   const ref = useRef<HTMLElement>(null);
@@ -38,10 +39,10 @@ export function AboutEditorial() {
             style={reduced ? undefined : { y: imageY }}
           >
             <PhotoImage
-              src={siteImages.weddingsDetail2}
-              alt="Wedding photography by CapturedByLulu"
+              src={siteImages.lulu}
+              alt={luluPortrait.alt}
               fill
-              objectPosition={siteImageFraming.weddingsDetail2.objectPosition}
+              objectPosition={siteImageFraming.lulu.objectPosition}
               sizes="(max-width: 1024px) 90vw, 45vw"
             />
           </motion.div>

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { ConciergeFloatingButton } from "@/components/concierge/ConciergeFloatingButton";
 import { ConciergeSheet } from "@/components/concierge/ConciergeSheet";
 
-const HIDE_FAB_PATHS = ["/concierge", "/contact"];
+const HIDE_FAB_PATHS = ["/concierge", "/contact", "/vision"];
 
 export function ConciergeAssistant() {
   const pathname = usePathname();

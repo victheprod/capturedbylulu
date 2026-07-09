@@ -2,6 +2,7 @@ import type { ConciergeAnswers, ConciergeStepId } from "./types";
 
 export const CONCIERGE_STORAGE_KEY = "cbl-concierge-session";
 export const CONCIERGE_PREFILL_KEY = "cbl-concierge-prefill";
+export const CONCIERGE_LAUNCH_DISMISSED_KEY = "cbl-concierge-launch-dismissed";
 
 export type ConciergePrefill = {
   packageId: string;
@@ -20,7 +21,9 @@ export type ConciergeSession = {
 export const initialConciergeAnswers: ConciergeAnswers = {
   deliverables: ["digital-gallery"],
   addonInterests: [],
-  budgetMax: 500,
+  budgetMax: 1500,
+  timeline: "flexible",
+  location: "local",
 };
 
 export const initialConciergeSession: ConciergeSession = {
@@ -35,9 +38,18 @@ export function loadConciergeSession(): ConciergeSession {
     const raw = sessionStorage.getItem(CONCIERGE_STORAGE_KEY);
     if (!raw) return initialConciergeSession;
     const parsed = JSON.parse(raw) as ConciergeSession;
+    const maxStep = 7; // welcome(0) … result(7)
     return {
-      stepIndex: parsed.stepIndex ?? 0,
-      answers: { ...initialConciergeAnswers, ...parsed.answers },
+      stepIndex: Math.min(parsed.stepIndex ?? 0, maxStep),
+      answers: {
+        ...initialConciergeAnswers,
+        ...parsed.answers,
+        timeline: parsed.answers?.timeline ?? "flexible",
+        location: parsed.answers?.location ?? "local",
+        deliverables: parsed.answers?.deliverables?.length
+          ? parsed.answers.deliverables
+          : ["digital-gallery"],
+      },
       unsureFields: parsed.unsureFields ?? [],
     };
   } catch {
@@ -83,4 +95,22 @@ export function loadConciergePrefill(): ConciergePrefill | null {
 export function clearConciergePrefill() {
   if (typeof window === "undefined") return;
   sessionStorage.removeItem(CONCIERGE_PREFILL_KEY);
+}
+
+export function isConciergeLaunchDismissed(): boolean {
+  if (typeof window === "undefined") return true;
+  try {
+    return sessionStorage.getItem(CONCIERGE_LAUNCH_DISMISSED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+export function dismissConciergeLaunch() {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(CONCIERGE_LAUNCH_DISMISSED_KEY, "1");
+  } catch {
+    // ignore
+  }
 }

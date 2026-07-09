@@ -293,14 +293,10 @@ export const addonInterestOptions: ChoiceOption<AddonInterest>[] = [
 ];
 
 export const conciergeSteps = [
-  { id: "occasion", label: "Session" },
-  { id: "timeline", label: "When" },
-  { id: "location", label: "Where" },
-  { id: "scale", label: "Group" },
-  { id: "coverage", label: "Coverage" },
+  { id: "occasion", label: "Occasion" },
+  { id: "vision", label: "Vibe" },
+  { id: "priorities", label: "Priorities" },
   { id: "setting", label: "Setting" },
-  { id: "vision", label: "Style" },
-  { id: "deliverables", label: "Must-haves" },
   { id: "addons", label: "Add-ons" },
   { id: "investment", label: "Budget" },
 ] as const;

@@ -10,6 +10,7 @@ import {
   servicesTeaserImages,
   siteImageFraming,
 } from "@/data/portfolio";
+import { luluPortrait } from "@/data/lulu";
 import { testimonials } from "@/data/testimonials";
 import { TestimonialsMarquee } from "@/components/ui/testimonials-marquee";
 import { HeroGeometric } from "@/components/ui/hero-geometric";
@@ -62,7 +63,7 @@ export function StoryBridge() {
         <FadeIn className="relative aspect-[4/5] overflow-hidden bg-card lg:max-w-md">
           <PhotoImage
             src={siteImages.aboutTeaser}
-            alt="Portrait photography by Lulu — CapturedByLulu"
+            alt="Wedding photography by CapturedByLulu — client session"
             width={700}
             height={875}
             objectPosition={siteImageFraming.aboutTeaser.objectPosition}
@@ -219,17 +220,12 @@ export function AboutTeaser() {
           <FadeIn className="relative order-2 lg:order-1">
             <div className="relative aspect-[3/4] overflow-hidden bg-card">
               <PhotoImage
-                src={siteImages.aboutTeaser}
-                alt="Wedding photography by CapturedByLulu — client session"
+                src={siteImages.lulu}
+                alt={luluPortrait.alt}
                 width={800}
                 height={1000}
-                objectPosition={siteImageFraming.aboutTeaser.objectPosition}
+                objectPosition={siteImageFraming.lulu.objectPosition}
               />
-              <div className="absolute top-0 right-0 left-0 bg-gradient-to-b from-background/70 to-transparent px-4 py-3">
-                <p className="text-[10px] tracking-[0.18em] uppercase text-foreground/80">
-                  Client work · Portfolio
-                </p>
-              </div>
             </div>
             <div className="absolute right-0 bottom-0 bg-primary px-5 py-3 sm:-right-4 sm:-bottom-5 sm:px-6 sm:py-4 lg:-right-8 lg:-bottom-6">
               <div className="font-serif text-3xl leading-none text-primary-foreground">

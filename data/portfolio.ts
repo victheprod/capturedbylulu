@@ -66,7 +66,8 @@ export const portfolioItems = itemsJson as PortfolioItem[];
 
 export const siteImages = {
   "hero": "/site-images/_hero/weddings/DSC00201.jpg",
-  "about": "/site-images/families/IMG_3621.jpg",
+  "lulu": "/site-images/lulu/DSC04405-chest.png",
+  "about": "/site-images/lulu/DSC04405-chest.png",
   "aboutTeaser": "/site-images/weddings/DSC07766.jpg",
   "cta": "/site-images/weddings/DSC00181.jpg",
   "servicesBanner": "/site-images/portraits/DSC08205.jpg",
@@ -88,10 +89,16 @@ export const siteImageFraming: Record<keyof typeof siteImages, SiteImageFraming>
     "aspectRatio": "4/3"
   },
   "about": {
-    "width": 1400,
-    "height": 1223,
-    "objectPosition": "50% 35%",
-    "aspectRatio": "4/3"
+    "width": 682,
+    "height": 491,
+    "objectPosition": "50% 42%",
+    "aspectRatio": "4/5"
+  },
+  "lulu": {
+    "width": 682,
+    "height": 491,
+    "objectPosition": "50% 42%",
+    "aspectRatio": "4/5"
   },
   "aboutTeaser": {
     "width": 932,

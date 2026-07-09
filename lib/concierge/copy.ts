@@ -11,91 +11,116 @@ type StepCopy = {
 export const conciergeCopy: Record<ConciergeStepId, StepCopy> = {
   welcome: {
     eyebrow: "Capture Concierge",
-    title: "Tell me a little about what you're planning.",
+    title: "Hi, I'm Lulu.",
     description:
-      "I'm here to help you find the right package — no pressure, just a few gentle questions and a recommendation drawn from Lulu's real offerings.",
-    hint: "About 3 minutes · Your answers stay private",
+      "I'll ask a few gentle questions to understand your vision — then recommend the perfect package. No pressure, no commitment.",
+    hint: "Takes about 2 minutes · Saves as you go",
   },
   occasion: {
-    eyebrow: "First things first",
-    title: "What kind of session are you dreaming of?",
-    description:
-      "Choose what feels closest. If you're between options, pick the one that fits best for now.",
-    hint: "Not sure? You can always adjust when you inquire.",
-    allowUnsure: true,
-  },
-  timeline: {
-    eyebrow: "Timing",
-    title: "When are you hoping this happens?",
-    description:
-      "Even a rough timeframe helps Lulu understand availability and planning.",
-    hint: "No fixed date yet? That's completely fine.",
-    allowUnsure: true,
-  },
-  location: {
-    eyebrow: "Where",
-    title: "Where will this take place?",
-    description:
-      "Lulu is Texas-based and travels throughout Texas and beyond.",
-    allowUnsure: true,
-  },
-  scale: {
-    eyebrow: "Who's involved",
-    title: "Who will be in front of the camera?",
-    description: "Group size helps narrow the right package and coverage.",
-    allowUnsure: true,
-  },
-  coverage: {
-    eyebrow: "Coverage",
-    title: "How much time do you need covered?",
-    description: "A rough estimate is enough — we'll match you to the right window.",
-    allowUnsure: true,
-  },
-  setting: {
-    eyebrow: "Setting",
-    title: "Indoor, outdoor, or a mix?",
-    description: "Lulu works beautifully in studios, venues, gardens, and open light.",
+    eyebrow: "Step 1",
+    title: "What are you celebrating?",
+    description: "Choose what feels closest to your moment.",
     allowUnsure: true,
   },
   vision: {
-    eyebrow: "Your style",
-    title: "How should these photographs feel?",
-    description: "Trust your instinct — there's no wrong answer here.",
+    eyebrow: "Step 2",
+    title: "What vibe speaks to you?",
+    description: "Trust your instinct — pick the feeling that pulls you in.",
     allowUnsure: true,
   },
-  deliverables: {
-    eyebrow: "Deliverables",
-    title: "What matters most in what you receive?",
-    description: "Every package includes a private online gallery. Select anything else that matters to you.",
+  priorities: {
+    eyebrow: "Step 3",
+    title: "What matters most?",
+    description: "Who's involved and how much time you'd like covered.",
+    allowUnsure: true,
+  },
+  setting: {
+    eyebrow: "Step 4",
+    title: "Where do you picture this?",
+    description: "Indoor elegance, open air, or a little of both.",
     allowUnsure: true,
   },
   addons: {
-    eyebrow: "Extras",
-    title: "Anything else on your mind?",
-    description: "Optional — select add-ons you'd like Lulu to factor in, or skip ahead.",
+    eyebrow: "Step 5",
+    title: "Any extras on your mind?",
+    description: "Optional — select anything you'd like Lulu to factor in.",
     allowUnsure: false,
   },
   investment: {
-    eyebrow: "Investment",
-    title: "What feels comfortable for this experience?",
-    description:
-      "This isn't a commitment — just a guide so we can recommend something that feels right.",
-    hint: "Slide to your comfort zone.",
+    eyebrow: "Step 6",
+    title: "What's your comfort zone?",
+    description: "This helps narrow to packages that feel right — not a commitment.",
     allowUnsure: false,
   },
   result: {
     eyebrow: "Your recommendation",
-    title: "Based on what you shared, this feels like your best fit.",
+    title: "Here's what we recommend for you.",
+    description: "",
+  },
+  timeline: {
+    eyebrow: "",
+    title: "",
+    description: "",
+  },
+  location: {
+    eyebrow: "",
+    title: "",
+    description: "",
+  },
+  scale: {
+    eyebrow: "",
+    title: "",
+    description: "",
+  },
+  coverage: {
+    eyebrow: "",
+    title: "",
+    description: "",
+  },
+  deliverables: {
+    eyebrow: "",
+    title: "",
     description: "",
   },
 };
 
 export const conciergeMicrocopy = {
-  unsure: "I'm not sure yet — skip for now",
-  back: "Go back",
+  unsure: "I'm not sure yet",
+  back: "Back",
   continue: "Continue",
   seeRecommendation: "See my recommendation",
   begin: "Let's begin",
   close: "Close",
   restart: "Start over",
+  viewCollection: "View collection",
+  makeOfficial: "Let's make it official",
+} as const;
+
+export const conciergeHero = {
+  title: "Your story.",
+  titleAccent: "Perfectly captured.",
+  description:
+    "Not sure which package fits? Let Lulu guide you through a personalized consultation — built around your vision, your timeline, and your investment comfort.",
+} as const;
+
+export const conciergeTrustStrip = [
+  { label: "A Personal Experience", icon: "✦" },
+  { label: "Beautiful & Intuitive", icon: "◇" },
+  { label: "Saves Your Progress", icon: "○" },
+] as const;
+
+export const conciergeLaunch = {
+  eyebrow: "Capture Concierge",
+  title: "I'm here to help you",
+  titleAccent: "plan beautifully.",
+  description:
+    "Answer a few thoughtful questions and receive a package recommendation tailored to your vision — before you ever send an inquiry.",
+  cta: "Start planning",
+  ctaSubline: "Get CapturedByLulu the right way",
+  features: [
+    { icon: "✦", label: "Personalized package match" },
+    { icon: "◇", label: "Real pricing from Lulu's offerings" },
+    { icon: "○", label: "Your answers save automatically" },
+    { icon: "♡", label: "No pressure — just clarity" },
+  ],
 } as const;

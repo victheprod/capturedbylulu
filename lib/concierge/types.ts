@@ -92,13 +92,15 @@ export type ConciergeRecommendation = {
 export type ConciergeStepId =
   | "welcome"
   | "occasion"
+  | "vision"
+  | "priorities"
+  | "setting"
+  | "addons"
+  | "investment"
+  | "result"
+  /** @deprecated legacy session — migrated on load */
   | "timeline"
   | "location"
   | "scale"
   | "coverage"
-  | "setting"
-  | "vision"
-  | "deliverables"
-  | "addons"
-  | "investment"
-  | "result";
+  | "deliverables";

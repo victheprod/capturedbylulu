@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight, Check } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ConciergeRecommendation } from "@/lib/concierge/types";
+import { conciergeMicrocopy } from "@/lib/concierge/copy";
+import { resultCollageImages } from "@/lib/concierge/visuals";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -22,227 +25,164 @@ export function ConciergeRecommendationReveal({
   compact,
   className,
 }: ConciergeRecommendationProps) {
+  const reduceMotion = useReducedMotion();
   const {
     package: pkg,
     category,
     reasons,
     investmentLabel,
     investmentRange,
-    addons,
-    nextSteps,
     contactHref,
     alternatePackage,
   } = recommendation;
 
+  const fade = (delay: number) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 18 },
+          animate: { opacity: 1, y: 0 },
+          transition: {
+            delay,
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+          },
+        };
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={reduceMotion ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={cn("space-y-10", className)}
+      className={cn("space-y-8", className)}
     >
-      <div className="text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="mx-auto mb-6 flex h-12 w-12 items-center justify-center border border-primary/30 bg-primary/10 text-primary"
-        >
-          <Sparkles size={18} />
-        </motion.div>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="text-[11px] tracking-[0.32em] uppercase text-primary"
-        >
-          Based on what you shared
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.22, duration: 0.7 }}
+      <motion.header {...fade(0.05)}>
+        <p className="text-[10px] tracking-[0.32em] uppercase text-primary">
+          {conciergeMicrocopy.seeRecommendation}
+        </p>
+        <h2
           className={cn(
-          "mt-4 font-serif font-light leading-[1.08] text-foreground",
-          compact
-            ? "text-[clamp(1.75rem,4vw,2.5rem)]"
-            : "text-[clamp(2rem,5vw,3.5rem)]",
-        )}
-      >
-        This feels like your <span className="text-primary/90">best fit</span>
-      </motion.h2>
-      <motion.p
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/55"
-      >
-        The {pkg.name} {category.toLowerCase()} package aligns with your vision,
-        coverage needs, and investment comfort.
-      </motion.p>
-      </div>
+            "mt-3 font-serif font-light leading-[1.12] text-foreground",
+            compact
+              ? "text-[clamp(1.65rem,4vw,2.25rem)]"
+              : "text-[clamp(1.85rem,4vw,2.75rem)]",
+          )}
+        >
+          Here&apos;s what we recommend for you.
+        </h2>
+      </motion.header>
 
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.38, duration: 0.7 }}
-        className="glass-panel mx-auto max-w-3xl p-8 sm:p-10"
-      >
-        <div className="flex flex-col gap-6 border-b border-foreground/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[11px] tracking-[0.22em] uppercase text-foreground/45">
-              Recommended package
-            </p>
-            <h3 className="mt-2 font-serif text-3xl font-light text-foreground">
-              {category} · {pkg.name}
-            </h3>
-            <p className="mt-2 text-sm text-foreground/50">{pkg.duration}</p>
-          </div>
-          <div className="text-left sm:text-right">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-primary">
-              Estimated investment
-            </p>
-            <p className="mt-1 font-serif text-3xl font-light text-foreground">
-              {investmentRange ?? investmentLabel}
-            </p>
-            {investmentRange && investmentRange !== investmentLabel ? (
-              <p className="mt-1 text-xs text-foreground/40">
-                Package base: {investmentLabel}
-              </p>
-            ) : null}
-          </div>
-        </div>
-
-        <div className="py-8">
-          <p className="mb-4 text-[11px] tracking-[0.22em] uppercase text-primary">
-            Why this fits you
+      <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr] lg:gap-8">
+        <motion.article
+          {...fade(0.12)}
+          className="rounded-[1.75rem] border border-primary/20 bg-primary/[0.04] p-6 sm:p-8"
+        >
+          <p className="text-[9px] tracking-[0.3em] uppercase text-foreground/40">
+            Signature collection
           </p>
-          <ul className="space-y-4">
-            {reasons.map((reason, i) => (
-              <motion.li
-                key={reason}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.45 + i * 0.08 }}
-                className="flex gap-4 text-sm leading-relaxed text-foreground/62"
-              >
-                <span className="mt-2 h-px w-6 shrink-0 bg-primary/50" aria-hidden />
-                {reason}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+          <h3 className="mt-3 font-serif text-2xl font-light uppercase tracking-wide text-foreground sm:text-3xl">
+            {pkg.name}
+          </h3>
+          <p className="mt-1 text-sm text-foreground/45">{category}</p>
 
-        <div className="border-t border-foreground/10 pt-8">
-          <p className="mb-4 text-[11px] tracking-[0.22em] uppercase text-foreground/45">
-            Included in this package
-          </p>
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {pkg.features.map((feature) => (
-              <li
-                key={feature}
-                className="flex items-start gap-2 text-sm text-foreground/58"
-              >
-                <span className="text-primary" aria-hidden>·</span>
+          <ul className="mt-6 space-y-3">
+            {pkg.features.slice(0, 5).map((feature) => (
+              <li key={feature} className="flex gap-3 text-sm text-foreground/62">
+                <Check size={14} className="mt-0.5 shrink-0 text-primary" strokeWidth={2.5} />
                 {feature}
               </li>
             ))}
           </ul>
-        </div>
-      </motion.div>
 
-      {addons.length > 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
-          className="mx-auto max-w-3xl"
-        >
-          <p className="mb-5 text-center text-[11px] tracking-[0.22em] uppercase text-primary">
-            Suggested add-ons
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {addons.map((addon) => (
+          <div className="mt-8 border-t border-foreground/10 pt-6">
+            <p className="text-[9px] tracking-[0.28em] uppercase text-foreground/38">
+              Estimated investment
+            </p>
+            <p className="mt-2 font-serif text-3xl font-light text-primary">
+              {investmentRange ?? investmentLabel}
+            </p>
+          </div>
+        </motion.article>
+
+        <motion.div {...fade(0.18)} className="relative min-h-[280px]">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            {resultCollageImages.map((img, i) => (
               <div
-                key={addon.name}
+                key={img.src}
                 className={cn(
-                  "border p-5",
-                  addon.inquiryOnly
-                    ? "border-foreground/8 bg-card/20"
-                    : "border-foreground/10 bg-card/30",
+                  "relative overflow-hidden rounded-2xl bg-card",
+                  i === 0 ? "col-span-1 aspect-[3/4]" : "aspect-square",
+                  i === 2 && "col-span-1 row-span-1",
                 )}
               >
-                <p className="text-sm font-medium text-foreground">{addon.name}</p>
-                <p className="mt-1 text-xs text-primary">{addon.price}</p>
-                <p className="mt-3 text-xs leading-relaxed text-foreground/48">
-                  {addon.reason}
-                </p>
+                <Image
+                  src={img.src}
+                  alt="CapturedByLulu photography"
+                  fill
+                  sizes="200px"
+                  className="object-cover"
+                  style={{ objectPosition: img.objectPosition }}
+                />
               </div>
             ))}
           </div>
-        </motion.div>
-      ) : null}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.62 }}
-        className="glass-panel-subtle mx-auto max-w-3xl p-8"
-      >
-        <p className="mb-5 text-[11px] tracking-[0.22em] uppercase text-primary">
-          What happens next
+          <motion.div
+            {...fade(0.28)}
+            className="absolute left-1/2 top-1/2 z-10 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-primary/40 bg-background/90 text-center shadow-[0_8px_40px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:h-32 sm:w-32"
+          >
+            <span className="text-[9px] tracking-[0.22em] uppercase text-primary">Your</span>
+            <span className="font-serif text-xl font-light text-foreground">Vision</span>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      <motion.div {...fade(0.32)} className="space-y-3">
+        <p className="text-[9px] tracking-[0.28em] uppercase text-foreground/38">
+          Why this fits
         </p>
-        <ol className="space-y-4">
-          {nextSteps.map((step, i) => (
-            <li key={step} className="flex gap-4 text-sm text-foreground/58">
-              <span className="font-serif text-lg font-light text-primary/50">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="pt-0.5 leading-relaxed">{step}</span>
-            </li>
-          ))}
-        </ol>
+        {reasons.map((reason) => (
+          <p key={reason} className="text-sm leading-relaxed text-foreground/55">
+            {reason}
+          </p>
+        ))}
       </motion.div>
 
       {alternatePackage ? (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.68 }}
-          className="mx-auto max-w-2xl text-center text-sm text-foreground/45"
-        >
-          Also worth exploring:{" "}
+        <motion.p {...fade(0.36)} className="text-center text-sm text-foreground/42">
+          Also consider{" "}
           <Link
             href={`/contact?package=${encodeURIComponent(alternatePackage.packageId)}&from=concierge`}
-            className="text-primary transition-colors hover:text-foreground"
+            className="text-primary hover:text-foreground"
           >
-            {alternatePackage.package.name} ({alternatePackage.package.price})
+            {alternatePackage.package.name}
           </Link>
         </motion.p>
       ) : null}
 
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.72 }}
-        className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        {...fade(0.4)}
+        className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center"
       >
+        <Button href="/services" variant="outline" className="rounded-full sm:flex-1">
+          {conciergeMicrocopy.viewCollection}
+        </Button>
         <Button
           href={contactHref}
-          className="min-w-[240px]"
+          className="rounded-full sm:flex-1"
           onClick={onInquire}
         >
-          Begin your inquiry
+          {conciergeMicrocopy.makeOfficial}
           <ArrowRight size={14} />
         </Button>
-        <button
-          type="button"
-          onClick={onRestart}
-          className="text-[11px] tracking-[0.18em] uppercase text-foreground/45 transition-colors hover:text-primary"
-        >
-          Start over
-        </button>
       </motion.div>
+
+      <button
+        type="button"
+        onClick={onRestart}
+        className="w-full text-center text-xs text-foreground/35 hover:text-primary"
+      >
+        {conciergeMicrocopy.restart}
+      </button>
     </motion.div>
   );
 }

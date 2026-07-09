@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { siteConfig } from "@/data/site";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
+import { luluPortrait } from "@/data/lulu";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
@@ -49,7 +50,7 @@ export default function AboutPage() {
             <div className="relative aspect-[5/4] overflow-hidden bg-card lg:aspect-[16/10]">
               <PhotoImage
                 src={siteImages.about}
-                alt="Family session by CapturedByLulu — client work"
+                alt={luluPortrait.alt}
                 fill
                 objectPosition={siteImageFraming.about.objectPosition}
                 sizes="(max-width: 1024px) 100vw, 55vw"

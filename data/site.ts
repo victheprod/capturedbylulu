@@ -54,6 +54,11 @@ export const servicesNavTabs = [
         description: "A guided consultation to find your perfect package.",
       },
       {
+        label: "Build Your Vision",
+        href: "/vision",
+        description: "Curate a live mood board and discover your photography style.",
+      },
+      {
         label: "Pricing",
         href: "/services",
         description: "Transparent packages for every session type.",
@@ -87,6 +92,7 @@ export const mobileNavGroups = [
       { label: "Weddings", href: "/weddings" },
       { label: "Services & Pricing", href: "/services" },
       { label: "Capture Concierge", href: "/concierge" },
+      { label: "Build Your Vision", href: "/vision" },
       { label: "Brand Photography", href: "/brand-photography" },
     ],
   },

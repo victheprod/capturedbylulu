@@ -32,6 +32,10 @@ import {
   clearConciergePrefill,
   loadConciergePrefill,
 } from "@/lib/concierge/session";
+import {
+  clearVisionPrefill,
+  loadVisionPrefill,
+} from "@/lib/vision/session";
 
 type FormState = {
   name: string;
@@ -134,11 +138,15 @@ function BookingFormFields({
     }
 
     const fromConcierge = searchParams.get("from") === "concierge";
-    const storedPrefill = fromConcierge ? loadConciergePrefill() : null;
+    const fromVision = searchParams.get("from") === "vision";
+    const storedConciergePrefill = fromConcierge ? loadConciergePrefill() : null;
+    const storedVisionPrefill = fromVision ? loadVisionPrefill() : null;
+    const storedPrefill = storedVisionPrefill ?? storedConciergePrefill;
     const prefilledMessage =
       storedPrefill?.message ?? searchParams.get("message");
     const prefilledLocation =
       storedPrefill?.location ??
+      searchParams.get("vision_setting") ??
       searchParams.get("concierge_location") ??
       searchParams.get("location");
 
@@ -155,22 +163,24 @@ function BookingFormFields({
             getPackageBookingValue(entry.category, entry.pkg),
           location: prefilledLocation || current.location,
           message:
-            fromConcierge && prefilledMessage
+            (fromConcierge || fromVision) && prefilledMessage
               ? prefilledMessage
               : current.message,
         }));
-        if (storedPrefill) clearConciergePrefill();
+        if (storedConciergePrefill) clearConciergePrefill();
+        if (storedVisionPrefill) clearVisionPrefill();
         return;
       }
     }
 
-    if (fromConcierge && (prefilledMessage || prefilledLocation)) {
+    if ((fromConcierge || fromVision) && (prefilledMessage || prefilledLocation)) {
       setForm((current) => ({
         ...current,
         location: prefilledLocation || current.location,
         message: prefilledMessage ? prefilledMessage : current.message,
       }));
-      if (storedPrefill) clearConciergePrefill();
+      if (storedConciergePrefill) clearConciergePrefill();
+      if (storedVisionPrefill) clearVisionPrefill();
     }
   }, [searchParams, initialPackage]);
 
