@@ -185,6 +185,77 @@ textarea:focus-visible {
   }
 }
 
+/* Brand loader — cinematic splash + route transitions */
+.brand-loader-grain {
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.brand-loader-vignette {
+  background: radial-gradient(
+    circle at 50% 45%,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 72%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+}
+
+.brand-loader-aperture {
+  position: relative;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 48px rgba(200, 169, 106, 0.12);
+  animation: brand-aperture-spin 14s linear infinite;
+}
+
+.brand-loader-aperture-blade {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  height: 52%;
+  margin-left: -26%;
+  margin-top: -26%;
+  transform-origin: 50% 100%;
+  background: linear-gradient(
+    to top,
+    rgba(8, 7, 6, 0.95) 0%,
+    rgba(8, 7, 6, 0.55) 58%,
+    transparent 100%
+  );
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.brand-loader-scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(200, 169, 106, 0.08) 42%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(200, 169, 106, 0.08) 58%,
+    transparent
+  );
+  opacity: 0.75;
+}
+
+@keyframes brand-aperture-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-loader-aperture {
+    animation: none;
+  }
+}
+
 /* Capture Concierge floating button — safe area + compact mobile */
 .concierge-fab-anchor {
   right: max(1.25rem, env(safe-area-inset-right, 0px));
