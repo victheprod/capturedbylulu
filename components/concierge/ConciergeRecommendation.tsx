@@ -10,12 +10,16 @@ import { cn } from "@/lib/utils";
 type ConciergeRecommendationProps = {
   recommendation: ConciergeRecommendation;
   onRestart: () => void;
+  onInquire?: () => void;
+  compact?: boolean;
   className?: string;
 };
 
 export function ConciergeRecommendationReveal({
   recommendation,
   onRestart,
+  onInquire,
+  compact,
   className,
 }: ConciergeRecommendationProps) {
   const {
@@ -52,26 +56,30 @@ export function ConciergeRecommendationReveal({
           transition={{ delay: 0.15 }}
           className="text-[11px] tracking-[0.32em] uppercase text-primary"
         >
-          Your curated recommendation
+          Based on what you shared
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.22, duration: 0.7 }}
-          className="mt-4 font-serif text-[clamp(2rem,5vw,3.5rem)] font-light leading-[1.08] text-foreground"
-        >
-          The <span className="text-primary/90">{pkg.name}</span> experience
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/55"
-        >
-          Based on your consultation, this {category.toLowerCase()} package is
-          the strongest match for your vision, coverage needs, and investment
-          comfort.
-        </motion.p>
+          className={cn(
+          "mt-4 font-serif font-light leading-[1.08] text-foreground",
+          compact
+            ? "text-[clamp(1.75rem,4vw,2.5rem)]"
+            : "text-[clamp(2rem,5vw,3.5rem)]",
+        )}
+      >
+        This feels like your <span className="text-primary/90">best fit</span>
+      </motion.h2>
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-foreground/55"
+      >
+        The {pkg.name} {category.toLowerCase()} package aligns with your vision,
+        coverage needs, and investment comfort.
+      </motion.p>
       </div>
 
       <motion.div
@@ -219,8 +227,12 @@ export function ConciergeRecommendationReveal({
         transition={{ delay: 0.72 }}
         className="flex flex-col items-center justify-center gap-4 sm:flex-row"
       >
-        <Button href={contactHref} className="min-w-[260px]">
-          Inquire with answers prefilled
+        <Button
+          href={contactHref}
+          className="min-w-[240px]"
+          onClick={onInquire}
+        >
+          Begin your inquiry
           <ArrowRight size={14} />
         </Button>
         <button
