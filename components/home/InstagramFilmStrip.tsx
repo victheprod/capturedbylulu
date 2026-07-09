@@ -23,7 +23,7 @@ export function InstagramFilmStrip() {
   const stripX = useTransform(scrollYProgress, [0, 1], ["2%", "-8%"]);
 
   return (
-    <section ref={ref} className="overflow-hidden border-y border-foreground/10 bg-surface py-20 lg:py-28">
+    <section ref={ref} className="relative -mt-4 overflow-hidden py-16 lg:-mt-8 lg:py-24">
       <div className="mx-auto mb-12 max-w-7xl px-6 lg:px-10">
         <FadeIn className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -53,9 +53,11 @@ export function InstagramFilmStrip() {
       </div>
 
       <motion.div
-        className="flex gap-3 px-6 lg:gap-4 lg:px-10"
+        className="relative flex gap-3 px-6 lg:gap-4 lg:px-10"
         style={reduced ? undefined : { x: stripX }}
       >
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-background to-transparent lg:w-16" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-background to-transparent lg:w-16" />
         {photos.map(({ src, objectPosition }, i) => (
           <a
             key={src}

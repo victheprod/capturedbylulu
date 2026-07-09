@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { SectionBlend } from "@/components/ui/SectionBlend";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 
 type LuxuryBookingCTAProps = {
@@ -44,9 +45,10 @@ export function LuxuryBookingCTA({
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#14110e]"
+      className="relative -mt-8 overflow-hidden bg-[#14110e] lg:-mt-12"
       aria-labelledby="booking-cta-heading"
     >
+      <SectionBlend position="top" tone="background" size="lg" />
       <div className="grid min-h-[85dvh] grid-cols-1 lg:grid-cols-2">
         <div className="relative z-10 flex flex-col justify-center px-6 py-20 lg:px-14 lg:py-28 xl:px-20">
           <motion.p

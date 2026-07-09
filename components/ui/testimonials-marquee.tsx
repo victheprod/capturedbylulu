@@ -59,8 +59,8 @@ export function TestimonialsMarquee({
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-16 bg-gradient-to-r from-surface to-transparent sm:block md:w-28 lg:w-40" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-16 bg-gradient-to-l from-surface to-transparent sm:block md:w-28 lg:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-16 bg-gradient-to-r from-background to-transparent sm:block md:w-28 lg:w-40" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-16 bg-gradient-to-l from-background to-transparent sm:block md:w-28 lg:w-40" />
       </div>
 
       <div className="mx-auto mt-12 max-w-xl px-6 text-center lg:mt-14 lg:px-10">

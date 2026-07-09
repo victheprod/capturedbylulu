@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { SectionBlend } from "@/components/ui/SectionBlend";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 
 export function PhilosophyInterlude() {
@@ -27,9 +28,10 @@ export function PhilosophyInterlude() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[115dvh] overflow-hidden bg-[#14110e]"
+      className="relative -mt-[18vh] min-h-[100dvh] overflow-hidden bg-[#14110e] lg:-mt-[22vh]"
       aria-labelledby="philosophy-heading"
     >
+      <SectionBlend position="top" tone="background" size="xl" />
       <motion.div
         className="absolute inset-0"
         style={reduced ? undefined : { y: imageY }}
@@ -42,11 +44,11 @@ export function PhilosophyInterlude() {
           sizes="100vw"
           className="scale-105 opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/75 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background/95" />
         <FilmGrain opacity={0.05} />
       </motion.div>
 
-      <div className="relative z-10 mx-auto flex min-h-[115dvh] max-w-5xl flex-col items-center justify-center px-6 py-32 text-center lg:px-10">
+      <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-5xl flex-col items-center justify-center px-6 py-28 text-center lg:px-10 lg:py-36">
         <motion.p
           style={reduced ? undefined : { opacity: quoteOpacity, y: quoteY }}
           className="mb-6 text-[11px] tracking-[0.35em] uppercase text-primary"
@@ -69,6 +71,7 @@ export function PhilosophyInterlude() {
           — Lulu · CapturedByLulu
         </motion.p>
       </div>
+      <SectionBlend position="bottom" tone="background" size="lg" />
     </section>
   );
 }

@@ -13,9 +13,9 @@ function CategorySeparator() {
 
 export function EditorialTrustStrip() {
   return (
-    <div className="border-y border-foreground/8 bg-background/80 py-7 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <p className="flex flex-wrap items-center justify-center text-center text-[10px] tracking-[0.2em] uppercase text-foreground/40 sm:text-[11px] sm:tracking-[0.22em]">
+    <div className="relative z-30 -mt-4 px-6 lg:-mt-8 lg:px-10">
+      <div className="glass-panel-subtle mx-auto max-w-5xl px-6 py-6 sm:px-10 sm:py-7">
+        <p className="flex flex-wrap items-center justify-center text-center text-[10px] tracking-[0.2em] uppercase text-foreground/45 sm:text-[11px] sm:tracking-[0.22em]">
           {serviceCategories.map((category, index) => (
             <span key={category} className="inline-flex items-center">
               <span>{category}</span>
@@ -34,14 +34,14 @@ export function EditorialTrustStrip() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-center text-[10px] tracking-[0.2em] uppercase text-foreground/35 transition-colors hover:text-primary sm:text-[11px]"
+                className="text-center text-[10px] tracking-[0.2em] uppercase text-foreground/40 transition-colors hover:text-primary sm:text-[11px]"
               >
                 {item.label}
               </a>
             ) : (
               <span
                 key={item.label}
-                className="text-center text-[10px] tracking-[0.2em] uppercase text-foreground/35 sm:text-[11px]"
+                className="text-center text-[10px] tracking-[0.2em] uppercase text-foreground/40 sm:text-[11px]"
               >
                 {item.label}
               </span>

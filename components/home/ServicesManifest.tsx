@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 export function ServicesManifest() {
   return (
-    <section className="relative overflow-hidden bg-background py-24 lg:py-36">
+    <section className="relative -mt-6 overflow-hidden bg-background py-20 lg:-mt-10 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <FadeIn className="mb-12 max-w-2xl lg:mb-16">
           <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
@@ -76,6 +76,13 @@ export function ServicesManifest() {
             className="text-[11px] tracking-[0.18em] uppercase text-foreground/45 transition-colors hover:text-foreground"
           >
             Not sure yet? Start a conversation →
+          </Link>
+          <span className="hidden h-px w-16 bg-foreground/15 lg:block" aria-hidden />
+          <Link
+            href="/concierge"
+            className="text-[11px] tracking-[0.18em] uppercase text-primary/80 transition-colors hover:text-primary"
+          >
+            Find my package with Concierge →
           </Link>
         </FadeIn>
       </div>

@@ -15,14 +15,14 @@ const HOME_GALLERY_EXCLUDE_IDS = [
 
 export function GalleryPassage() {
   return (
-    <div className="relative bg-background">
-      <div className="mx-auto max-w-7xl px-6 pb-4 pt-20 lg:px-10 lg:pt-28">
+    <div className="relative -mt-8 bg-background lg:-mt-12">
+      <div className="mx-auto max-w-7xl px-6 pb-2 pt-12 lg:px-10 lg:pt-20">
         <FadeIn className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-2xl">
             <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
               The Collection
             </p>
-            <h2 className="font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
+            <h2 className="text-balance font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
               Walk through the work —{" "}
               <span className="text-foreground/45">not a grid, a gallery.</span>
             </h2>

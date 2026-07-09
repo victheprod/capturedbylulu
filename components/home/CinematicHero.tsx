@@ -12,6 +12,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { FilmGrain } from "@/components/ui/FilmGrain";
+import { SectionBlend } from "@/components/ui/SectionBlend";
 import { siteBranding } from "@/data/site";
 import { siteImages } from "@/data/portfolio";
 import { framingForSrc } from "@/lib/photo-framing";
@@ -58,7 +59,7 @@ export function CinematicHero({
   return (
     <section
       ref={ref}
-      className="relative min-h-[100dvh] overflow-hidden bg-background"
+      className="relative z-10 min-h-[100dvh] overflow-hidden bg-background"
     >
       {/* Opening curtain */}
       <AnimatePresence>
@@ -167,6 +168,8 @@ export function CinematicHero({
           </div>
         </motion.div>
       </div>
+
+      <SectionBlend position="bottom" tone="deep" size="xl" className="z-[2]" />
 
       <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 lg:left-10 lg:translate-x-0">
         <span className="text-[10px] tracking-[0.35em] uppercase text-foreground/35">

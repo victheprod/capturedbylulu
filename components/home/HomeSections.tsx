@@ -292,19 +292,9 @@ export function TestimonialsSection({
   }));
 
   return (
-    <>
-      <SectionDivider />
-      <Section
-        tone="surface"
-        bordered
-        className="px-0 lg:px-0"
-        innerClassName="max-w-none"
-      >
-        <FadeIn>
-          <TestimonialsMarquee testimonials={marqueeItems} />
-        </FadeIn>
-      </Section>
-    </>
+    <section className="relative -mt-6 overflow-hidden bg-background py-20 lg:-mt-10 lg:py-28">
+      <TestimonialsMarquee testimonials={marqueeItems} />
+    </section>
   );
 }
 

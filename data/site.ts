@@ -49,6 +49,11 @@ export const servicesNavTabs = [
     title: "Plan",
     links: [
       {
+        label: "Capture Concierge",
+        href: "/concierge",
+        description: "A guided consultation to find your perfect package.",
+      },
+      {
         label: "Pricing",
         href: "/services",
         description: "Transparent packages for every session type.",
@@ -81,6 +86,7 @@ export const mobileNavGroups = [
       { label: "Portfolio", href: "/portfolio" },
       { label: "Weddings", href: "/weddings" },
       { label: "Services & Pricing", href: "/services" },
+      { label: "Capture Concierge", href: "/concierge" },
       { label: "Brand Photography", href: "/brand-photography" },
     ],
   },

@@ -111,7 +111,7 @@ function NativeScrollShowcase({
   hideHeader?: boolean;
 }) {
   return (
-    <section className="border-b border-foreground/10 bg-background pb-12">
+    <section className="bg-background pb-12">
       {!hideHeader && <ShowcaseHeader count={items.length} />}
       <div
         className={cn(

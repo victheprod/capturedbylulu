@@ -9,7 +9,6 @@ import { TestimonialsSection } from "@/components/home/HomeSections";
 import { InstagramFilmStrip } from "@/components/home/InstagramFilmStrip";
 import { LuxuryBookingCTA } from "@/components/home/LuxuryBookingCTA";
 import { SignatureMark } from "@/components/ui/SignatureMark";
-import { EditorialDivider } from "@/components/ui/EditorialDivider";
 import { getFeaturedTestimonials } from "@/lib/cms/testimonials";
 import { getPublicContent } from "@/lib/cms/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -54,7 +53,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <>
+    <div className="editorial-flow">
       <CinematicHero
         eyebrow={heroContent?.eyebrow ?? "Texas Based"}
         title={heroTitleFromContent(heroContent?.title)}
@@ -64,14 +63,11 @@ export default async function HomePage() {
         }
       />
       <PhilosophyInterlude />
-      <SignatureMark />
+      <SignatureMark variant="floating" />
       <EditorialTrustStrip />
-      <EditorialDivider className="py-0" />
       <GalleryPassage />
-      <EditorialDivider className="py-12" />
       <ServicesManifest />
       <AboutEditorial />
-      <EditorialDivider tone="inverted" className="py-8" />
       <TestimonialsSection testimonials={testimonials} />
       <InstagramFilmStrip />
       <LuxuryBookingCTA
@@ -80,6 +76,6 @@ export default async function HomePage() {
         description={ctaContent?.description}
         ctaLabel={ctaContent?.ctaLabel}
       />
-    </>
+    </div>
   );
 }

@@ -141,7 +141,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
           </FadeIn>
 
           <FadeIn delay={0.1} className="order-1 lg:order-2">
-            <div className="border border-foreground/10 bg-card/30 p-6 sm:p-9 lg:p-10">
+            <div className="glass-panel p-6 sm:p-9 lg:p-10">
               <BookingForm
                 packageGroups={packageGroups}
                 blockedDates={blockedDates}

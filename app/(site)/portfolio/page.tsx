@@ -23,8 +23,8 @@ export default async function PortfolioPage() {
     <div className="bg-background">
       <PortfolioEditorialIntro />
       <PortfolioScrollShowcase />
-      <SignatureMark />
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+      <SignatureMark variant="floating" />
+      <div className="relative -mt-6 mx-auto max-w-7xl px-6 py-16 lg:-mt-10 lg:px-10 lg:py-24">
         <FadeIn className="mb-14 max-w-2xl">
           <p className="mb-4 text-[11px] tracking-[0.28em] uppercase text-primary">
             The archive

@@ -28,7 +28,7 @@ export function AboutEditorial() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-background py-28 lg:py-40"
+      className="relative -mt-4 overflow-hidden bg-background py-24 lg:-mt-8 lg:py-36"
       aria-labelledby="about-editorial-heading"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-12 lg:gap-8 lg:px-10">
@@ -47,7 +47,7 @@ export function AboutEditorial() {
           </motion.div>
 
           <motion.div
-            className="absolute -bottom-6 -right-2 z-10 max-w-[220px] border border-foreground/10 bg-background/90 p-5 backdrop-blur-sm sm:-right-8 lg:-bottom-10 lg:-right-12"
+            className="glass-panel absolute -bottom-6 -right-2 z-10 max-w-[220px] p-5 sm:-right-8 lg:-bottom-10 lg:-right-12"
             style={reduced ? undefined : { y: floatY }}
           >
             <p className="font-serif text-4xl font-light text-primary">TX</p>

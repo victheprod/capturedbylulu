@@ -37,8 +37,18 @@ export default async function ServicesPage() {
       />
 
       <div className="mx-auto max-w-5xl px-6 pb-24 lg:px-10">
-        <FadeIn className="mb-14">
+        <FadeIn className="mb-14 max-w-2xl">
           <PricingNotes />
+          <p className="mt-8 text-sm leading-relaxed text-foreground/55">
+            Not sure where to begin?{" "}
+            <a
+              href="/concierge"
+              className="text-primary transition-colors hover:text-foreground"
+            >
+              Try Capture Concierge
+            </a>{" "}
+            — a brief guided consultation that recommends the right package for you.
+          </p>
         </FadeIn>
 
         <ServiceExperienceShowcase categories={serviceCategories} />
@@ -112,15 +122,24 @@ export default async function ServicesPage() {
           </FadeInStagger>
         </FadeIn>
 
-        <FadeIn className="border border-primary/20 bg-surface px-8 py-14 text-center lg:px-16">
+        <FadeIn className="glass-panel px-8 py-14 text-center lg:px-16">
           <h2 className="mb-4 font-serif text-3xl font-light text-foreground lg:text-4xl">
             Not sure which experience is right?
           </h2>
           <p className="mx-auto mb-8 max-w-md leading-relaxed text-foreground/58">
-            Let&apos;s chat. Lulu will help you choose the perfect session — no
-            pressure, just a friendly conversation.
+            Start with{" "}
+            <a href="/concierge" className="text-primary hover:text-foreground">
+              Capture Concierge
+            </a>{" "}
+            for a personalized recommendation — or reach out for a friendly conversation
+            with Lulu.
           </p>
-          <Button href="/contact">Begin your inquiry</Button>
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button href="/concierge">Find my package</Button>
+            <Button href="/contact" variant="outline">
+              Begin your inquiry
+            </Button>
+          </div>
         </FadeIn>
       </div>
     </>

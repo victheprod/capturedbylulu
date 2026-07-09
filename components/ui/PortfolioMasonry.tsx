@@ -104,7 +104,7 @@ export function PortfolioMasonry({
 
   return (
     <>
-      <div className="mb-10 flex flex-col gap-6 border-b border-foreground/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mb-10 flex flex-col gap-6 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <div className="mb-4 flex flex-wrap gap-2">
             <LayoutGroup id="portfolio-filters">
@@ -116,7 +116,7 @@ export function PortfolioMasonry({
                     type="button"
                     onClick={() => setActiveFilter(filter)}
                     className={cn(
-                      "relative px-4 py-2 text-[10px] tracking-[0.18em] uppercase transition-colors duration-300 sm:px-5 sm:text-[11px]",
+                      "relative px-4 py-2.5 text-[10px] tracking-[0.18em] uppercase transition-colors duration-300 sm:px-5 sm:text-[11px]",
                       isActive
                         ? "text-primary-foreground"
                         : "text-foreground/50 hover:text-foreground/80",
@@ -125,8 +125,8 @@ export function PortfolioMasonry({
                     {isActive && (
                       <motion.span
                         layoutId="portfolio-filter-pill"
-                        className="absolute inset-0 border border-primary bg-primary"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        className="absolute inset-0 border border-primary/80 bg-primary shadow-[0_4px_24px_rgba(200,169,106,0.15)]"
+                        transition={{ type: "spring", stiffness: 380, damping: 28 }}
                       />
                     )}
                     <span className="relative z-10">{filter}</span>

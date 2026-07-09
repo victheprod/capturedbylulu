@@ -24,8 +24,8 @@ export function TestimonialCard({
   const Card = (
     <article
       className={cn(
-        "flex h-full w-[min(100vw-3rem,22rem)] shrink-0 flex-col border border-foreground/10 bg-card p-7 sm:w-[24rem] sm:p-8",
-        href && "transition-colors duration-300 hover:border-primary/30",
+        "glass-panel-subtle flex h-full w-[min(100vw-3rem,22rem)] shrink-0 flex-col p-7 sm:w-[24rem] sm:p-8",
+        href && "transition-all duration-500 hover:border-primary/20 hover:shadow-[0_8px_40px_rgba(0,0,0,0.25)]",
         className,
       )}
     >
