@@ -87,12 +87,15 @@ function collectEssentialIds() {
   return ids;
 }
 
-function listCategoryFiles(category) {
+function listCategoryFiles(category, { includeDuplicates = false } = {}) {
   const dir = path.join(portfolioRoot, category);
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
-    .filter((name) => IMAGE_EXT.test(name) && !isDuplicateExport(name))
+    .filter(
+      (name) =>
+        IMAGE_EXT.test(name) && (includeDuplicates || !isDuplicateExport(name)),
+    )
     .map((name) => {
       const abs = path.join(dir, name);
       const base = name.replace(/\.(jpe?g|png|webp)$/i, "");
@@ -101,12 +104,14 @@ function listCategoryFiles(category) {
         abs,
         size: fs.statSync(abs).size,
         name,
+        duplicate: isDuplicateExport(name),
       };
     });
 }
 
+/** Camera export duplicates like DSC02748_1.jpg / foo_abcd.jpg */
 function isDuplicateExport(file) {
-  return /_[A-Za-z0-9]+\.jpe?g$/i.test(file);
+  return /_[A-Za-z0-9]+\.(jpe?g|png|webp)$/i.test(file);
 }
 
 function buildKeepSet(essentialIds, sparePerCategory, targetBytes) {
@@ -190,7 +195,13 @@ function main() {
 
   const keep = buildKeepSet(essentialIds, sparePerCategory, targetBytes);
   const allFiles = CATEGORIES.flatMap((c) => listCategoryFiles(c));
-  const toDelete = allFiles.filter((f) => !keep.has(f.abs));
+  const duplicates = CATEGORIES.flatMap((c) =>
+    listCategoryFiles(c, { includeDuplicates: true }).filter((f) => f.duplicate),
+  );
+  const toDelete = [
+    ...allFiles.filter((f) => !keep.has(f.abs)),
+    ...duplicates,
+  ];
 
   const redundantPaths = ["_web", "_hero", "tmp-hero-preview"].map((d) =>
     path.join(portfolioRoot, d),
@@ -200,7 +211,9 @@ function main() {
   console.log(`Spare per category: ${sparePerCategory}`);
   if (targetBytes) console.log(`Target library size: ${formatBytes(targetBytes)}`);
   console.log(`Keeping: ${keep.size} portfolio files`);
-  console.log(`Removing: ${toDelete.length} portfolio files`);
+  console.log(
+    `Removing: ${toDelete.length} portfolio files (${duplicates.length} duplicate exports)`,
+  );
   console.log(
     `Removing redundant paths: ${redundantPaths.filter(fs.existsSync).join(", ") || "(none)"}`,
   );
