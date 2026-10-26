@@ -62,18 +62,18 @@ export default async function WeddingsPage() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
           <FadeIn>
             <p className="mb-7 font-serif text-2xl font-light italic leading-relaxed text-foreground lg:text-3xl">
-              &ldquo;A wedding photograph should feel like a whisper — intimate,
-              honest, and unforgettable.&rdquo;
+              Weddings don&apos;t run on a script, and the photos
+              shouldn&apos;t look like they did.
             </p>
             <p className="mb-4 leading-relaxed text-foreground/58">
-              Lulu approaches every wedding as a visual love story — weaving
-              together the grand moments and the quiet ones, the laughter and the
-              tears, the chaos and the stillness.
+              Lulu covers the planned moments and the ones nobody planned: the
+              first look, the toast that runs long, your aunt taking over the
+              dance floor.
             </p>
             <p className="leading-relaxed text-foreground/58">
-              With a documentary heart and an editorial eye, he captures the
-              truth of your day while crafting imagery that feels completely
-              timeless.
+              Most of the day he works quietly in the background. When it&apos;s
+              time for portraits, he steps in and directs, so you end up with
+              honest moments and photos worth framing.
             </p>
           </FadeIn>
           <FadeInStagger className="grid grid-cols-2 gap-3">

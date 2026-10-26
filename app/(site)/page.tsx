@@ -8,7 +8,6 @@ import { AboutEditorial } from "@/components/home/AboutEditorial";
 import { TestimonialsSection } from "@/components/home/HomeSections";
 import { InstagramFilmStrip } from "@/components/home/InstagramFilmStrip";
 import { LuxuryBookingCTA } from "@/components/home/LuxuryBookingCTA";
-import { SignatureMark } from "@/components/ui/SignatureMark";
 import { getFeaturedTestimonials } from "@/lib/cms/testimonials";
 import { getPublicContent } from "@/lib/cms/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -17,37 +16,46 @@ import { siteBranding } from "@/data/site";
 export const metadata: Metadata = pageMetadata({
   title: "Texas-Based Luxury Photography",
   description:
-    "Texas-based luxury photography for weddings, portraits, families, and events. Cinematic, editorial imagery by Lulu at CapturedByLulu.",
+    "Lulu photographs weddings, portraits, families, and events across Texas. See the work and request an estimate online.",
   path: "/",
   image: siteBranding.ogImage,
 });
+
+const HERO_SUBTITLE =
+  "Lulu photographs weddings, portraits, families, and events across Texas, and travels when the shoot calls for it.";
 
 function heroTitleFromContent(title?: string) {
   if (!title || title.toLowerCase().includes("breathe")) {
     return (
       <>
-        Photographs that{" "}
-        <em className="not-italic text-primary/90">breathe</em> with emotion
+        Photos that look like you on your{" "}
+        <em className="not-italic text-primary/90">best</em> day.
       </>
     );
   }
   return title;
 }
 
+function heroSubtitleFromContent(subtitle?: string) {
+  if (!subtitle || subtitle.toLowerCase().includes("every frame is crafted")) {
+    return HERO_SUBTITLE;
+  }
+  return subtitle;
+}
+
 export default async function HomePage() {
   const [testimonials, heroContent, ctaContent] = await Promise.all([
     getFeaturedTestimonials(),
     getPublicContent("hero", {
-      eyebrow: "Texas Based",
-      title: "Photographs that breathe with emotion",
-      subtitle:
-        "Luxury photography for weddings, portraits, families, and events. Every frame is crafted to tell your story.",
+      eyebrow: "Photographer · Texas",
+      title: "",
+      subtitle: HERO_SUBTITLE,
     }),
     getPublicContent("cta", {
-      eyebrow: "Begin the experience",
-      title: "Your story deserves more than a form.",
+      eyebrow: "Estimates",
+      title: "Tell Lulu what you're planning.",
       description:
-        "Tell Lulu what you're dreaming of — weddings, portraits, families, or any event. Request an estimate online; Lulu finalizes every quotation by email within 24–48 hours.",
+        "Send the date, the place, and the idea. Lulu replies by email with a price, usually within a day or two. Nothing is booked until you both agree.",
       ctaLabel: "Get an estimate",
     }),
   ]);
@@ -55,15 +63,11 @@ export default async function HomePage() {
   return (
     <div className="editorial-flow">
       <CinematicHero
-        eyebrow={heroContent?.eyebrow ?? "Texas Based"}
+        eyebrow={heroContent?.eyebrow || "Photographer · Texas"}
         title={heroTitleFromContent(heroContent?.title)}
-        subtitle={
-          heroContent?.subtitle ??
-          "Luxury photography for weddings, portraits, families, and events. Every frame is crafted to tell your story."
-        }
+        subtitle={heroSubtitleFromContent(heroContent?.subtitle)}
       />
       <PhilosophyInterlude />
-      <SignatureMark variant="floating" />
       <EditorialTrustStrip />
       <GalleryPassage />
       <ServicesManifest />

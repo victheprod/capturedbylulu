@@ -37,7 +37,7 @@ export function InstagramFilmStrip() {
               {siteConfig.instagram}
             </a>
             <h2 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-light text-foreground">
-              Behind the lens, in real time
+              More on Instagram
             </h2>
           </div>
           <Link

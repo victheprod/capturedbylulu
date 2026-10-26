@@ -11,7 +11,7 @@ type PortfolioEditorialIntroProps = {
 export function PortfolioEditorialIntro({
   eyebrow = "CapturedByLulu",
   title = "An exhibition of light, love, and life",
-  description = "Scroll through curated chapters — then browse the full archive. Every image is a frame from a real story across Texas and beyond.",
+  description = "Start with the highlights, then browse everything. It's all real client work from Texas and beyond.",
 }: PortfolioEditorialIntroProps) {
   return (
     <section className="px-6 pb-8 pt-28 lg:px-10 lg:pb-12 lg:pt-32">

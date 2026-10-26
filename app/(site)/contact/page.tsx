@@ -25,13 +25,6 @@ export const metadata: Metadata = pageMetadata({
   image: siteImages.contactBanner,
 });
 
-const nextSteps = [
-  { n: "01", t: "Your estimate request emails Lulu directly" },
-  { n: "02", t: "You receive a custom quotation within 24–48 hours" },
-  { n: "03", t: "Finalize details together — nothing is booked online" },
-  { n: "04", t: "Approve the quote with Lulu to reserve your date" },
-];
-
 type PageProps = {
   searchParams: Promise<{ package?: string }>;
 };
@@ -61,16 +54,13 @@ export default async function ContactPage({ searchParams }: PageProps) {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <FadeIn className="order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
-            <p className="mb-3 text-[11px] tracking-[0.28em] uppercase text-primary">
-              Direct line to Lulu
-            </p>
             <h2 className="font-serif text-3xl font-light text-foreground lg:text-4xl">
-              Prefer to reach out directly?
+              The form goes straight to Lulu.
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-foreground/55">
-              Prefer email? Write {site.email} for an estimate or a customized
-              special quotation for any event. Share date, session type,
-              location, and anything else that helps Lulu shape your quote.
+              No email app needed. Fill it out here and Lulu gets your request
+              in his inbox, then replies with a quote, usually within a day or
+              two. If you&apos;d rather text or DM, that works too.
             </p>
 
             <div className="mb-10 mt-10 space-y-5">
@@ -119,25 +109,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
               ))}
             </div>
 
-            <PricingNotes className="mb-10" showDeposit={false} />
-
-            <div className="border-t border-foreground/10 pt-10">
-              <p className="mb-6 text-[11px] tracking-[0.22em] uppercase text-primary">
-                What happens next
-              </p>
-              <div className="space-y-5">
-                {nextSteps.map((step) => (
-                  <div key={step.n} className="flex items-start gap-4">
-                    <span className="font-serif text-xl font-light text-primary/50">
-                      {step.n}
-                    </span>
-                    <span className="pt-0.5 text-sm leading-relaxed text-foreground/58">
-                      {step.t}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <PricingNotes showDeposit={false} />
           </FadeIn>
 
           <FadeIn delay={0.1} className="order-1 lg:order-2">

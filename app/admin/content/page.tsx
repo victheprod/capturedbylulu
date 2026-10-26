@@ -8,10 +8,10 @@ export default async function AdminContentPage() {
 
   const defaults = {
     hero: {
-      eyebrow: "San Antonio, Texas",
-      title: "Photographs that breathe with emotion",
+      eyebrow: "Photographer · Texas",
+      title: "Photos that look like you on your best day.",
       subtitle:
-        "Luxury photography for weddings, portraits, families, and brands.",
+        "Lulu photographs weddings, portraits, families, and events across Texas, and travels when the shoot calls for it.",
     },
     about: {
       eyebrow: "About Lulu",

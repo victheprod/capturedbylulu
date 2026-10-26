@@ -20,11 +20,10 @@ export function ServicesManifest() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <FadeIn className="mb-12 max-w-2xl lg:mb-16">
           <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
-            Experiences
+            Services
           </p>
           <h2 className="font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
-            Four ways to be photographed —{" "}
-            <span className="text-foreground/40">each with its own rhythm.</span>
+            What Lulu shoots.
           </h2>
         </FadeIn>
 
@@ -72,10 +71,10 @@ export function ServicesManifest() {
           </Link>
           <span className="hidden h-px w-16 bg-foreground/15 lg:block" aria-hidden />
           <Link
-            href="/contact"
-            className="text-[11px] tracking-[0.18em] uppercase text-primary/80 transition-colors hover:text-primary"
+            href="/contact?quote=custom"
+            className="text-sm text-foreground/55 underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary"
           >
-            Not sure yet? Get an estimate →
+            Planning something that isn&apos;t listed? Ask for a custom quote.
           </Link>
         </FadeIn>
       </div>
@@ -153,15 +152,11 @@ function ServiceRow({
             isEven ? "col-start-9 pl-4" : "col-start-1 pr-4 text-right",
           )}
         >
-          <span className="mb-3 font-serif text-6xl font-light text-foreground/10 transition-colors duration-500 group-hover:text-primary/25">
-            {String(index + 1).padStart(2, "0")}
-          </span>
           <h3 className="font-serif text-4xl font-light text-foreground">
             {item.label}
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-foreground/50">
-            {descriptions[item.label] ??
-              "Tailored sessions with Lulu's signature cinematic style."}
+            {descriptions[item.label] ?? "Packages and pricing on the services page."}
           </p>
           <span className="mt-5 inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-primary opacity-0 transition-all duration-400 group-hover:opacity-100">
             Explore
@@ -178,10 +173,10 @@ function ServiceRow({
 
 const descriptions: Record<string, string> = {
   Weddings:
-    "Intimate ceremonies to full-day celebrations — every glance, every vow.",
+    "Courthouse vows to full-day celebrations, with coverage sized to your day.",
   Portraits:
-    "Editorial headshots and personal portraits with depth and intention.",
+    "Headshots, birthdays, graduations, and personal shoots. Lulu directs, so you're never guessing what to do with your hands.",
   Families:
-    "Warm, honest sessions that capture the way you actually love each other.",
-  Events: "Milestone moments documented with energy and elegance.",
+    "Relaxed sessions for the whole crew, kids and grandparents included.",
+  Events: "Birthdays, parties, and corporate events, covered start to finish.",
 };

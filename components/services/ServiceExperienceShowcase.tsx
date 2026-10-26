@@ -25,7 +25,7 @@ const categoryStories: Record<string, { headline: string; story: string }> = {
     {
       headline: "Milestone moments, documented with energy.",
       story:
-        "Birthdays, celebrations, and gatherings captured with cinematic presence — every toast, dance, and detail worth remembering.",
+        "Birthdays, parties, and gatherings, covered start to finish: the toasts, the dance floor, and the details you spent weeks on.",
     },
   Headshots:
     {
@@ -52,7 +52,7 @@ export function ServiceExperienceShowcase({
         const story =
           categoryStories[category.category] ?? {
             headline: `${category.category} sessions`,
-            story: "Tailored photography with Lulu's signature cinematic style.",
+            story: "Packages and pricing below.",
           };
 
         return (

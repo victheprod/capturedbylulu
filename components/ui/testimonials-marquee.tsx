@@ -22,8 +22,8 @@ type TestimonialsMarqueeProps = {
 
 export function TestimonialsMarquee({
   title = "What clients are saying",
-  description = "Real words from real sessions — weddings, portraits, birthdays, and events across Texas.",
-  eyebrow = "Client Love",
+  description = "From weddings, portraits, birthdays, and events across Texas.",
+  eyebrow = "Reviews",
   testimonials,
   className,
 }: TestimonialsMarqueeProps) {

@@ -66,12 +66,11 @@ export function AboutEditorial() {
             id="about-editorial-heading"
             className="font-serif text-[clamp(2rem,4.5vw,3.25rem)] font-light leading-[1.1] text-foreground"
           >
-            A photographer who sees what others feel
+            Hi, I&apos;m Lulu.
           </h2>
           <p className="mt-6 text-sm leading-relaxed text-foreground/58 lg:text-[0.95rem]">
-            CapturedByLulu is Lulu&apos;s Texas-based studio — weddings, portraits,
-            families, and events across Texas and beyond. Cinematic, editorial,
-            and deeply personal.
+            I run CapturedByLulu out of Texas. I photograph weddings, portraits,
+            families, and events here, and I travel when a shoot calls for it.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-foreground/58 lg:text-[0.95rem]">
             Follow along at{" "}

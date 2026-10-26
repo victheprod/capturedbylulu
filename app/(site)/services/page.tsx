@@ -30,8 +30,8 @@ export default async function ServicesPage() {
     <>
       <PageEditorialIntro
         eyebrow="Investment"
-        title="Sessions crafted like experiences — not transactions."
-        description="Every package includes a private online gallery and Lulu's signature editing. Explore each session type, then request an estimate — Lulu finalizes quotations by email."
+        title="Packages and pricing."
+        description="Every package includes a private online gallery and Lulu's editing. Pick a session type below and request an estimate. Lulu confirms the final price by email."
         imageSrc={siteImages.servicesBanner}
         dark
       />

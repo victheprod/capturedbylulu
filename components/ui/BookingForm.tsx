@@ -127,6 +127,14 @@ function BookingFormFields({
       }));
       return;
     }
+    if (searchParams.get("quote") === "custom") {
+      setForm((current) => ({
+        ...current,
+        sessionType: current.sessionType || "Other / Not sure",
+        package: CUSTOM_QUOTE_PACKAGE,
+      }));
+      return;
+    }
     if (searchParams.get("review") === "1") {
       setForm((current) => ({
         ...current,
@@ -198,7 +206,8 @@ function BookingFormFields({
       ...current,
       sessionType,
       package:
-        sessionType && current.package.startsWith(`${sessionType} —`)
+        current.package === CUSTOM_QUOTE_PACKAGE ||
+        (sessionType && current.package.startsWith(`${sessionType} —`))
           ? current.package
           : "",
     }));
@@ -385,14 +394,44 @@ function BookingFormFields({
                   Step one
                 </p>
                 <h3 className="mt-2 font-serif text-2xl font-light text-foreground lg:text-3xl">
-                  Choose your experience
+                  What are we photographing?
                 </h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/50">
-                  Pick a starting package for an estimate — or request a custom
-                  special quotation for any event. Lulu finalizes everything by
-                  email.
+                  Pick the closest session and package. If it&apos;s something
+                  else entirely, ask for a custom quote below.
                 </p>
               </div>
+              <button
+                type="button"
+                onClick={() =>
+                  setForm((current) => ({
+                    ...current,
+                    sessionType: current.sessionType || "Other / Not sure",
+                    package: CUSTOM_QUOTE_PACKAGE,
+                  }))
+                }
+                className={cn(
+                  "flex w-full items-center justify-between gap-4 border px-5 py-4 text-left transition-colors duration-300",
+                  form.package === CUSTOM_QUOTE_PACKAGE
+                    ? "border-primary bg-primary/10"
+                    : "border-foreground/15 hover:border-primary/60",
+                )}
+              >
+                <span>
+                  <span className="block text-sm font-medium text-foreground">
+                    Request a custom quote
+                  </span>
+                  <span className="mt-1 block text-xs text-foreground/45">
+                    Corporate events, multi-day coverage, destination work, or
+                    anything not on the price list.
+                  </span>
+                </span>
+                {form.package === CUSTOM_QUOTE_PACKAGE ? (
+                  <Check size={16} className="shrink-0 text-primary" />
+                ) : (
+                  <ArrowRight size={16} className="shrink-0 text-foreground/40" />
+                )}
+              </button>
               <div>
                 <p className={labelClass}>Session Type</p>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">

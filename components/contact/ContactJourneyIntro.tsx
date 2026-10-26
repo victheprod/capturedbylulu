@@ -1,69 +1,50 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { FilmGrain } from "@/components/ui/FilmGrain";
 
 const journeySteps = [
-  { n: "01", label: "Request an estimate" },
-  { n: "02", label: "Receive a custom quotation" },
-  { n: "03", label: "Finalize with Lulu by email" },
+  "You send the details here",
+  "Lulu replies with a price, usually within a day or two",
+  "You agree on the final quote and date by email",
 ];
 
 export function ContactJourneyIntro() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-[#14110e] px-6 py-20 lg:px-10 lg:py-28">
-      <FilmGrain opacity={0.04} className="z-0" />
+    <section className="relative overflow-hidden bg-[#14110e] px-6 py-20 lg:px-10 lg:py-24">
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-20">
           <div>
             <p className="mb-5 text-[11px] tracking-[0.32em] uppercase text-primary">
-              Estimates & custom quotations
+              Estimates & custom quotes
             </p>
             <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] font-light leading-[1.05] text-foreground">
-              Let&apos;s begin something{" "}
-              <span className="text-foreground/45">beautiful.</span>
+              Get an estimate.
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-foreground/55 lg:text-base">
-              You can&apos;t book online — and that&apos;s intentional. Request
-              an estimate (or a customized special quotation for any event) and
-              Lulu will finalize every detail by email.
+              Tell Lulu about the shoot: what it is, when, and where. If
+              it&apos;s not on the price list, ask for a custom quote. Nothing is
+              booked until you both agree.
             </p>
           </div>
 
-          <ol className="space-y-6 border-t border-foreground/10 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
+          <ol className="space-y-5 border-t border-foreground/10 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
             {journeySteps.map((step, i) => (
               <motion.li
-                key={step.n}
+                key={step}
                 initial={reduced ? false : { opacity: 0, x: 16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="flex items-baseline gap-5"
+                className="flex items-baseline gap-4"
               >
-                <span className="font-serif text-2xl font-light text-primary/50">
-                  {step.n}
-                </span>
-                <span className="text-sm tracking-wide text-foreground/70">
-                  {step.label}
-                </span>
+                <span className="text-sm text-primary/70">{i + 1}.</span>
+                <span className="text-sm text-foreground/70">{step}</span>
               </motion.li>
             ))}
           </ol>
         </div>
-
-        <motion.div
-          initial={reduced ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-12 flex items-center gap-3 text-[11px] tracking-[0.18em] uppercase text-foreground/35"
-        >
-          <span>Scroll to continue</span>
-          <ArrowRight size={12} />
-        </motion.div>
       </div>
     </section>
   );

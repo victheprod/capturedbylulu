@@ -27,7 +27,8 @@ export async function sendInquiryNotification(
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return false;
 
-  const to = process.env.INQUIRY_EMAIL ?? siteConfig.email;
+  // Resend's test sender only delivers to the account's exact (lowercase) address.
+  const to = (process.env.INQUIRY_EMAIL ?? siteConfig.email).trim().toLowerCase();
   const from =
     process.env.RESEND_FROM ?? "CapturedByLulu <onboarding@resend.dev>";
 
@@ -45,6 +46,14 @@ export async function sendInquiryNotification(
       text: formatInquiryText(inquiry),
     }),
   });
+
+  if (!response.ok) {
+    console.error(
+      "[inquiry-notification] Resend rejected the email",
+      response.status,
+      await response.text().catch(() => ""),
+    );
+  }
 
   return response.ok;
 }

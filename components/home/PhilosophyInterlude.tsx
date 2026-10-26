@@ -60,15 +60,15 @@ export function PhilosophyInterlude() {
           style={reduced ? undefined : { opacity: quoteOpacity, y: quoteY }}
           className="font-serif text-[clamp(1.75rem,5vw,3.5rem)] font-light leading-[1.2] tracking-[-0.01em] text-foreground"
         >
-          &ldquo;The best photographs aren&apos;t taken — they&apos;re{" "}
-          <span className="text-primary/90">felt</span>. I create space for the
-          quiet moments that become your most treasured memories.&rdquo;
+          &ldquo;I&apos;ll direct you when you need it and stay out of the way
+          when you don&apos;t. Most of the good ones happen{" "}
+          <span className="text-primary/90">in between</span>.&rdquo;
         </motion.blockquote>
         <motion.p
           style={reduced ? undefined : { opacity: quoteOpacity }}
-          className="mt-10 text-[11px] tracking-[0.22em] uppercase text-foreground/40"
+          className="mt-10 font-serif text-lg italic text-foreground/45"
         >
-          — Lulu · CapturedByLulu
+          Lulu
         </motion.p>
       </div>
       <SectionBlend position="bottom" tone="background" size="lg" />

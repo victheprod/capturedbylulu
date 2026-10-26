@@ -24,9 +24,9 @@ type LuxuryBookingCTAProps = {
 };
 
 export function LuxuryBookingCTA({
-  eyebrow = "Begin the experience",
-  title = "Your story deserves more than a form.",
-  description = "Tell Lulu what you're dreaming of — weddings, portraits, families, or any event. Request an estimate online; Lulu finalizes every quotation by email within 24–48 hours.",
+  eyebrow = "Estimates",
+  title = "Tell Lulu what you're planning.",
+  description = "Send the date, the place, and the idea. Lulu replies by email with a price, usually within a day or two. Nothing is booked until you both agree.",
   ctaLabel = "Get an estimate",
   ctaHref = "/contact",
   imageSrc = siteImages.cta,
@@ -84,7 +84,7 @@ export function LuxuryBookingCTA({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.24 }}
-            className="mt-10"
+            className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
           >
             <Link
               href={ctaHref}
@@ -95,6 +95,12 @@ export function LuxuryBookingCTA({
                 size={14}
                 className="transition-transform group-hover:translate-x-1"
               />
+            </Link>
+            <Link
+              href="/contact?quote=custom"
+              className="text-sm text-foreground/60 underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary"
+            >
+              Or ask for a custom quote
             </Link>
           </motion.div>
         </div>

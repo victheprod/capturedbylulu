@@ -71,8 +71,8 @@ export default async function BrandPhotographyPage() {
         eyebrow="Brand Photography"
         title={
           <>
-            Imagery that{" "}
-            <em className="not-italic text-primary/90">elevates</em> your brand
+            Brand photos you&apos;ll{" "}
+            <em className="not-italic text-primary/90">actually</em> use
           </>
         }
         imageSrc={siteImages.brandBanner}
@@ -84,7 +84,7 @@ export default async function BrandPhotographyPage() {
           <FadeIn>
             <SectionHeading
               eyebrow="The Approach"
-              title="Your brand deserves photography that works as hard as you do"
+              title="Photos for your website, your socials, and your next launch"
             />
             <p className="mt-6 leading-relaxed text-foreground/58">
               Brand photography is more than headshots and product shots —
@@ -194,9 +194,9 @@ export default async function BrandPhotographyPage() {
       </section>
 
       <CTASection
-        eyebrow="Ready to elevate your brand?"
-        title="Let's plan your session"
-        description="Share your vision and Lulu will put together a custom brand photography proposal for your business."
+        eyebrow="Brand photography"
+        title="Let's plan your shoot"
+        description="Tell Lulu what the photos are for and where they'll live. He'll send back a custom quote for your business."
         ctaLabel="Estimate Brand Photography"
         ctaHref="/contact"
         imageSrc={siteImages.brandDetail}

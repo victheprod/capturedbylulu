@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import {
   motion,
   useScroll,
   useTransform,
   useReducedMotion,
-  AnimatePresence,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
@@ -37,13 +36,6 @@ export function CinematicHero({
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const framing = framingForSrc(imageSrc);
-  const [introComplete, setIntroComplete] = useState(reduced);
-
-  useEffect(() => {
-    if (reduced) return;
-    const timer = window.setTimeout(() => setIntroComplete(true), 1200);
-    return () => window.clearTimeout(timer);
-  }, [reduced]);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -54,44 +46,23 @@ export function CinematicHero({
   const imageY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -48]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const lineWidth = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
 
   return (
     <section
       ref={ref}
       className="relative z-10 min-h-[100dvh] overflow-hidden bg-background"
     >
-      {/* Opening curtain */}
-      <AnimatePresence>
-        {!introComplete && !reduced && (
-          <>
-            <motion.div
-              className="pointer-events-none absolute inset-y-0 left-0 z-50 w-1/2 bg-background"
-              initial={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
-            />
-            <motion.div
-              className="pointer-events-none absolute inset-y-0 right-0 z-50 w-1/2 bg-background"
-              initial={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
-            />
-          </>
-        )}
-      </AnimatePresence>
-
       <div className="absolute inset-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
         <motion.div
           className="relative h-[52dvh] lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[58%]"
           style={reduced ? undefined : { scale: imageScale, y: imageY }}
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
           <PhotoImage
             src={imageSrc}
-            alt="CapturedByLulu — cinematic wedding photography"
+            alt="Portrait session photographed by Lulu"
             fill
             priority
             objectPosition={framing.objectPosition}
@@ -110,7 +81,7 @@ export function CinematicHero({
             <motion.p
               initial={reduced ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
               className="mb-8 flex items-center gap-4 text-[11px] tracking-[0.32em] uppercase text-primary"
             >
               <span className="h-px w-10 bg-primary/70" aria-hidden />
@@ -120,7 +91,7 @@ export function CinematicHero({
             <motion.h1
               initial={reduced ? false : { opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="font-serif text-[clamp(2.85rem,8vw,5.75rem)] font-light leading-[0.98] tracking-[-0.02em] text-foreground"
             >
               {title}
@@ -130,7 +101,7 @@ export function CinematicHero({
               <motion.p
                 initial={reduced ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 1.05 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
                 className="mt-8 max-w-md text-base leading-relaxed text-foreground/60 lg:text-lg"
               >
                 {subtitle}
@@ -140,7 +111,7 @@ export function CinematicHero({
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
               className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
             >
               <Link
@@ -157,31 +128,14 @@ export function CinematicHero({
                 href={secondaryHref}
                 className="inline-flex items-center justify-center border border-foreground/20 px-8 py-3.5 text-[11px] tracking-[0.2em] uppercase text-foreground/70 transition-colors hover:border-primary hover:text-primary"
               >
-                Enter the Gallery
+                See the work
               </Link>
             </motion.div>
-
-            <motion.div
-              className="mt-14 hidden h-px max-w-xs origin-left bg-primary/40 lg:block"
-              style={reduced ? undefined : { scaleX: lineWidth }}
-            />
           </div>
         </motion.div>
       </div>
 
       <SectionBlend position="bottom" tone="deep" size="xl" className="z-[2]" />
-
-      <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 lg:left-10 lg:translate-x-0">
-        <span className="text-[10px] tracking-[0.35em] uppercase text-foreground/35">
-          Scroll to explore
-        </span>
-        <motion.span
-          aria-hidden
-          animate={reduced ? undefined : { y: [0, 6, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          className="block h-8 w-px bg-foreground/30"
-        />
-      </div>
     </section>
   );
 }

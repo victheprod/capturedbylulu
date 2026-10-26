@@ -20,23 +20,21 @@ export function GalleryPassage() {
         <FadeIn className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-2xl">
             <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
-              The Collection
+              Recent work
             </p>
             <h2 className="text-balance font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
-              Walk through the work —{" "}
-              <span className="text-foreground/45">not a grid, a gallery.</span>
+              A few favorites.
             </h2>
             <p className="mt-5 max-w-lg text-sm leading-relaxed text-foreground/55">
-              Scroll horizontally through curated moments from weddings, portraits,
-              families, and celebrations across Texas. Each frame is chosen to
-              feel like turning a page in an editorial spread.
+              Weddings, portraits, families, and birthdays from the last few
+              seasons. Scroll sideways, or open the full portfolio.
             </p>
           </div>
           <Link
             href="/portfolio"
             className="group inline-flex items-center gap-2 self-start text-[11px] tracking-[0.2em] uppercase text-primary lg:self-end"
           >
-            Full archive
+            Full portfolio
             <ArrowRight
               size={14}
               className="transition-transform group-hover:translate-x-1"
