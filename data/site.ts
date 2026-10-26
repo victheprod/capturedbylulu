@@ -49,11 +49,6 @@ export const servicesNavTabs = [
     title: "Plan",
     links: [
       {
-        label: "Capture Concierge",
-        href: "/concierge",
-        description: "A guided consultation to find your perfect package.",
-      },
-      {
         label: "Build Your Vision",
         href: "/vision",
         description: "Curate a live mood board and discover your photography style.",
@@ -69,9 +64,10 @@ export const servicesNavTabs = [
         description: "Browse weddings, portraits, families, and events.",
       },
       {
-        label: "Contact Lulu",
+        label: "Get an Estimate",
         href: "/contact",
-        description: "Check availability or ask a question — no pressure.",
+        description:
+          "Request an estimate or custom quotation — Lulu finalizes by email.",
       },
     ],
   },
@@ -91,7 +87,6 @@ export const mobileNavGroups = [
       { label: "Portfolio", href: "/portfolio" },
       { label: "Weddings", href: "/weddings" },
       { label: "Services & Pricing", href: "/services" },
-      { label: "Capture Concierge", href: "/concierge" },
       { label: "Build Your Vision", href: "/vision" },
       { label: "Brand Photography", href: "/brand-photography" },
     ],

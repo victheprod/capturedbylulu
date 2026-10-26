@@ -18,18 +18,18 @@ import {
 import { getPublicBlockedDates } from "@/lib/cms/availability";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Session",
+  title: "Get an Estimate",
   description:
-    "Inquire about wedding, portrait, family, brand, or event photography with Lulu at CapturedByLulu.",
+    "Request a photography estimate or custom quotation for weddings, portraits, families, events, and more. Lulu finalizes every booking by email.",
   path: "/contact",
   image: siteImages.contactBanner,
 });
 
 const nextSteps = [
-  { n: "01", t: "Lulu responds personally within 24–48 hours" },
-  { n: "02", t: "You connect for a quick discovery call" },
-  { n: "03", t: "You receive a custom proposal" },
-  { n: "04", t: "Sign, retainer, and your date is yours" },
+  { n: "01", t: "Your estimate request emails Lulu directly" },
+  { n: "02", t: "You receive a custom quotation within 24–48 hours" },
+  { n: "03", t: "Finalize details together — nothing is booked online" },
+  { n: "04", t: "Approve the quote with Lulu to reserve your date" },
 ];
 
 type PageProps = {
@@ -68,9 +68,9 @@ export default async function ContactPage({ searchParams }: PageProps) {
               Prefer to reach out directly?
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-foreground/55">
-              Share your vision — wedding date, session type, location, or
-              anything else that helps Lulu understand what you&apos;re looking
-              for.
+              Prefer email? Write {site.email} for an estimate or a customized
+              special quotation for any event. Share date, session type,
+              location, and anything else that helps Lulu shape your quote.
             </p>
 
             <div className="mb-10 mt-10 space-y-5">

@@ -15,14 +15,15 @@ export function Footer() {
             <Logo size="lg" className="mb-5" />
             <p className="mb-6 max-w-sm text-sm leading-relaxed text-foreground/55">
               Texas-based photographer specializing in weddings, portraits,
-              families, and events. Every inquiry is read personally by Lulu.
+              families, and events. Estimates go to Lulu by email — bookings are
+              never confirmed online.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-primary px-5 py-2.5 text-[11px] tracking-[0.18em] uppercase text-primary-foreground transition-colors hover:bg-[#d4b87a]"
               >
-                Book a Session
+                Get Estimate
               </Link>
               <a
                 href={siteConfig.instagramUrl}
@@ -61,7 +62,7 @@ export function Footer() {
                 href="/contact"
                 className="text-sm text-foreground/55 transition-colors hover:text-foreground"
               >
-                Book a Session
+                Get Estimate
               </Link>
             </div>
           </div>

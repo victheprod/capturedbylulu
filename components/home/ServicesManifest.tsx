@@ -73,16 +73,9 @@ export function ServicesManifest() {
           <span className="hidden h-px w-16 bg-foreground/15 lg:block" aria-hidden />
           <Link
             href="/contact"
-            className="text-[11px] tracking-[0.18em] uppercase text-foreground/45 transition-colors hover:text-foreground"
-          >
-            Not sure yet? Start a conversation →
-          </Link>
-          <span className="hidden h-px w-16 bg-foreground/15 lg:block" aria-hidden />
-          <Link
-            href="/concierge"
             className="text-[11px] tracking-[0.18em] uppercase text-primary/80 transition-colors hover:text-primary"
           >
-            Find my package with Concierge →
+            Not sure yet? Get an estimate →
           </Link>
         </FadeIn>
       </div>

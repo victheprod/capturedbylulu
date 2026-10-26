@@ -33,8 +33,8 @@ export const visionVisuals: VisionVisual[] = [
   {
     value: "editorial",
     label: "Editorial",
-    src: "/site-images/portraits/DSC08205.jpg",
-    objectPosition: "50% 18%",
+    src: "/site-images/portraits/DSC09121.jpg",
+    objectPosition: "50% 22%",
   },
   {
     value: "candid",
@@ -57,14 +57,14 @@ export const visionVisuals: VisionVisual[] = [
   {
     value: "editorial",
     label: "Cinematic",
-    src: "/site-images/_hero/weddings/DSC00201.jpg",
-    objectPosition: "50% 50%",
+    src: "/site-images/_hero/portraits/DSC09174.jpg",
+    objectPosition: "50% 62%",
   },
   {
     value: "efficient",
     label: "Moody",
-    src: "/site-images/portraits/DSC07888.jpg",
-    objectPosition: "50% 50%",
+    src: "/site-images/portraits/DSC09275.jpg",
+    objectPosition: "50% 22%",
   },
 ];
 
@@ -88,8 +88,8 @@ export const visionPickOptions: {
     id: "editorial",
     value: "editorial",
     label: "Editorial",
-    src: "/site-images/portraits/DSC08205.jpg",
-    objectPosition: "50% 18%",
+    src: "/site-images/portraits/DSC09121.jpg",
+    objectPosition: "50% 22%",
   },
   {
     id: "romantic",
@@ -116,15 +116,15 @@ export const visionPickOptions: {
     id: "cinematic",
     value: "editorial",
     label: "Cinematic",
-    src: "/site-images/_hero/weddings/DSC00201.jpg",
-    objectPosition: "50% 50%",
+    src: "/site-images/_hero/portraits/DSC09174.jpg",
+    objectPosition: "50% 62%",
   },
   {
     id: "moody",
     value: "efficient",
     label: "Moody",
-    src: "/site-images/portraits/DSC07888.jpg",
-    objectPosition: "50% 50%",
+    src: "/site-images/portraits/DSC09275.jpg",
+    objectPosition: "50% 22%",
   },
 ];
 

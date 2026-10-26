@@ -155,7 +155,7 @@ export default async function BrandPhotographyPage() {
                   pkg={pkg}
                   category="Brand Photography"
                   note={pkg.details}
-                  ctaLabel="Book This Package"
+                  ctaLabel="Get Estimate"
                 />
               </FadeInItem>
             ))}
@@ -197,7 +197,7 @@ export default async function BrandPhotographyPage() {
         eyebrow="Ready to elevate your brand?"
         title="Let's plan your session"
         description="Share your vision and Lulu will put together a custom brand photography proposal for your business."
-        ctaLabel="Book Brand Photography"
+        ctaLabel="Estimate Brand Photography"
         ctaHref="/contact"
         imageSrc={siteImages.brandDetail}
       />

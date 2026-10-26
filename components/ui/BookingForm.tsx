@@ -12,6 +12,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import type { BookingPackageGroup } from "@/data/packages";
 import {
+  CUSTOM_QUOTE_PACKAGE,
   getBookingPackageGroups,
   getPackageBookingValue,
   getPackageEntryById,
@@ -62,7 +63,7 @@ const initialForm: FormState = {
 const BOOKING_STEPS = [
   { id: "experience", label: "Experience" },
   { id: "details", label: "Your Details" },
-  { id: "vision", label: "Session" },
+  { id: "vision", label: "Vision" },
   { id: "review", label: "Review" },
 ];
 
@@ -213,9 +214,11 @@ function BookingFormFields({
     if (step === 4) return;
     if (step === 3 && form.preferredDate && isDateBlocked(form.preferredDate)) {
       setFieldErrors({
-        preferredDate: "This date is not available for booking.",
+        preferredDate: "This date is not available for an estimate request.",
       });
-      setFormError("Please choose an available date.");
+      setFormError(
+        "Please choose another date, or ask for a custom quotation.",
+      );
       return;
     }
     const validation = validateBookingStep(step, form);
@@ -277,13 +280,13 @@ function BookingFormFields({
       setStatus("success");
       setSuccessMessage(
         payload.message ??
-          "Your inquiry was received. Lulu will personally respond within 24–48 hours.",
+          "Your estimate request was sent to Lulu. This is not a booking — Lulu will reply by email with a custom quotation and next steps.",
       );
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
       setStatus("error");
       setFormError(
-        "Unable to send your inquiry right now. Please try again or email Lulu directly.",
+        "Unable to send your estimate request right now. Please try again or email Lulu directly.",
       );
     }
   };
@@ -299,7 +302,7 @@ function BookingFormFields({
           <Check size={22} className="text-primary" />
         </div>
         <p className="mb-4 text-[11px] tracking-[0.25em] uppercase text-primary">
-          Inquiry Received
+          Estimate Request Sent
         </p>
         <h2 className="mb-5 font-serif text-4xl font-light text-foreground lg:text-5xl">
           You&apos;re in good hands
@@ -316,23 +319,23 @@ function BookingFormFields({
             {[
               {
                 n: "1",
-                t: "Personal response from Lulu",
-                d: "Within 24–48 hours, you'll hear from Lulu directly with availability confirmation.",
+                t: "Lulu reviews your request",
+                d: "Your estimate lands in Lulu's inbox — nothing is booked on the website.",
               },
               {
                 n: "2",
-                t: "Discovery conversation",
-                d: "You'll connect briefly to make sure the session is the perfect fit.",
+                t: "Custom quotation by email",
+                d: "Within 24–48 hours you'll receive a tailored quotation for your session or event.",
               },
               {
                 n: "3",
-                t: "Proposal & contract",
-                d: "You'll receive a custom proposal with package details and next steps.",
+                t: "Finalize together",
+                d: "Dates, coverage, and investment are confirmed directly with Lulu — never self-serve online.",
               },
               {
                 n: "4",
-                t: "Your date is held",
-                d: "Once signed and the deposit is received, your date is officially reserved.",
+                t: "Reserve when you're ready",
+                d: "Only after you approve the quote (and complete any retainer Lulu sends) is your date held.",
               },
             ].map((item) => (
               <div key={item.n} className="flex gap-4">
@@ -385,8 +388,9 @@ function BookingFormFields({
                   Choose your experience
                 </h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/50">
-                  Select the type of session you&apos;re dreaming of. Lulu will
-                  help refine the details together.
+                  Pick a starting package for an estimate — or request a custom
+                  special quotation for any event. Lulu finalizes everything by
+                  email.
                 </p>
               </div>
               <div>
@@ -413,7 +417,7 @@ function BookingFormFields({
 
               {form.sessionType && (
                 <div>
-                  <p className={labelClass}>Select a Package</p>
+                  <p className={labelClass}>Package or custom quotation</p>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {availablePackages.flatMap((group) =>
                       group.packages.map((pkg) => {
@@ -440,37 +444,69 @@ function BookingFormFields({
                               {pkg.label}
                             </p>
                             <p className="mt-1 text-[10px] tracking-[0.12em] uppercase text-foreground/40">
-                              {group.category}
+                              {group.category} · Estimate
                             </p>
                           </button>
                         );
                       }),
                     )}
                     {form.sessionType && (
-                      <button
-                        type="button"
-                        onClick={() => updateField("package", NOT_SURE_PACKAGE)}
-                        className={cn(
-                          "border p-4 text-left transition-colors duration-300 sm:col-span-2",
-                          form.package === NOT_SURE_PACKAGE
-                            ? "border-primary bg-primary/10"
-                            : "border-foreground/12 hover:border-foreground/30",
-                        )}
-                      >
-                        <p
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            updateField("package", CUSTOM_QUOTE_PACKAGE)
+                          }
                           className={cn(
-                            "text-sm font-medium",
-                            form.package === NOT_SURE_PACKAGE
-                              ? "text-primary"
-                              : "text-foreground",
+                            "border p-4 text-left transition-colors duration-300 sm:col-span-2",
+                            form.package === CUSTOM_QUOTE_PACKAGE
+                              ? "border-primary bg-primary/10"
+                              : "border-foreground/12 hover:border-foreground/30",
                           )}
                         >
-                          {NOT_SURE_PACKAGE}
-                        </p>
-                        <p className="mt-1 text-xs text-foreground/45">
-                          Lulu will help you find the perfect fit.
-                        </p>
-                      </button>
+                          <p
+                            className={cn(
+                              "text-sm font-medium",
+                              form.package === CUSTOM_QUOTE_PACKAGE
+                                ? "text-primary"
+                                : "text-foreground",
+                            )}
+                          >
+                            {CUSTOM_QUOTE_PACKAGE}
+                          </p>
+                          <p className="mt-1 text-xs text-foreground/45">
+                            Weddings, corporate events, multi-day coverage, or
+                            anything outside listed packages — Lulu will quote
+                            specially by email.
+                          </p>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            updateField("package", NOT_SURE_PACKAGE)
+                          }
+                          className={cn(
+                            "border p-4 text-left transition-colors duration-300 sm:col-span-2",
+                            form.package === NOT_SURE_PACKAGE
+                              ? "border-primary bg-primary/10"
+                              : "border-foreground/12 hover:border-foreground/30",
+                          )}
+                        >
+                          <p
+                            className={cn(
+                              "text-sm font-medium",
+                              form.package === NOT_SURE_PACKAGE
+                                ? "text-primary"
+                                : "text-foreground",
+                            )}
+                          >
+                            {NOT_SURE_PACKAGE}
+                          </p>
+                          <p className="mt-1 text-xs text-foreground/45">
+                            Lulu will help you find the perfect fit.
+                          </p>
+                        </button>
+                      </>
                     )}
                   </div>
                   <FieldError message={fieldErrors.package} />
@@ -484,7 +520,7 @@ function BookingFormFields({
               <BookingStepIntro
                 step="Step two"
                 title="A little about you"
-                description="Lulu reads every inquiry personally. Share how to reach you — you'll hear back within 24–48 hours."
+                description="Your estimate goes straight to Lulu's email. Share how to reach you — you'll hear back within 24–48 hours."
               />
               <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -559,8 +595,8 @@ function BookingFormFields({
             <div className="space-y-8">
               <BookingStepIntro
                 step="Step three"
-                title="Shape your session"
-                description="Share your preferred date, location, and anything Lulu should know about your vision."
+                title="Shape your estimate"
+                description="Share a preferred date, location, and anything Lulu should know — especially for custom event quotations."
               />
               <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -622,7 +658,11 @@ function BookingFormFields({
                       ? "border-red-400/50"
                       : "border-foreground/12",
                   )}
-                  placeholder="Share anything that feels important — your story, your vision, your must-have shots..."
+                  placeholder={
+                    form.package === CUSTOM_QUOTE_PACKAGE
+                      ? "Describe the event or custom coverage you need — timeline, guest count, must-have moments, budget range..."
+                      : "Share anything that feels important — your story, your vision, your must-have shots..."
+                  }
                   aria-invalid={Boolean(fieldErrors.message)}
                 />
                 <FieldError message={fieldErrors.message} />
@@ -636,12 +676,12 @@ function BookingFormFields({
               <BookingStepIntro
                 step="Step four"
                 title="One last look"
-                description="Everything look right? Send your inquiry — Lulu will respond personally within 24–48 hours."
+                description="This sends an estimate request to Lulu's email — not a booking. Lulu will reply with a custom quotation to finalize."
               />
               <dl className="divide-y divide-foreground/10 border border-foreground/10 bg-card">
                 {[
                   ["Session", form.sessionType],
-                  ["Package", form.package],
+                  ["Estimate for", form.package],
                   ["Name", form.name],
                   ["Email", form.email],
                   ["Phone", form.phone],
@@ -702,7 +742,7 @@ function BookingFormFields({
                 Sending
               </>
             ) : (
-              "Send Inquiry"
+              "Request Estimate"
             )}
           </Button>
         )}
@@ -714,7 +754,7 @@ function BookingFormFields({
           href={`mailto:${siteConfig.email}`}
           className="text-foreground/50 underline-offset-2 hover:text-primary hover:underline"
         >
-          Lulu
+          {siteConfig.email}
         </a>
         .
       </p>

@@ -3,17 +3,27 @@ export type FAQSection = { category: string; items: FAQItem[] };
 
 export const faqSections: FAQSection[] = [
   {
-    category: "Booking & Process",
+    category: "Estimates & Process",
     items: [
       {
-        question: "How far in advance should I book?",
+        question: "Can I book directly on the website?",
         answer:
-          "For weddings, I recommend booking 9–18 months in advance as popular dates fill quickly. For portraits, families, and brand sessions, 4–8 weeks is typically sufficient — though spring and fall peak seasons fill faster.",
+          "No — and that's intentional. The site is for estimates and customized special quotations only. Every booking is finalized directly with me by email so we can tailor coverage to your event.",
+      },
+      {
+        question: "How far in advance should I inquire?",
+        answer:
+          "For weddings, I recommend reaching out 9–18 months in advance as popular dates fill quickly. For portraits, families, and brand sessions, 4–8 weeks is typically sufficient — though spring and fall peak seasons fill faster.",
       },
       {
         question: "How do I reserve my date?",
         answer:
-          "A signed contract and 30% retainer officially reserve your date. The remaining balance is due 2 weeks before your session or wedding day.",
+          "After you request an estimate, I'll email a custom quotation. A signed agreement and 30% retainer (arranged with me directly) officially reserve your date. The remaining balance is due 2 weeks before your session or wedding day.",
+      },
+      {
+        question: "Can I get a custom quotation for any event?",
+        answer:
+          "Yes. Choose “Custom special quotation” on the estimate form — or email me — for weddings, corporate events, multi-day coverage, or anything outside the listed packages. I'll tailor the quote to your vision.",
       },
       {
         question: "What if I need to reschedule?",
@@ -83,7 +93,7 @@ export const faqSections: FAQSection[] = [
       {
         question: "Are your prices negotiable?",
         answer:
-          "My pricing reflects years of experience, professional equipment, editing time, and gallery delivery. I'm unable to discount packages, but I do offer custom quotes for large events, multi-session retainers, and nonprofit organizations.",
+          "My pricing reflects years of experience, professional equipment, editing time, and gallery delivery. Listed packages are starting estimates — I gladly prepare customized special quotations for large events, multi-session retainers, nonprofit organizations, and anything unique to your day.",
       },
       {
         question: "What is your cancellation policy?",

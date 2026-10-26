@@ -93,7 +93,7 @@ export const conciergeMicrocopy = {
   close: "Close",
   restart: "Start over",
   viewCollection: "View collection",
-  makeOfficial: "Let's make it official",
+  makeOfficial: "Request this estimate",
 } as const;
 
 export const conciergeHero = {
@@ -114,7 +114,7 @@ export const conciergeLaunch = {
   title: "I'm here to help you",
   titleAccent: "plan beautifully.",
   description:
-    "Answer a few thoughtful questions and receive a package recommendation tailored to your vision — before you ever send an inquiry.",
+    "Answer a few thoughtful questions and receive a package recommendation tailored to your vision — before you request an estimate by email.",
   cta: "Start planning",
   ctaSubline: "Get CapturedByLulu the right way",
   features: [

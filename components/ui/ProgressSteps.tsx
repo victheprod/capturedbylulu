@@ -22,7 +22,7 @@ export function ProgressSteps({
   const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
 
   return (
-    <nav aria-label="Booking progress" className={cn("mb-10", className)}>
+    <nav aria-label="Estimate request progress" className={cn("mb-10", className)}>
       <div className="mb-6 flex items-center justify-between gap-4">
         <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
           Your journey

@@ -21,7 +21,7 @@ export default function FAQPage() {
       <PageEditorialIntro
         eyebrow="Questions"
         title="Everything you're wondering — answered plainly."
-        description="Booking, sessions, delivery, and pricing. Still unsure? Lulu responds to every message personally."
+        description="Estimates, sessions, delivery, and pricing. Still unsure? Request a custom quotation — Lulu responds personally by email."
       />
       <div className="mx-auto max-w-3xl px-6 py-16 lg:px-10 lg:py-20">
         <FadeIn>
@@ -37,7 +37,7 @@ export default function FAQPage() {
             within 24–48 hours.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/contact">Begin your inquiry</Button>
+            <Button href="/contact">Get an estimate</Button>
             <Button href="/about" variant="outline">
               About Lulu
             </Button>

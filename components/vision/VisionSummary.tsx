@@ -196,7 +196,7 @@ export function VisionSummaryReveal({
         className="flex flex-col items-start gap-4 pt-4 sm:flex-row sm:items-center"
       >
         <Button href={contactHref} className="rounded-full px-10">
-          Continue to inquire
+          Request an estimate
           <ArrowRight size={16} />
         </Button>
         <button

@@ -147,7 +147,7 @@ export function CinematicHero({
                 href={primaryHref}
                 className="group inline-flex items-center justify-center gap-2 bg-primary px-8 py-3.5 text-[11px] tracking-[0.2em] uppercase text-primary-foreground transition-colors hover:bg-[#d4b87a]"
               >
-                Begin Your Session
+                Get an Estimate
                 <ArrowRight
                   size={14}
                   className="transition-transform group-hover:translate-x-0.5"

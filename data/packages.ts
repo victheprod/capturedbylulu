@@ -25,7 +25,7 @@ export type BookingPackageGroup = {
 export const pricingNotes = {
   serviceArea: "Texas-based photographer — available throughout Texas and for travel nationwide.",
   deposit:
-    "A deposit may be required to reserve your date. Final details are confirmed during inquiry.",
+    "This site provides estimates only — nothing is booked online. Lulu finalizes every package, custom quotation, and date by email.",
   travel:
     "Travel outside the local service area is billed separately (starts at $50), quoted per booking based on distance and location.",
 } as const;
@@ -495,3 +495,5 @@ export function getPackageEntryById(
 }
 
 export const NOT_SURE_PACKAGE = "Not sure — help me choose!";
+/** Request a tailored quote for events, multi-day coverage, or anything outside listed packages. */
+export const CUSTOM_QUOTE_PACKAGE = "Custom special quotation";

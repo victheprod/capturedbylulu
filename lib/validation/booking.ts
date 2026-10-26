@@ -1,7 +1,10 @@
 import {
+  CUSTOM_QUOTE_PACKAGE,
   getSessionTypes,
   NOT_SURE_PACKAGE,
 } from "@/data/packages";
+
+const FLEXIBLE_PACKAGES = new Set([NOT_SURE_PACKAGE, CUSTOM_QUOTE_PACKAGE]);
 
 export type BookingInquiry = {
   name: string;
@@ -46,11 +49,11 @@ function validateSessionAndPackage(
   }
 
   if (!pkg) {
-    errors.package = "Please select a package.";
+    errors.package = "Please select a package or request a custom quotation.";
   } else if (
     sessionType &&
     sessionType !== "Other / Not sure" &&
-    pkg !== NOT_SURE_PACKAGE &&
+    !FLEXIBLE_PACKAGES.has(pkg) &&
     !pkg.startsWith(`${sessionType} —`)
   ) {
     errors.package = "Please choose a package that matches your session type.";

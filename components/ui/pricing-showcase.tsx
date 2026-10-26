@@ -214,7 +214,7 @@ function PricingPlanCard({
             : "border border-foreground/18 text-foreground/65 hover:border-primary hover:text-primary",
         )}
       >
-        Book this package
+        Get estimate
       </Link>
     </motion.article>
   );

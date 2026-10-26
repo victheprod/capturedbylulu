@@ -97,7 +97,7 @@ export function PricingCard({
             : "border border-foreground/20 text-foreground/60 hover:border-primary hover:text-primary",
         )}
       >
-        Book This Package
+        Get Estimate
       </Link>
     </div>
   );
@@ -108,7 +108,7 @@ export function PricingCardCompact({
   category,
   note,
   contactHref,
-  ctaLabel = "Inquire Now",
+  ctaLabel = "Get Estimate",
 }: {
   pkg: Package;
   category: string;

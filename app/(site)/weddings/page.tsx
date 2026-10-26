@@ -22,8 +22,8 @@ export const metadata: Metadata = pageMetadata({
 const processSteps = [
   {
     step: "01",
-    title: "Inquiry & Connection",
-    desc: "We start with a conversation — about you, your vision, your love story. No pressure, just genuine connection and making sure we're the right fit.",
+    title: "Estimate & Connection",
+    desc: "Request an estimate online — then we talk about you, your vision, and your love story. Nothing is booked until we finalize together by email.",
   },
   {
     step: "02",
@@ -195,7 +195,7 @@ export default async function WeddingsPage() {
         eyebrow="Limited Availability"
         title="Dates are limited"
         description="Lulu books only a select number of weddings each year to ensure every couple receives his complete focus and creative dedication."
-        ctaLabel="Check Availability"
+        ctaLabel="Get a Wedding Estimate"
         ctaHref="/contact"
         imageSrc={siteImages.weddingsBanner}
       />

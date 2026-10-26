@@ -31,7 +31,7 @@ export default async function ServicesPage() {
       <PageEditorialIntro
         eyebrow="Investment"
         title="Sessions crafted like experiences — not transactions."
-        description="Every package includes a private online gallery and Lulu's signature editing. Explore each session type, then begin your inquiry when you're ready."
+        description="Every package includes a private online gallery and Lulu's signature editing. Explore each session type, then request an estimate — Lulu finalizes quotations by email."
         imageSrc={siteImages.servicesBanner}
         dark
       />
@@ -42,12 +42,12 @@ export default async function ServicesPage() {
           <p className="mt-8 text-sm leading-relaxed text-foreground/55">
             Not sure where to begin?{" "}
             <a
-              href="/concierge"
+              href="/contact"
               className="text-primary transition-colors hover:text-foreground"
             >
-              Try Capture Concierge
+              Request an estimate
             </a>{" "}
-            — a brief guided consultation that recommends the right package for you.
+            — Lulu will reply by email with a custom quotation tailored to you.
           </p>
         </FadeIn>
 
@@ -127,17 +127,13 @@ export default async function ServicesPage() {
             Not sure which experience is right?
           </h2>
           <p className="mx-auto mb-8 max-w-md leading-relaxed text-foreground/58">
-            Start with{" "}
-            <a href="/concierge" className="text-primary hover:text-foreground">
-              Capture Concierge
-            </a>{" "}
-            for a personalized recommendation — or reach out for a friendly conversation
-            with Lulu.
+            Share a few details about your session or event — Lulu will reply by
+            email with a personalized quotation. Nothing is booked online.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/concierge">Find my package</Button>
-            <Button href="/contact" variant="outline">
-              Begin your inquiry
+            <Button href="/contact">Get an estimate</Button>
+            <Button href="/portfolio" variant="outline">
+              View portfolio
             </Button>
           </div>
         </FadeIn>

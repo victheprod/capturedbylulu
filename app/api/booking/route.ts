@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     }
 
     const inquiry = result.data;
+    let savedToCms = false;
 
     if (isSupabaseConfigured()) {
       const available = await checkDateAvailability(inquiry.preferredDate);
@@ -29,9 +30,10 @@ export async function POST(request: Request) {
         return Response.json(
           {
             success: false,
-            message: "That date is unavailable. Please choose another date.",
+            message:
+              "That date looks unavailable. Choose another date, or request a custom quotation and Lulu will advise.",
             errors: {
-              preferredDate: "This date is not available for booking.",
+              preferredDate: "This date is not available for an estimate request.",
             },
           },
           { status: 400 },
@@ -48,34 +50,51 @@ export async function POST(request: Request) {
         location: inquiry.location,
         message: inquiry.message,
       });
+      savedToCms = true;
     } else {
-      console.log("\n========== CapturedByLulu Booking Inquiry ==========");
+      console.log("\n========== CapturedByLulu Estimate Request ==========");
       console.log("Received at:", new Date().toISOString());
       console.log("Name:", inquiry.name);
       console.log("Email:", inquiry.email);
       console.log("Phone:", inquiry.phone);
       console.log("Session type:", inquiry.sessionType);
-      console.log("Package:", inquiry.package);
+      console.log("Package / quote:", inquiry.package);
       console.log("Preferred date:", inquiry.preferredDate);
       console.log("Location:", inquiry.location || "(not provided)");
       console.log("Message:", inquiry.message);
-      console.log("Notify:", siteConfig.email);
-      console.log("====================================================\n");
+      console.log("Notify owner:", siteConfig.email);
+      console.log("=====================================================\n");
     }
 
-    await sendInquiryNotification(inquiry);
+    const emailed = await sendInquiryNotification(inquiry);
+
+    if (!emailed && !savedToCms) {
+      return Response.json(
+        {
+          success: false,
+          message: `We couldn't send your estimate request automatically. Please email ${siteConfig.email} directly and Lulu will follow up.`,
+        },
+        { status: 503 },
+      );
+    }
+
+    if (!emailed && savedToCms) {
+      console.warn(
+        "[booking] Estimate saved to CMS but owner email notification failed.",
+        { email: inquiry.email, package: inquiry.package },
+      );
+    }
 
     return Response.json({
       success: true,
       message:
-        "Your inquiry was received. Lulu will personally respond within 24–48 hours.",
+        "Your estimate request was sent to Lulu. This is not a booking — Lulu will reply by email with a custom quotation and next steps within 24–48 hours.",
     });
   } catch {
     return Response.json(
       {
         success: false,
-        message:
-          "Something went wrong on our end. Please try again or email Lulu directly.",
+        message: `Something went wrong on our end. Please email ${siteConfig.email} directly.`,
       },
       { status: 500 },
     );

@@ -3,13 +3,15 @@ import type { BookingInquiry } from "@/lib/validation/booking";
 
 function formatInquiryText(inquiry: BookingInquiry) {
   return [
-    "New CapturedByLulu inquiry",
+    "New CapturedByLulu estimate / quote request",
+    "",
+    "This is not a confirmed booking. Reply to finalize details with the client.",
     "",
     `Name: ${inquiry.name}`,
     `Email: ${inquiry.email}`,
     `Phone: ${inquiry.phone}`,
     `Session type: ${inquiry.sessionType}`,
-    `Package: ${inquiry.package}`,
+    `Package / quote interest: ${inquiry.package}`,
     `Preferred date: ${inquiry.preferredDate}`,
     `Location: ${inquiry.location || "(not provided)"}`,
     "",
@@ -18,7 +20,7 @@ function formatInquiryText(inquiry: BookingInquiry) {
   ].join("\n");
 }
 
-/** Sends inquiry to Lulu's inbox when Resend is configured. */
+/** Sends estimate/quote request to the owner's inbox when Resend is configured. */
 export async function sendInquiryNotification(
   inquiry: BookingInquiry,
 ): Promise<boolean> {
@@ -39,7 +41,7 @@ export async function sendInquiryNotification(
       from,
       to: [to],
       reply_to: inquiry.email,
-      subject: `New inquiry — ${inquiry.name} (${inquiry.sessionType})`,
+      subject: `Estimate request — ${inquiry.name} (${inquiry.sessionType})`,
       text: formatInquiryText(inquiry),
     }),
   });

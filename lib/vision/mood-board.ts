@@ -12,18 +12,18 @@ const categoryBoost: Record<string, string[]> = {
 };
 
 const styleImageBoost: Record<string, string[]> = {
-  editorial: ["portraits/DSC08765", "portraits/DSC08173", "weddings/DSC07789"],
+  editorial: ["portraits/DSC09121", "portraits/DSC09240", "portraits/DSC09094"],
   documentary: ["weddings/DSC02836", "families/DSC00439", "events/DSC09870"],
   romantic: ["weddings/DSC07766", "weddings/DSC02748", "weddings/DSC02783"],
-  luxury: ["weddings/DSC02880", "weddings/DSC02813", "portraits/DSC08205"],
+  luxury: ["weddings/DSC02880", "weddings/DSC02813", "portraits/DSC09370"],
   timeless: ["weddings/DSC02783", "weddings/DSC03295", "families/IMG_3649"],
-  cinematic: ["weddings/DSC00201", "weddings/DSC00181", "portraits/DSC07888"],
+  cinematic: ["portraits/DSC09174", "portraits/DSC09180", "portraits/DSC09197"],
   candid: ["families/DSC00439", "families/DSC00572", "events/DSC06941"],
   "black-white": ["portraits/DSC05682", "portraits/DSC05533"],
   flash: ["events/DSC09813", "events/DSC01224", "events/DSC09870"],
   "golden-hour": ["weddings/DSC02774", "weddings/DSC02813", "families/DSC00602"],
-  moody: ["portraits/DSC07888", "weddings/DSC07789", "portraits/DSC08149"],
-  "bright-airy": ["families/IMG_3621", "families/DSC00572", "portraits/DSC04123"],
+  moody: ["portraits/DSC09275", "weddings/DSC07789", "portraits/DSC08149"],
+  "bright-airy": ["families/IMG_3621", "families/DSC00572", "portraits/DSC09139"],
 };
 
 function toBoardImage(

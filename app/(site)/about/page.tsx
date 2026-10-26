@@ -39,7 +39,7 @@ export default function AboutPage() {
               and beyond.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Button href="/contact">Book a Session</Button>
+              <Button href="/contact">Get an Estimate</Button>
               <Button href="/portfolio" variant="outline">
                 View Portfolio
               </Button>
@@ -78,9 +78,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-2xl text-center">
           <FadeIn>
             <p className="text-base leading-relaxed text-foreground/58">
-              When you book with CapturedByLulu, you work directly with me. Every
-              inquiry is read personally, and every gallery is edited with the
-              same care I&apos;d want for my own memories.
+              When you work with CapturedByLulu, you work directly with me.
+              Estimates and custom quotations go to my email — nothing is booked
+              online — and every gallery is edited with the same care I&apos;d
+              want for my own memories.
             </p>
             <Link
               href="/contact"

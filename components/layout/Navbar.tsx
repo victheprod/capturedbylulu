@@ -88,7 +88,7 @@ export function Navbar() {
             href="/contact"
             className="ml-1 border border-primary px-5 py-2.5 text-[11px] tracking-[0.18em] uppercase text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground xl:ml-2"
           >
-            Book Now
+            Get Estimate
           </Link>
           <a
             href={siteConfig.instagramUrl}
@@ -129,7 +129,7 @@ export function Navbar() {
                 href="/contact"
                 className="mt-4 w-full bg-primary px-5 py-3.5 text-center text-[11px] tracking-[0.18em] uppercase text-primary-foreground"
               >
-                Book Now
+                Get Estimate
               </Link>
               <a
                 href={siteConfig.instagramUrl}

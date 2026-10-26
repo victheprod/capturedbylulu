@@ -5,9 +5,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FilmGrain } from "@/components/ui/FilmGrain";
 
 const journeySteps = [
-  { n: "01", label: "Choose your experience" },
-  { n: "02", label: "Share your vision" },
-  { n: "03", label: "Review & confirm" },
+  { n: "01", label: "Request an estimate" },
+  { n: "02", label: "Receive a custom quotation" },
+  { n: "03", label: "Finalize with Lulu by email" },
 ];
 
 export function ContactJourneyIntro() {
@@ -20,16 +20,16 @@ export function ContactJourneyIntro() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-20">
           <div>
             <p className="mb-5 text-[11px] tracking-[0.32em] uppercase text-primary">
-              Your booking journey
+              Estimates & custom quotations
             </p>
             <h1 className="font-serif text-[clamp(2.5rem,6vw,4.5rem)] font-light leading-[1.05] text-foreground">
               Let&apos;s begin something{" "}
               <span className="text-foreground/45">beautiful.</span>
             </h1>
             <p className="mt-6 max-w-lg text-sm leading-relaxed text-foreground/55 lg:text-base">
-              This isn&apos;t a generic contact form — it&apos;s the first step of
-              planning your session with Lulu. Take your time; every inquiry is
-              read personally.
+              You can&apos;t book online — and that&apos;s intentional. Request
+              an estimate (or a customized special quotation for any event) and
+              Lulu will finalize every detail by email.
             </p>
           </div>
 

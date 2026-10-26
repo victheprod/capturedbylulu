@@ -318,10 +318,10 @@ function suggestAddons(
 
 function buildNextSteps(): string[] {
   return [
-    "Lulu reads your inquiry personally within 24–48 hours.",
-    "You'll connect for a brief discovery call to confirm details and availability.",
-    "Receive a custom proposal with your date held once you're ready.",
-    "Sign, submit your retainer, and your session is officially yours.",
+    "Request an estimate — it emails Lulu directly (nothing is booked online).",
+    "Receive a custom quotation within 24–48 hours, including special event pricing when needed.",
+    "Finalize coverage, date, and investment with Lulu by email.",
+    "Approve the quote and complete any retainer Lulu sends to reserve your date.",
   ];
 }
 

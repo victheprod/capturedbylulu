@@ -26,8 +26,8 @@ type LuxuryBookingCTAProps = {
 export function LuxuryBookingCTA({
   eyebrow = "Begin the experience",
   title = "Your story deserves more than a form.",
-  description = "Tell Lulu what you're dreaming of — weddings, portraits, families, or events. Every inquiry is read personally, and you'll hear back within 24–48 hours.",
-  ctaLabel = "Start your inquiry",
+  description = "Tell Lulu what you're dreaming of — weddings, portraits, families, or any event. Request an estimate online; Lulu finalizes every quotation by email within 24–48 hours.",
+  ctaLabel = "Get an estimate",
   ctaHref = "/contact",
   imageSrc = siteImages.cta,
 }: LuxuryBookingCTAProps) {

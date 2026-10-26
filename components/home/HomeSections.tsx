@@ -50,7 +50,7 @@ export function HomeHero({
         "Luxury photography for weddings, portraits, families, and events. Every frame is crafted to tell your story."
       }
       imageSrc={siteImages.hero}
-      primaryCta={{ label: "Book a Session", href: "/contact" }}
+      primaryCta={{ label: "Get an Estimate", href: "/contact" }}
       secondaryCta={{ label: "View Portfolio", href: "/portfolio" }}
     />
   );
@@ -436,7 +436,7 @@ export function HomeCTA({
         content?.description ??
         "Reach out to check availability, ask a question, or start planning your session with Lulu."
       }
-      ctaLabel={content?.ctaLabel ?? "Book a Session"}
+      ctaLabel={content?.ctaLabel ?? "Get an Estimate"}
       ctaHref="/contact"
       imageSrc={siteImages.cta}
     />
