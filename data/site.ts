@@ -21,6 +21,19 @@ export const navLinks = [
   { label: "FAQ", href: "/faq" },
 ] as const;
 
+export const editorialNav = [
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Weddings", href: "/weddings" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "/faq" },
+] as const;
+
+export const editorialSecondaryNav = [
+  { label: "Brand Photography", href: "/brand-photography" },
+  { label: "Build Your Vision", href: "/vision" },
+] as const;
+
 /** Desktop shifting dropdown — Services mega panel */
 export const servicesNavTabs = [
   {
