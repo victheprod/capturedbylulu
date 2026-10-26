@@ -135,17 +135,6 @@ function BookingFormFields({
       }));
       return;
     }
-    if (searchParams.get("review") === "1") {
-      setForm((current) => ({
-        ...current,
-        sessionType: current.sessionType || "Other / Not sure",
-        message:
-          current.message ||
-          "I'd like to share a review from my session with Lulu:\n\n",
-      }));
-      return;
-    }
-
     const fromConcierge = searchParams.get("from") === "concierge";
     const fromVision = searchParams.get("from") === "vision";
     const storedConciergePrefill = fromConcierge ? loadConciergePrefill() : null;

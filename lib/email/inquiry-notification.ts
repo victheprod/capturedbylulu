@@ -1,5 +1,5 @@
-import { siteConfig } from "@/data/site";
 import type { BookingInquiry } from "@/lib/validation/booking";
+import { sendOwnerEmail } from "@/lib/email/resend";
 
 function formatInquiryText(inquiry: BookingInquiry) {
   return [
@@ -21,39 +21,11 @@ function formatInquiryText(inquiry: BookingInquiry) {
 }
 
 /** Sends estimate/quote request to the owner's inbox when Resend is configured. */
-export async function sendInquiryNotification(
-  inquiry: BookingInquiry,
-): Promise<boolean> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return false;
-
-  // Resend's test sender only delivers to the account's exact (lowercase) address.
-  const to = (process.env.INQUIRY_EMAIL ?? siteConfig.email).trim().toLowerCase();
-  const from =
-    process.env.RESEND_FROM ?? "CapturedByLulu <onboarding@resend.dev>";
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: inquiry.email,
-      subject: `Estimate request — ${inquiry.name} (${inquiry.sessionType})`,
-      text: formatInquiryText(inquiry),
-    }),
+export function sendInquiryNotification(inquiry: BookingInquiry): Promise<boolean> {
+  return sendOwnerEmail({
+    subject: `Estimate request — ${inquiry.name} (${inquiry.sessionType})`,
+    text: formatInquiryText(inquiry),
+    replyTo: inquiry.email,
+    tag: "inquiry-notification",
   });
-
-  if (!response.ok) {
-    console.error(
-      "[inquiry-notification] Resend rejected the email",
-      response.status,
-      await response.text().catch(() => ""),
-    );
-  }
-
-  return response.ok;
 }

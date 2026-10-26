@@ -62,7 +62,7 @@ export function GuestBook({ testimonials }: { testimonials: PublicTestimonial[] 
         </div>
 
         <div className="reveal mt-16 flex justify-end">
-          <Link href="/contact?review=1" className="link-line pb-1 text-sm font-medium">
+          <Link href="/review" className="link-line pb-1 text-sm font-medium">
             Worked with Lulu? Leave a review
           </Link>
         </div>
