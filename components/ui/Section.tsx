@@ -5,15 +5,14 @@ type SectionProps = {
   className?: string;
   innerClassName?: string;
   id?: string;
-  tone?: "default" | "surface" | "compact" | "hero-offset";
+  tone?: "default" | "surface" | "compact";
   bordered?: boolean;
 };
 
 const toneStyles = {
-  default: "py-24 lg:py-36",
-  surface: "bg-surface py-24 lg:py-36",
-  compact: "py-16 lg:py-24",
-  "hero-offset": "pt-24 pb-24 lg:pt-28 lg:pb-36",
+  default: "py-20 lg:py-28",
+  surface: "bg-surface py-20 lg:py-28",
+  compact: "py-14 lg:py-20",
 };
 
 export function Section({
@@ -36,13 +35,5 @@ export function Section({
     >
       <div className={cn("mx-auto max-w-7xl", innerClassName)}>{children}</div>
     </section>
-  );
-}
-
-export function SectionDivider() {
-  return (
-    <div className="mx-auto max-w-7xl px-6 lg:px-10">
-      <div className="h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent" />
-    </div>
   );
 }

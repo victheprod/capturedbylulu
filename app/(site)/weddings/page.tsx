@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { getPublicWeddingCategories } from "@/lib/cms/packages";
-import { CinematicHero, CTASection } from "@/components/ui/Hero";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
 import { PricingCategorySection } from "@/components/ui/PricingCategorySection";
 import { PricingNotes } from "@/components/ui/PricingNotes";
-import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
+import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Button } from "@/components/ui/Button";
+import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
 import { siteImages, weddingsHighlightGallery, weddingsEditorialPair } from "@/data/portfolio";
 import { pageMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
@@ -21,24 +23,20 @@ export const metadata: Metadata = pageMetadata({
 
 const processSteps = [
   {
-    step: "01",
-    title: "Estimate & Connection",
-    desc: "Request an estimate online — then we talk about you, your vision, and your love story. Nothing is booked until we finalize together by email.",
+    title: "Estimate and a call",
+    desc: "Request an estimate here, then talk through the day with Lulu. Nothing is booked until you both agree by email.",
   },
   {
-    step: "02",
-    title: "Pre-Wedding Session",
-    desc: "Celebrate your love story before the big day. Pre-wedding and engagement sessions help you feel comfortable in front of the camera.",
+    title: "Pre-wedding session",
+    desc: "An engagement or pre-wedding shoot, so you're comfortable in front of the camera before the big day.",
   },
   {
-    step: "03",
-    title: "Your Wedding Day",
-    desc: "I arrive early, stay late, and capture everything in between with a calm presence and intuitive eye. You'll barely notice I'm there.",
+    title: "The wedding day",
+    desc: "Lulu arrives early, stays late, and covers everything in between without getting in the way.",
   },
   {
-    step: "04",
-    title: "Gallery Delivery",
-    desc: "Your fully edited gallery is delivered within 4–6 weeks — beautifully curated, ready to view, download, share, and print.",
+    title: "Your gallery",
+    desc: "A fully edited gallery delivered in 4 to 6 weeks, ready to download, share, and print.",
   },
 ];
 
@@ -46,31 +44,36 @@ export default async function WeddingsPage() {
   const weddingsPageCategories = await getPublicWeddingCategories();
   return (
     <>
-      <CinematicHero
-        eyebrow="Wedding Photography"
+      <PageHeader
+        eyebrow="Weddings"
+        tagline="Intimate ceremonies to full-day celebrations across Texas."
         title={
           <>
-            Your love story,{" "}
-            <em className="not-italic text-primary/90">beautifully told</em>
+            Your wedding, the way it{" "}
+            <em className="not-italic text-primary">actually</em> happened.
           </>
         }
+        description="Honest coverage of the planned moments and the unplanned ones, plus portraits worth framing."
         imageSrc={siteImages.weddingsBanner}
-        fullScreen={false}
+        imagePosition="50% 40%"
+        imageAlt="Wedding photographed by Lulu"
+        primaryCta={{ label: "Get a wedding estimate", href: "/contact" }}
+        secondaryCta={{ label: "See packages", href: "#packages" }}
       />
 
-      <section className="px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
+      <Section>
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-24">
           <FadeIn>
-            <p className="mb-7 font-serif text-2xl font-light italic leading-relaxed text-foreground lg:text-3xl">
-              Weddings don&apos;t run on a script, and the photos
-              shouldn&apos;t look like they did.
-            </p>
-            <p className="mb-4 leading-relaxed text-foreground/58">
+            <SectionHeading
+              eyebrow="How Lulu works"
+              title="Weddings don't run on a script, and the photos shouldn't look like they did."
+            />
+            <p className="mt-6 leading-relaxed text-foreground/60">
               Lulu covers the planned moments and the ones nobody planned: the
               first look, the toast that runs long, your aunt taking over the
               dance floor.
             </p>
-            <p className="leading-relaxed text-foreground/58">
+            <p className="mt-4 leading-relaxed text-foreground/60">
               Most of the day he works quietly in the background. When it&apos;s
               time for portraits, he steps in and directs, so you end up with
               honest moments and photos worth framing.
@@ -80,10 +83,7 @@ export default async function WeddingsPage() {
             {weddingsEditorialPair.map((photo, i) => (
               <FadeInItem
                 key={photo.id}
-                className={cn(
-                  "aspect-[3/4] overflow-hidden bg-card",
-                  i === 1 && "mt-12",
-                )}
+                className={cn("aspect-[3/4] overflow-hidden bg-card", i === 1 && "mt-12")}
               >
                 <PhotoImage
                   src={photo.src}
@@ -96,108 +96,78 @@ export default async function WeddingsPage() {
             ))}
           </FadeInStagger>
         </div>
-      </section>
+      </Section>
 
-      <section className="border-t border-foreground/10 px-6 py-16 lg:px-10 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn className="mb-10 text-center">
-            <SectionHeading
-              eyebrow="Real Weddings"
-              title="Celebrations across cultures & venues"
-              description="Ceremony, bridal party, and reception moments from recent celebrations."
-              align="center"
-            />
-          </FadeIn>
-          <FadeInStagger className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
-            {weddingsHighlightGallery.map((photo) => (
-              <FadeInItem
-                key={photo.id}
-                className="aspect-[3/4] overflow-hidden bg-card md:aspect-[4/5]"
-              >
-                <PhotoImage
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  objectPosition={photo.objectPosition}
-                />
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
-          <FadeIn className="mt-10 text-center">
-            <Link
-              href="/portfolio"
-              className="text-[11px] tracking-[0.2em] uppercase text-primary transition-colors hover:text-primary/80"
+      <Section tone="surface" bordered>
+        <FadeIn>
+          <SectionHeading
+            eyebrow="Real weddings"
+            title="Recent celebrations"
+            description="Ceremony, bridal party, and reception moments from recent weddings."
+            action={
+              <Button href="/portfolio" variant="link">
+                Full portfolio
+              </Button>
+            }
+          />
+        </FadeIn>
+        <FadeInStagger className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
+          {weddingsHighlightGallery.map((photo) => (
+            <FadeInItem
+              key={photo.id}
+              className="aspect-[3/4] overflow-hidden bg-card md:aspect-[4/5]"
             >
-              View full portfolio →
-            </Link>
-          </FadeIn>
-        </div>
-      </section>
-
-      <section className="border-t border-foreground/10 bg-surface px-6 py-24 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn className="mb-10 text-center">
-            <SectionHeading
-              eyebrow="Investment"
-              title="Wedding & Pre-Wedding Packages"
-              align="center"
-            />
-          </FadeIn>
-          <FadeIn className="mb-12">
-            <PricingNotes />
-          </FadeIn>
-          {weddingsPageCategories.map((section) => (
-            <PricingCategorySection key={section.id} section={section} />
+              <PhotoImage
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                objectPosition={photo.objectPosition}
+              />
+            </FadeInItem>
           ))}
-        </div>
-      </section>
+        </FadeInStagger>
+      </Section>
 
-      <section className="border-t border-foreground/10 px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mx-auto max-w-4xl">
-          <FadeIn className="mb-14 text-center">
-            <SectionHeading
-              eyebrow="The Experience"
-              title="What to expect"
-              align="center"
-            />
-          </FadeIn>
-          <div className="relative">
-            <div className="absolute top-0 bottom-0 left-6 hidden w-px bg-primary/25 lg:block" />
-            {processSteps.map((item) => (
-              <FadeIn
-                key={item.step}
-                className="relative mb-10 flex gap-8 lg:pl-16"
-              >
-                <div className="absolute left-0 hidden h-12 w-12 shrink-0 items-center justify-center border border-primary/45 bg-background lg:flex">
-                  <span className="text-[11px] text-primary">{item.step}</span>
-                </div>
-                <div className="flex-1 border-b border-foreground/8 pb-8 last:border-0">
-                  <div className="mb-2 flex items-center gap-3">
-                    <span className="text-[11px] text-primary lg:hidden">
-                      {item.step}
-                    </span>
-                    <h3 className="font-serif text-xl text-foreground">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm leading-relaxed text-foreground/58">
-                    {item.desc}
-                  </p>
-                </div>
+      <Section id="packages">
+        <FadeIn>
+          <SectionHeading eyebrow="Pricing" title="Wedding and pre-wedding packages" />
+        </FadeIn>
+        <FadeIn className="mt-10 mb-12">
+          <PricingNotes />
+        </FadeIn>
+        {weddingsPageCategories.map((section) => (
+          <PricingCategorySection key={section.id} section={section} />
+        ))}
+      </Section>
+
+      <Section tone="surface" bordered innerClassName="max-w-5xl">
+        <FadeIn>
+          <SectionHeading eyebrow="The process" title="What to expect" />
+        </FadeIn>
+        <ol className="mt-12 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2">
+          {processSteps.map((item, i) => (
+            <li key={item.title} className="border-t border-foreground/10 pt-6">
+              <FadeIn delay={i * 0.05}>
+                <p className="text-sm text-primary/80">{i + 1}.</p>
+                <h3 className="mt-2 font-serif text-2xl font-light text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/60">
+                  {item.desc}
+                </p>
               </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
+            </li>
+          ))}
+        </ol>
+      </Section>
 
-      <CTASection
-        eyebrow="Limited Availability"
-        title="Dates are limited"
-        description="Lulu books only a select number of weddings each year to ensure every couple receives his complete focus and creative dedication."
-        ctaLabel="Get a Wedding Estimate"
-        ctaHref="/contact"
-        imageSrc={siteImages.weddingsBanner}
+      <EstimateCTA
+        eyebrow="Wedding dates"
+        title="Lulu takes a limited number of weddings each year."
+        description="Send your date and venue and he'll reply with availability and a quote, usually within a day or two."
+        ctaLabel="Get a wedding estimate"
+        imageSrc={siteImages.weddingsDetail2}
       />
     </>
   );

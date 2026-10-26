@@ -5,9 +5,9 @@ import { EditorialTrustStrip } from "@/components/home/EditorialTrustStrip";
 import { GalleryPassage } from "@/components/home/GalleryPassage";
 import { ServicesManifest } from "@/components/home/ServicesManifest";
 import { AboutEditorial } from "@/components/home/AboutEditorial";
-import { TestimonialsSection } from "@/components/home/HomeSections";
+import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { InstagramFilmStrip } from "@/components/home/InstagramFilmStrip";
-import { LuxuryBookingCTA } from "@/components/home/LuxuryBookingCTA";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
 import { getFeaturedTestimonials } from "@/lib/cms/testimonials";
 import { getPublicContent } from "@/lib/cms/site";
 import { pageMetadata } from "@/lib/metadata";
@@ -61,25 +61,25 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="editorial-flow">
+    <>
       <CinematicHero
         eyebrow={heroContent?.eyebrow || "Photographer · Texas"}
         title={heroTitleFromContent(heroContent?.title)}
         subtitle={heroSubtitleFromContent(heroContent?.subtitle)}
       />
-      <PhilosophyInterlude />
       <EditorialTrustStrip />
       <GalleryPassage />
+      <PhilosophyInterlude />
       <ServicesManifest />
       <AboutEditorial />
       <TestimonialsSection testimonials={testimonials} />
       <InstagramFilmStrip />
-      <LuxuryBookingCTA
+      <EstimateCTA
         eyebrow={ctaContent?.eyebrow}
         title={ctaContent?.title}
         description={ctaContent?.description}
         ctaLabel={ctaContent?.ctaLabel}
       />
-    </div>
+    </>
   );
 }

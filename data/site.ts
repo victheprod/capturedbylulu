@@ -1,17 +1,17 @@
 export const siteConfig = {
   name: "CapturedByLulu",
-  tagline: "Texas-based luxury photography",
+  tagline: "Photography by Lulu, based in Texas",
   description:
-    "Luxury photography for weddings, portraits, families, and events across Texas and beyond.",
+    "Weddings, portraits, families, and events photographed by Lulu across Texas and beyond.",
   email: "Capturedbylulu63@gmail.com",
   phone: "+1 (346) 907-1945",
-  location: "Texas Based",
+  location: "Based in Texas",
   instagram: "@capturedbylulu_",
   instagramUrl: "https://www.instagram.com/capturedbylulu_/",
 } as const;
 
 export const siteBranding = {
-  eyebrow: "Texas Based",
+  eyebrow: "Photographer · Texas",
   ogImage: "/logo.png",
 } as const;
 
@@ -109,9 +109,9 @@ export const serviceCategories = [
 ] as const;
 
 export const trustItems = [
-  { label: "Texas Based · Travel Available" },
-  { label: "Cinematic, Editorial Style" },
-  { label: "Every Inquiry Read Personally by Lulu" },
+  { label: "Based in Texas · Travels nationwide" },
+  { label: "Weddings · Portraits · Families · Events" },
+  { label: "Every request read by Lulu" },
   {
     label: `${siteConfig.instagram} on Instagram`,
     href: siteConfig.instagramUrl,

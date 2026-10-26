@@ -1,12 +1,14 @@
+import type { Metadata } from "next";
 import { PortfolioMasonry } from "@/components/ui/PortfolioMasonry";
 import { PortfolioScrollShowcase } from "@/components/ui/PortfolioScrollShowcase";
-import { PortfolioEditorialIntro } from "@/components/portfolio/PortfolioEditorialIntro";
-import { SignatureMark } from "@/components/ui/SignatureMark";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { siteImages, portfolioScrollShowcase } from "@/data/portfolio";
 import { getPublicPortfolioItems } from "@/lib/cms/portfolio";
 import { pageMetadata } from "@/lib/metadata";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = pageMetadata({
   title: "Portfolio",
@@ -20,30 +22,30 @@ export default async function PortfolioPage() {
   const items = await getPublicPortfolioItems();
 
   return (
-    <div className="bg-background">
-      <PortfolioEditorialIntro />
-      <PortfolioScrollShowcase />
-      <SignatureMark variant="floating" />
-      <div className="relative -mt-6 mx-auto max-w-7xl px-6 py-16 lg:-mt-10 lg:px-10 lg:py-24">
-        <FadeIn className="mb-14 max-w-2xl">
-          <p className="mb-4 text-[11px] tracking-[0.28em] uppercase text-primary">
-            The archive
-          </p>
-          <h2 className="font-serif text-[clamp(2rem,4vw,3.25rem)] font-light text-foreground">
-            Every photograph on the wall
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-foreground/55">
-            Filter by room — weddings, portraits, families, events — then step
-            closer. Click any frame to enter fullscreen.
-          </p>
-        </FadeIn>
+    <>
+      <PageHeader
+        eyebrow="Portfolio"
+        tagline="Weddings, portraits, families, and events."
+        title="The work."
+        description="Start with the highlights, then browse everything. It's all real client work from Texas and beyond."
+      />
+      <PortfolioScrollShowcase hideHeader />
+      <Section className="border-t border-foreground/10">
         <FadeIn>
+          <SectionHeading
+            eyebrow="Archive"
+            title="Everything else"
+            description="Filter by category, then click any photo to view it full screen."
+          />
+        </FadeIn>
+        <FadeIn className="mt-12">
           <PortfolioMasonry
             items={items}
             excludeIds={portfolioScrollShowcase.map((item) => item.id)}
           />
         </FadeIn>
-      </div>
-    </div>
+      </Section>
+      <EstimateCTA />
+    </>
   );
 }

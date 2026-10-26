@@ -1,11 +1,32 @@
 import { cn } from "@/lib/utils";
 
+export function Eyebrow({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "text-[11px] font-medium tracking-[0.24em] uppercase text-primary",
+        className,
+      )}
+    >
+      {children}
+    </p>
+  );
+}
+
 type SectionHeadingProps = {
   eyebrow?: string;
-  title: string;
-  description?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
   align?: "left" | "center";
+  action?: React.ReactNode;
   className?: string;
+  as?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -13,63 +34,38 @@ export function SectionHeading({
   title,
   description,
   align = "left",
+  action,
   className,
+  as: Heading = "h2",
 }: SectionHeadingProps) {
+  const centered = align === "center";
+
   return (
     <div
       className={cn(
-        align === "center" && "text-center",
+        "flex flex-col gap-6",
+        action && !centered && "sm:flex-row sm:items-end sm:justify-between",
+        centered && "items-center text-center",
         className,
       )}
     >
-      {eyebrow && (
-        <p className="mb-3 text-[11px] tracking-[0.25em] uppercase text-primary">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="font-serif text-4xl font-light leading-tight text-foreground lg:text-5xl">
-        {title}
-      </h2>
-      {description && (
-        <p
-          className={cn(
-            "mt-4 max-w-lg text-base leading-relaxed text-foreground/58",
-            align === "center" && "mx-auto",
-          )}
-        >
-          {description}
-        </p>
-      )}
-    </div>
-  );
-}
-
-export function PageHeading({
-  eyebrow,
-  title,
-  description,
-  className,
-}: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      {eyebrow && (
-        <p className="mb-3 text-[11px] tracking-[0.25em] uppercase text-primary">
-          {eyebrow}
-        </p>
-      )}
-      <h1 className="font-serif text-5xl font-light text-foreground lg:text-6xl">
-        {title}
-      </h1>
-      {description && (
-        <p className="mt-4 max-w-lg leading-relaxed text-foreground/58">
-          {description}
-        </p>
-      )}
+      <div className={cn("max-w-2xl", centered && "mx-auto")}>
+        {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
+        <Heading className="text-balance font-serif text-[clamp(2rem,4.5vw,3.25rem)] font-light leading-[1.08] text-foreground">
+          {title}
+        </Heading>
+        {description && (
+          <p
+            className={cn(
+              "mt-5 max-w-xl text-[0.95rem] leading-relaxed text-foreground/60",
+              centered && "mx-auto",
+            )}
+          >
+            {description}
+          </p>
+        )}
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }

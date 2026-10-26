@@ -1,182 +1,145 @@
 "use client";
 
+import { useId, useState } from "react";
 import Link from "next/link";
-import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { servicesTeaserImages } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
-export function ServicesManifest() {
-  return (
-    <section className="relative -mt-6 overflow-hidden bg-background py-20 lg:-mt-10 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <FadeIn className="mb-12 max-w-2xl lg:mb-16">
-          <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
-            Services
-          </p>
-          <h2 className="font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
-            What Lulu shoots.
-          </h2>
-        </FadeIn>
-
-        {/* Mobile: uniform 2×2 grid */}
-        <div className="grid grid-cols-2 gap-3 lg:hidden">
-          {servicesTeaserImages.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="group relative aspect-[4/5] overflow-hidden bg-card"
-            >
-              <PhotoImage
-                src={item.src}
-                alt={`${item.label} photography by CapturedByLulu`}
-                fill
-                objectPosition={item.objectPosition}
-                sizes="50vw"
-                className="transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
-              <p className="absolute right-0 bottom-0 left-0 p-4 font-serif text-lg text-foreground">
-                {item.label}
-              </p>
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop: editorial alternating rows */}
-        <div className="hidden space-y-10 lg:block">
-          {servicesTeaserImages.map((item, i) => (
-            <ServiceRow key={item.label} item={item} index={i} />
-          ))}
-        </div>
-
-        <FadeIn className="mt-12 flex flex-wrap items-center gap-8 lg:mt-16">
-          <Link
-            href="/services"
-            className="group inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-primary"
-          >
-            View full pricing
-            <ArrowRight
-              size={14}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </Link>
-          <span className="hidden h-px w-16 bg-foreground/15 lg:block" aria-hidden />
-          <Link
-            href="/contact?quote=custom"
-            className="text-sm text-foreground/55 underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary"
-          >
-            Planning something that isn&apos;t listed? Ask for a custom quote.
-          </Link>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-function ServiceRow({
-  item,
-  index,
-}: {
-  item: (typeof servicesTeaserImages)[number];
-  index: number;
-}) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const reduced = useReducedMotion();
-  const isEven = index % 2 === 0;
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const imageX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    isEven ? ["-3%", "3%"] : ["3%", "-3%"],
-  );
-
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.8, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <Link
-        ref={ref}
-        href={item.href}
-        className={cn(
-          "group relative grid grid-cols-12 items-center gap-10",
-          !isEven && "[direction:rtl]",
-        )}
-      >
-        <div
-          className={cn(
-            "service-row-image relative col-span-7 overflow-hidden bg-card",
-            isEven ? "col-start-1" : "col-start-6 [direction:ltr]",
-          )}
-          style={
-            {
-              "--service-aspect": item.aspectRatio.replace("/", " / "),
-            } as React.CSSProperties
-          }
-        >
-          <motion.div
-            className="absolute inset-0"
-            style={reduced ? undefined : { x: imageX }}
-          >
-            <PhotoImage
-              src={item.src}
-              alt={`${item.label} photography by CapturedByLulu`}
-              fill
-              objectPosition={item.objectPosition}
-              sizes="55vw"
-              className="transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        </div>
-
-        <div
-          className={cn(
-            "col-span-4 flex flex-col justify-center [direction:ltr]",
-            isEven ? "col-start-9 pl-4" : "col-start-1 pr-4 text-right",
-          )}
-        >
-          <h3 className="font-serif text-4xl font-light text-foreground">
-            {item.label}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-foreground/50">
-            {descriptions[item.label] ?? "Packages and pricing on the services page."}
-          </p>
-          <span className="mt-5 inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-primary opacity-0 transition-all duration-400 group-hover:opacity-100">
-            Explore
-            <ArrowRight
-              size={12}
-              className="transition-transform group-hover:translate-x-0.5"
-            />
-          </span>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
-const descriptions: Record<string, string> = {
-  Weddings:
-    "Courthouse vows to full-day celebrations, with coverage sized to your day.",
-  Portraits:
-    "Headshots, birthdays, graduations, and personal shoots. Lulu directs, so you're never guessing what to do with your hands.",
-  Families:
-    "Relaxed sessions for the whole crew, kids and grandparents included.",
-  Events: "Birthdays, parties, and corporate events, covered start to finish.",
+const details: Record<string, { tag: string; description: string; href: string }> = {
+  Weddings: {
+    tag: "Ceremonies to receptions",
+    description:
+      "Courthouse vows to full-day celebrations, with coverage sized to your day. Pre-wedding sessions available.",
+    href: "/weddings",
+  },
+  Portraits: {
+    tag: "Headshots, birthdays, grads",
+    description:
+      "Headshots, birthdays, graduations, and personal shoots. Lulu directs, so you're never guessing what to do with your hands.",
+    href: "/services",
+  },
+  Families: {
+    tag: "All ages welcome",
+    description:
+      "Relaxed sessions for the whole crew, kids and grandparents included. Indoors, outdoors, or at home.",
+    href: "/services",
+  },
+  Events: {
+    tag: "Parties and corporate",
+    description:
+      "Birthdays, parties, and corporate events, covered start to finish. Custom quotes for anything bigger.",
+    href: "/services",
+  },
 };
+
+/** Accordion service list, adapted from 21st.dev "Editorial service list". */
+export function ServicesManifest() {
+  const [expanded, setExpanded] = useState(0);
+  const id = useId();
+
+  return (
+    <Section>
+      <FadeIn>
+        <SectionHeading
+          eyebrow="Services"
+          title="What Lulu shoots."
+          description="Open a category for a quick look, or go straight to pricing."
+          action={
+            <Button href="/services" variant="link">
+              Full pricing
+            </Button>
+          }
+        />
+      </FadeIn>
+
+      <div className="mt-12 border-b border-foreground/10">
+        {servicesTeaserImages.map((service, i) => {
+          const open = expanded === i;
+          const info = details[service.label];
+          return (
+            <div key={service.label} className="border-t border-foreground/10">
+              <button
+                type="button"
+                id={`${id}-button-${i}`}
+                aria-expanded={open}
+                aria-controls={`${id}-panel-${i}`}
+                onClick={() => setExpanded(open ? -1 : i)}
+                className="group flex w-full items-center gap-6 py-6 text-left lg:py-7"
+              >
+                <span
+                  className={cn(
+                    "font-serif text-3xl font-light transition-all duration-300 lg:text-5xl",
+                    open
+                      ? "translate-x-2 text-primary"
+                      : "text-foreground group-hover:translate-x-2",
+                  )}
+                >
+                  {service.label}
+                </span>
+                <span className="ml-auto hidden text-sm text-foreground/45 sm:inline">
+                  {info?.tag}
+                </span>
+                <ChevronRight
+                  size={18}
+                  aria-hidden
+                  className={cn(
+                    "shrink-0 text-foreground/40 transition-transform duration-300 group-hover:text-foreground sm:ml-0",
+                    open && "rotate-90 text-primary",
+                  )}
+                />
+              </button>
+
+              <div
+                id={`${id}-panel-${i}`}
+                role="region"
+                aria-labelledby={`${id}-button-${i}`}
+                inert={!open}
+                className={cn(
+                  "grid transition-[grid-template-rows,opacity] duration-500 ease-out",
+                  open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+              >
+                <div className="overflow-hidden">
+                  <div className="grid grid-cols-1 gap-6 pb-8 sm:grid-cols-[1.4fr_1fr] sm:gap-10 lg:pb-10">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-card">
+                      <PhotoImage
+                        src={service.src}
+                        alt={`${service.label} photography by CapturedByLulu`}
+                        fill
+                        objectPosition={service.objectPosition}
+                        sizes="(max-width: 640px) 100vw, 55vw"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-end gap-6">
+                      <p className="max-w-sm text-[0.95rem] leading-relaxed text-foreground/60">
+                        {info?.description}
+                      </p>
+                      <Button href={info?.href ?? service.href} variant="link">
+                        See packages
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <FadeIn className="mt-10">
+        <Link
+          href="/contact?quote=custom"
+          className="text-sm text-foreground/60 underline decoration-primary/40 underline-offset-4 transition-colors hover:text-primary"
+        >
+          Planning something that isn&apos;t listed? Ask for a custom quote.
+        </Link>
+      </FadeIn>
+    </Section>
+  );
+}

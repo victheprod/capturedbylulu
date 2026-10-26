@@ -13,11 +13,11 @@ export function PricingCategorySection({ section }: PricingCategorySectionProps)
   const gridClass = getGridColsClass(section.packages.length);
 
   return (
-    <FadeIn className="mb-16">
+    <FadeIn className="mb-16 last:mb-0">
       <div className="mb-8 flex items-center gap-5">
-        <h2 className="font-serif text-2xl text-foreground">
+        <h3 className="font-serif text-2xl font-light text-foreground">
           {section.category}
-        </h2>
+        </h3>
         <div className="h-px flex-1 bg-foreground/10" />
         {section.linkHref && (
           <Link

@@ -1,98 +1,77 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { siteConfig } from "@/data/site";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 import { luluPortrait } from "@/data/lulu";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import { AboutStoryChapters } from "@/components/about/AboutStoryChapters";
 import { AboutVisualStory } from "@/components/about/AboutVisualStory";
-import { SignatureMark } from "@/components/ui/SignatureMark";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Meet Lulu — Texas-based photographer behind CapturedByLulu. Weddings, portraits, families, and events.",
+    "Meet Lulu, the Texas-based photographer behind CapturedByLulu. Weddings, portraits, families, and events.",
   path: "/about",
   image: siteImages.about,
 });
 
 export default function AboutPage() {
   return (
-    <div>
-      <section className="px-6 pb-12 pt-28 lg:px-10 lg:pb-16 lg:pt-32">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-end gap-12 lg:grid-cols-12 lg:gap-10">
-          <FadeIn className="lg:col-span-5">
-            <p className="mb-5 text-[11px] tracking-[0.32em] uppercase text-primary">
-              About CapturedByLulu
-            </p>
-            <h1 className="font-serif text-[clamp(2.75rem,6vw,4.5rem)] font-light leading-[1.05] text-foreground">
-              Hi, I&apos;m Lulu
-            </h1>
-            <p className="mt-8 max-w-md text-base leading-relaxed text-foreground/58">
-              Texas-based photographer. Cinematic, editorial, and deeply
-              personal — weddings, portraits, families, and events across Texas
-              and beyond.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Button href="/contact">Get an Estimate</Button>
-              <Button href="/portfolio" variant="outline">
-                View Portfolio
-              </Button>
-            </div>
-          </FadeIn>
+    <>
+      <PageHeader
+        eyebrow="About"
+        tagline="Photographer based in Texas."
+        title="Hi, I'm Lulu."
+        description="I photograph weddings, portraits, families, and events across Texas, and I travel when a shoot calls for it."
+        primaryCta={{ label: "Get an estimate", href: "/contact" }}
+        secondaryCta={{ label: "See the work", href: "/portfolio" }}
+      />
 
-          <FadeIn delay={0.08} className="relative lg:col-span-7">
-            <div className="relative aspect-[5/4] overflow-hidden bg-card lg:aspect-[16/10]">
+      <Section className="border-t border-foreground/10">
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
+          <FadeIn className="lg:col-span-6">
+            <div className="relative aspect-[4/5] overflow-hidden bg-card">
               <PhotoImage
                 src={siteImages.about}
                 alt={luluPortrait.alt}
                 fill
                 objectPosition={siteImageFraming.about.objectPosition}
-                sizes="(max-width: 1024px) 100vw, 55vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
-            <a
-              href={siteConfig.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-primary transition-colors hover:text-foreground"
-            >
-              <InstagramIcon size={14} />
-              Follow {siteConfig.instagram}
-              <ArrowRight size={12} />
-            </a>
+          </FadeIn>
+          <FadeIn delay={0.08} className="lg:col-span-5 lg:col-start-8">
+            <SectionHeading
+              eyebrow="Working together"
+              title="You work with me, start to finish."
+            />
+            <p className="mt-6 leading-relaxed text-foreground/60">
+              There&apos;s no team handing you off. I answer your estimate
+              request, plan the shoot with you, take the photos, and edit every
+              gallery myself.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/60">
+              Nothing is booked online. We agree on the details by email first,
+              so there are no surprises.
+            </p>
+            <div className="mt-8">
+              <Button href={siteConfig.instagramUrl} external variant="link">
+                Follow {siteConfig.instagram}
+              </Button>
+            </div>
           </FadeIn>
         </div>
-      </section>
+      </Section>
 
       <AboutVisualStory />
-      <SignatureMark />
       <AboutStoryChapters />
-
-      <section className="px-6 py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <FadeIn>
-            <p className="text-base leading-relaxed text-foreground/58">
-              When you work with CapturedByLulu, you work directly with me.
-              Estimates and custom quotations go to my email — nothing is booked
-              online — and every gallery is edited with the same care I&apos;d
-              want for my own memories.
-            </p>
-            <Link
-              href="/contact"
-              className="group mt-8 inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-primary"
-            >
-              Start a conversation
-              <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          </FadeIn>
-        </div>
-      </section>
-    </div>
+      <EstimateCTA />
+    </>
   );
 }

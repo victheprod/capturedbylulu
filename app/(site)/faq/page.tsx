@@ -2,48 +2,42 @@ import type { Metadata } from "next";
 import { faqSections } from "@/data/faq";
 import { siteImages } from "@/data/portfolio";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
-import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
+import { Section } from "@/components/ui/Section";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { PageEditorialIntro } from "@/components/ui/PageEditorialIntro";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "FAQ",
   description:
-    "Frequently asked questions about booking, sessions, delivery, and pricing for CapturedByLulu photography.",
+    "Frequently asked questions about estimates, sessions, delivery, and pricing for CapturedByLulu photography.",
   path: "/faq",
   image: siteImages.servicesBanner,
 });
 
 export default function FAQPage() {
   return (
-    <div>
-      <PageEditorialIntro
-        eyebrow="Questions"
-        title="Everything you're wondering — answered plainly."
-        description="Estimates, sessions, delivery, and pricing. Still unsure? Request a custom quotation — Lulu responds personally by email."
+    <>
+      <PageHeader
+        eyebrow="FAQ"
+        tagline="Estimates, sessions, delivery, and pricing."
+        title="Questions, answered plainly."
+        description="If yours isn't here, send it with your estimate request and Lulu will answer by email."
+        imageSrc="/site-images/portraits/DSC07888.jpg"
+        imagePosition="60% 45%"
+        imageAlt="Black and white portrait of a couple under a tree"
       />
-      <div className="mx-auto max-w-3xl px-6 py-16 lg:px-10 lg:py-20">
+      <Section innerClassName="max-w-3xl">
         <FadeIn>
           <FAQAccordion sections={faqSections} />
         </FadeIn>
-
-        <FadeIn className="mt-20 border-t border-foreground/10 pt-16 text-center">
-          <h2 className="mb-3 font-serif text-3xl font-light text-foreground">
-            Still have questions?
-          </h2>
-          <p className="mx-auto mb-8 max-w-sm text-sm leading-relaxed text-foreground/55">
-            Send a message or reach out on Instagram — Lulu personally responds
-            within 24–48 hours.
-          </p>
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/contact">Get an estimate</Button>
-            <Button href="/about" variant="outline">
-              About Lulu
-            </Button>
-          </div>
-        </FadeIn>
-      </div>
-    </div>
+      </Section>
+      <EstimateCTA
+        eyebrow="Still wondering?"
+        title="Ask Lulu directly."
+        description="Put your question in an estimate request. You'll get a real answer by email, usually within a day or two."
+      />
+    </>
   );
 }

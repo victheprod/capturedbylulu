@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { PortfolioScrollShowcase } from "@/components/ui/PortfolioScrollShowcase";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { siteImages } from "@/data/portfolio";
 
@@ -15,38 +15,24 @@ const HOME_GALLERY_EXCLUDE_IDS = [
 
 export function GalleryPassage() {
   return (
-    <div className="relative -mt-8 bg-background lg:-mt-12">
-      <div className="mx-auto max-w-7xl px-6 pb-2 pt-12 lg:px-10 lg:pt-20">
-        <FadeIn className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="max-w-2xl">
-            <p className="mb-4 text-[11px] tracking-[0.32em] uppercase text-primary">
-              Recent work
-            </p>
-            <h2 className="text-balance font-serif text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-[1.05] text-foreground">
-              A few favorites.
-            </h2>
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-foreground/55">
-              Weddings, portraits, families, and birthdays from the last few
-              seasons. Scroll sideways, or open the full portfolio.
-            </p>
-          </div>
-          <Link
-            href="/portfolio"
-            className="group inline-flex items-center gap-2 self-start text-[11px] tracking-[0.2em] uppercase text-primary lg:self-end"
-          >
-            Full portfolio
-            <ArrowRight
-              size={14}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </Link>
-        </FadeIn>
-      </div>
+    <section className="bg-background pt-20 lg:pt-28">
+      <FadeIn className="mx-auto max-w-7xl px-6 pb-10 lg:px-10 lg:pb-12">
+        <SectionHeading
+          eyebrow="Recent work"
+          title="A few favorites."
+          description="Weddings, portraits, families, and birthdays from the last few seasons. Scroll sideways, or open the full portfolio."
+          action={
+            <Button href="/portfolio" variant="link">
+              Full portfolio
+            </Button>
+          }
+        />
+      </FadeIn>
       <PortfolioScrollShowcase
         hideHeader
         excludeIds={HOME_GALLERY_EXCLUDE_IDS}
         excludeSrcs={[siteImages.hero, siteImages.aboutTeaser, siteImages.cta]}
       />
-    </div>
+    </section>
   );
 }

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { PageEditorialIntro } from "@/components/ui/PageEditorialIntro";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { ServiceExperienceShowcase } from "@/components/services/ServiceExperienceShowcase";
 import { PricingNotes } from "@/components/ui/PricingNotes";
-import { Button } from "@/components/ui/Button";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
-import { SignatureMark } from "@/components/ui/SignatureMark";
 import { addons } from "@/data/packages";
 import { siteImages } from "@/data/portfolio";
 import { getPublicPackageCategories } from "@/lib/cms/packages";
@@ -20,6 +21,19 @@ export const metadata: Metadata = pageMetadata({
   image: siteImages.servicesBanner,
 });
 
+const moreServices = [
+  {
+    title: "Weddings & pre-wedding",
+    desc: "Courthouse vows to full-day celebrations, plus engagement sessions.",
+    href: "/weddings",
+  },
+  {
+    title: "Brand photography",
+    desc: "Photos for your website, socials, and launches, from starter sessions to full brand days.",
+    href: "/brand-photography",
+  },
+];
+
 export default async function ServicesPage() {
   const categories = await getPublicPackageCategories();
   const serviceCategories = categories.filter((c) =>
@@ -28,116 +42,79 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <PageEditorialIntro
-        eyebrow="Investment"
+      <PageHeader
+        eyebrow="Services"
+        tagline="Portraits, families, events, and headshots."
         title="Packages and pricing."
         description="Every package includes a private online gallery and Lulu's editing. Pick a session type below and request an estimate. Lulu confirms the final price by email."
-        imageSrc={siteImages.servicesBanner}
-        dark
+        imageSrc="/site-images/portraits/DSC05682.jpg"
+        imagePosition="50% 30%"
+        imageAlt="Two friends in white dresses photographed outdoors by Lulu"
       />
 
-      <div className="mx-auto max-w-5xl px-6 pb-24 lg:px-10">
-        <FadeIn className="mb-14 max-w-2xl">
+      <Section innerClassName="max-w-5xl">
+        <FadeIn className="mb-12">
           <PricingNotes />
-          <p className="mt-8 text-sm leading-relaxed text-foreground/55">
-            Not sure where to begin?{" "}
-            <a
-              href="/contact"
-              className="text-primary transition-colors hover:text-foreground"
-            >
-              Request an estimate
-            </a>{" "}
-            — Lulu will reply by email with a custom quotation tailored to you.
-          </p>
         </FadeIn>
-
         <ServiceExperienceShowcase categories={serviceCategories} />
+      </Section>
 
-        <SignatureMark className="my-16" />
-
-        <FadeIn className="mb-16">
-          <div className="mb-10 max-w-2xl">
-            <p className="mb-3 text-[11px] tracking-[0.28em] uppercase text-primary">
-              Beyond the essentials
-            </p>
-            <h2 className="font-serif text-3xl font-light text-foreground">
-              Weddings, brand, and more
-            </h2>
-          </div>
-          <div className="divide-y divide-foreground/10 border-y border-foreground/10">
-            {[
-              {
-                title: "Weddings & Pre-Wedding",
-                desc: "Intimate ceremonies to full-day celebrations, plus engagement and pre-wedding sessions.",
-                href: "/weddings",
-              },
-              {
-                title: "Brand Photography",
-                desc: "Elevated imagery for entrepreneurs and businesses — from starter sessions to premium brand packages.",
-                href: "/brand-photography",
-              },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group flex flex-col gap-3 py-8 transition-colors sm:flex-row sm:items-center sm:justify-between sm:gap-8"
-              >
-                <div className="max-w-xl">
-                  <h3 className="font-serif text-xl text-foreground transition-colors group-hover:text-primary">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground/55">
-                    {item.desc}
-                  </p>
-                </div>
-                <span className="inline-flex shrink-0 items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-primary">
-                  View Packages <ArrowRight size={12} />
-                </span>
-              </Link>
-            ))}
-          </div>
+      <Section tone="surface" bordered innerClassName="max-w-5xl">
+        <FadeIn>
+          <SectionHeading eyebrow="Also available" title="Weddings and brand work" />
         </FadeIn>
+        <div className="mt-10 divide-y divide-foreground/10 border-y border-foreground/10">
+          {moreServices.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group flex flex-col gap-3 py-7 sm:flex-row sm:items-center sm:justify-between sm:gap-8"
+            >
+              <div className="max-w-xl">
+                <h3 className="font-serif text-2xl font-light text-foreground transition-colors group-hover:text-primary">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/55">
+                  {item.desc}
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase text-primary">
+                See packages
+                <ArrowRight
+                  size={13}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </Section>
 
-        <FadeIn className="mb-16 border-t border-foreground/10 pt-16">
-          <p className="mb-8 text-[11px] tracking-[0.28em] uppercase text-primary">
-            Customize your session
-          </p>
-          <h2 className="mb-8 font-serif text-3xl font-light text-foreground">
-            Add-ons
-          </h2>
-          <FadeInStagger className="divide-y divide-foreground/10 border-y border-foreground/10">
-            {addons.map((addon) => (
-              <FadeInItem
-                key={addon.name}
-                className="flex items-center justify-between gap-4 py-5"
-              >
-                <span className="text-sm leading-snug text-foreground/75">
-                  {addon.name}
-                </span>
-                <span className="font-serif text-lg text-primary shrink-0">
-                  {addon.price}
-                </span>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
+      <Section innerClassName="max-w-5xl">
+        <FadeIn>
+          <SectionHeading eyebrow="Add-ons" title="Extras for any session" />
         </FadeIn>
+        <FadeInStagger className="mt-10 divide-y divide-foreground/10 border-y border-foreground/10">
+          {addons.map((addon) => (
+            <FadeInItem
+              key={addon.name}
+              className="flex items-center justify-between gap-4 py-5"
+            >
+              <span className="text-sm leading-snug text-foreground/75">
+                {addon.name}
+              </span>
+              <span className="shrink-0 font-serif text-lg text-primary">
+                {addon.price}
+              </span>
+            </FadeInItem>
+          ))}
+        </FadeInStagger>
+      </Section>
 
-        <FadeIn className="glass-panel px-8 py-14 text-center lg:px-16">
-          <h2 className="mb-4 font-serif text-3xl font-light text-foreground lg:text-4xl">
-            Not sure which experience is right?
-          </h2>
-          <p className="mx-auto mb-8 max-w-md leading-relaxed text-foreground/58">
-            Share a few details about your session or event — Lulu will reply by
-            email with a personalized quotation. Nothing is booked online.
-          </p>
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/contact">Get an estimate</Button>
-            <Button href="/portfolio" variant="outline">
-              View portfolio
-            </Button>
-          </div>
-        </FadeIn>
-      </div>
+      <EstimateCTA
+        title="Not sure which package fits?"
+        description="Share a few details and Lulu will reply by email with a recommendation and a price. Nothing is booked online."
+      />
     </>
   );
 }

@@ -3,7 +3,6 @@
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
 import { scaledPhotoHeight } from "@/components/ui/PhotoImage";
-import { FilmGrain } from "@/components/ui/FilmGrain";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -72,8 +71,6 @@ export function PortfolioLightbox({
           className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0f0c0a]/97 backdrop-blur-2xl"
           onClick={onClose}
         >
-          <FilmGrain opacity={0.04} />
-
           <button
             type="button"
             onClick={onClose}

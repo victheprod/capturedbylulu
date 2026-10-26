@@ -278,12 +278,12 @@ export const servicesTeaserImages: ServiceTeaserImage[] = [
   },
   {
     "label": "Portraits",
-    "src": "/site-images/portraits/DSC09240.jpg",
+    "src": "/site-images/portraits/DSC09180.jpg",
     "href": "/portfolio",
-    "width": 933,
-    "height": 1400,
-    "objectPosition": "50% 28%",
-    "aspectRatio": "3/4"
+    "width": 1400,
+    "height": 933,
+    "objectPosition": "60% 45%",
+    "aspectRatio": "4/3"
   },
   {
     "label": "Families",

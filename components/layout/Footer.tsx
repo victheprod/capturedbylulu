@@ -1,115 +1,76 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { InstagramIcon } from "@/components/ui/InstagramIcon";
-import { navLinks, siteConfig } from "@/data/site";
-import { pricingNotes } from "@/data/packages";
+import { mobileNavGroups, siteConfig } from "@/data/site";
 import { Logo } from "@/components/ui/Logo";
 import { formatTelHref } from "@/lib/utils";
 
+const contactLinks = [
+  { label: "Get an estimate", href: "/contact" },
+  { label: siteConfig.instagram, href: siteConfig.instagramUrl, external: true },
+  { label: siteConfig.email, href: `mailto:${siteConfig.email.toLowerCase()}` },
+  { label: siteConfig.phone, href: formatTelHref(siteConfig.phone) },
+];
+
+/** Adapted from 21st.dev "Minimal Two-Column Footer". */
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-foreground/10 bg-[#141210] px-6 py-16 lg:px-10 lg:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <div className="sm:col-span-2">
-            <Logo size="lg" className="mb-5" />
-            <p className="mb-6 max-w-sm text-sm leading-relaxed text-foreground/55">
-              Texas-based photographer specializing in weddings, portraits,
-              families, and events. Estimates go to Lulu by email — bookings are
-              never confirmed online.
+    <footer className="border-t border-foreground/10 bg-[#141210]">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between">
+          <div className="flex max-w-xs flex-col gap-5">
+            <Logo size="lg" />
+            <p className="text-sm leading-relaxed text-foreground/55">
+              Weddings, portraits, families, and events, photographed by Lulu
+              across Texas.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-primary px-5 py-2.5 text-[11px] tracking-[0.18em] uppercase text-primary-foreground transition-colors hover:bg-[#d4b87a]"
-              >
-                Get Estimate
-              </Link>
-              <a
-                href={siteConfig.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-foreground/20 px-4 py-2.5 text-[11px] tracking-[0.15em] uppercase text-foreground/55 transition-colors hover:border-primary hover:text-primary"
-              >
-                <InstagramIcon size={13} />
-                {siteConfig.instagram}
-              </a>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="flex h-9 w-9 items-center justify-center border border-foreground/20 text-foreground/50 transition-all duration-300 hover:border-primary hover:text-primary"
-                aria-label="Email"
-              >
-                <Mail size={14} />
-              </a>
-            </div>
           </div>
 
-          <div>
-            <p className="mb-5 text-[11px] tracking-[0.2em] uppercase text-primary">
-              Navigation
-            </p>
-            <div className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm text-foreground/55 transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/contact"
-                className="text-sm text-foreground/55 transition-colors hover:text-foreground"
-              >
-                Get Estimate
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <p className="mb-5 text-[11px] tracking-[0.2em] uppercase text-primary">
-              Contact
-            </p>
-            <div className="flex flex-col gap-3">
-              <div className="flex items-start gap-2.5 text-sm text-foreground/55">
-                <MapPin size={13} className="mt-0.5 shrink-0 text-primary" />
-                {siteConfig.location}
-              </div>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="flex items-start gap-2.5 break-all text-sm text-foreground/55 transition-colors hover:text-foreground"
-              >
-                <Mail size={13} className="mt-0.5 shrink-0 text-primary" />
-                {siteConfig.email}
-              </a>
-              <a
-                href={siteConfig.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-2.5 text-sm text-foreground/55 transition-colors hover:text-foreground"
-              >
-                <InstagramIcon size={13} className="mt-0.5 shrink-0 text-primary" />
-                {siteConfig.instagram}
-              </a>
-              <a
-                href={formatTelHref(siteConfig.phone)}
-                className="flex items-start gap-2.5 text-sm text-foreground/55 transition-colors hover:text-foreground"
-              >
-                <Phone size={13} className="mt-0.5 shrink-0 text-primary" />
-                {siteConfig.phone}
-              </a>
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-16">
+            {mobileNavGroups.map((group) => (
+              <nav key={group.title} aria-label={group.title}>
+                <p className="mb-4 text-[11px] font-medium tracking-[0.24em] uppercase text-foreground/40">
+                  {group.title}
+                </p>
+                <ul className="space-y-2.5">
+                  {group.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-foreground/70 transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+            <div className="col-span-2 sm:col-span-1">
+              <p className="mb-4 text-[11px] font-medium tracking-[0.24em] uppercase text-foreground/40">
+                Contact
+              </p>
+              <ul className="space-y-2.5">
+                {contactLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className="break-all text-sm text-foreground/70 transition-colors hover:text-primary sm:break-normal"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-foreground/10 pt-8 text-center lg:flex-row lg:text-left">
-          <p className="text-xs text-foreground/35">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
-          <p className="text-xs text-foreground/35">
-            {pricingNotes.serviceArea}
-          </p>
+        <div className="mt-14 flex flex-col gap-3 border-t border-foreground/10 pt-6 text-xs text-foreground/40 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {year} {siteConfig.name}</p>
+          <p>Based in Texas · Travels nationwide · Estimates only, nothing booked online</p>
         </div>
       </div>
     </footer>

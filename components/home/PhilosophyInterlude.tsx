@@ -1,77 +1,48 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
-import { FilmGrain } from "@/components/ui/FilmGrain";
-import { SectionBlend } from "@/components/ui/SectionBlend";
+import { Eyebrow } from "@/components/ui/SectionHeading";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 
 export function PhilosophyInterlude() {
-  const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const quoteOpacity = useTransform(scrollYProgress, [0.15, 0.35, 0.75, 0.9], [0, 1, 1, 0.4]);
-  const quoteY = useTransform(scrollYProgress, [0.15, 0.4], [40, 0]);
 
   return (
     <section
-      ref={ref}
-      className="relative -mt-[18vh] min-h-[100dvh] overflow-hidden bg-[#14110e] lg:-mt-[22vh]"
+      className="relative overflow-hidden border-y border-foreground/10 bg-[#14110e]"
       aria-labelledby="philosophy-heading"
     >
-      <SectionBlend position="top" tone="background" size="xl" />
-      <motion.div
-        className="absolute inset-0"
-        style={reduced ? undefined : { y: imageY }}
-      >
+      <div className="absolute inset-0">
         <PhotoImage
           src={siteImages.aboutTeaser}
           alt=""
           fill
           objectPosition={siteImageFraming.aboutTeaser.objectPosition}
           sizes="100vw"
-          className="scale-105 opacity-50"
+          className="opacity-35"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background/95" />
-        <FilmGrain opacity={0.05} />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#14110e]/70 via-[#14110e]/50 to-[#14110e]/80" />
+      </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-5xl flex-col items-center justify-center px-6 py-28 text-center lg:px-10 lg:py-36">
-        <motion.p
-          style={reduced ? undefined : { opacity: quoteOpacity, y: quoteY }}
-          className="mb-6 text-[11px] tracking-[0.35em] uppercase text-primary"
-        >
-          A note from Lulu
-        </motion.p>
-        <motion.blockquote
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-15%" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 py-28 text-center lg:px-10 lg:py-40"
+      >
+        <Eyebrow className="mb-6">A note from Lulu</Eyebrow>
+        <blockquote
           id="philosophy-heading"
-          style={reduced ? undefined : { opacity: quoteOpacity, y: quoteY }}
-          className="font-serif text-[clamp(1.75rem,5vw,3.5rem)] font-light leading-[1.2] tracking-[-0.01em] text-foreground"
+          className="text-balance font-serif text-[clamp(1.75rem,4.5vw,3.25rem)] font-light leading-[1.2] text-foreground"
         >
           &ldquo;I&apos;ll direct you when you need it and stay out of the way
           when you don&apos;t. Most of the good ones happen{" "}
-          <span className="text-primary/90">in between</span>.&rdquo;
-        </motion.blockquote>
-        <motion.p
-          style={reduced ? undefined : { opacity: quoteOpacity }}
-          className="mt-10 font-serif text-lg italic text-foreground/45"
-        >
-          Lulu
-        </motion.p>
-      </div>
-      <SectionBlend position="bottom" tone="background" size="lg" />
+          <span className="text-primary">in between</span>.&rdquo;
+        </blockquote>
+        <p className="mt-8 font-serif text-lg italic text-foreground/45">Lulu</p>
+      </motion.div>
     </section>
   );
 }

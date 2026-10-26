@@ -3,61 +3,58 @@ import { PhotoImage } from "@/components/ui/PhotoImage";
 import { getGridColsClass } from "@/data/packages";
 import { getPublicBrandPackages } from "@/lib/cms/packages";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
-import { CinematicHero, CTASection } from "@/components/ui/Hero";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { EstimateCTA } from "@/components/ui/EstimateCTA";
 import { PricingCardCompact } from "@/components/ui/PricingCard";
 import { PricingNotes } from "@/components/ui/PricingNotes";
-import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
+import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-
+import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Brand Photography",
   description:
-    "Brand photography packages in Texas — editorial imagery for entrepreneurs and businesses by CapturedByLulu.",
+    "Brand photography packages in Texas for entrepreneurs and businesses by CapturedByLulu.",
   path: "/brand-photography",
   image: siteImages.brandBanner,
 });
 
 const deliverables = [
   {
-    title: "Website Hero Images",
-    desc: "Full-width editorial images for your homepage, about page, and services.",
+    title: "Website images",
+    desc: "Wide, clean images for your homepage, about page, and services.",
   },
   {
-    title: "Social Content",
-    desc: "Months of scroll-stopping content across Instagram, LinkedIn, and more.",
+    title: "Social content",
+    desc: "A bank of posts for Instagram, LinkedIn, and wherever else you show up.",
   },
   {
-    title: "Media & Press",
-    desc: "Professional imagery for PR submissions, podcast artwork, and features.",
+    title: "Press and media",
+    desc: "Headshots and portraits for features, podcasts, and speaker bios.",
   },
   {
-    title: "Marketing Materials",
-    desc: "Print-ready files for brochures, proposals, and brand collateral.",
+    title: "Print and marketing",
+    desc: "Print-ready files for flyers, proposals, and packaging.",
   },
 ];
 
 const processSteps = [
   {
-    n: "01",
-    title: "Brand Discovery",
-    desc: "A deep dive into your brand identity, target audience, and visual goals.",
+    title: "Discovery",
+    desc: "What the photos are for, who they're for, and where they'll live.",
   },
   {
-    n: "02",
-    title: "Creative Planning",
-    desc: "Shot list, mood board, location scouting, and wardrobe direction tailored to your brand.",
+    title: "Planning",
+    desc: "Shot list, mood board, location, and wardrobe, worked out ahead of time.",
   },
   {
-    n: "03",
-    title: "The Session",
-    desc: "A relaxed, guided shoot that captures you and your brand authentically.",
+    title: "The shoot",
+    desc: "A relaxed, directed session. You won't be left guessing what to do.",
   },
   {
-    n: "04",
-    title: "Image Delivery",
-    desc: "A curated gallery ready for web, social media, and print.",
+    title: "Delivery",
+    desc: "An edited gallery sized for web, social, and print.",
   },
 ];
 
@@ -67,139 +64,117 @@ export default async function BrandPhotographyPage() {
 
   return (
     <>
-      <CinematicHero
-        eyebrow="Brand Photography"
+      <PageHeader
+        eyebrow="Brand photography"
+        tagline="For founders, small businesses, and personal brands."
         title={
           <>
             Brand photos you&apos;ll{" "}
-            <em className="not-italic text-primary/90">actually</em> use
+            <em className="not-italic text-primary">actually</em> use.
           </>
         }
-        imageSrc={siteImages.brandBanner}
-        fullScreen={false}
+        description="Photos for your website, your socials, and your next launch, planned around how you'll use them."
+        imageSrc="/site-images/portraits/DSC09219.jpg"
+        imagePosition="70% 40%"
+        imageAlt="Studio portrait on a blue backdrop photographed by Lulu"
+        primaryCta={{ label: "Get a brand estimate", href: "/contact" }}
+        secondaryCta={{ label: "See packages", href: "#packages" }}
       />
 
-      <section className="px-6 py-24 lg:px-10 lg:py-32">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
+      <Section>
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-24">
           <FadeIn>
             <SectionHeading
-              eyebrow="The Approach"
-              title="Photos for your website, your socials, and your next launch"
+              eyebrow="The approach"
+              title="A plan first, then the shoot."
             />
-            <p className="mt-6 leading-relaxed text-foreground/58">
-              Brand photography is more than headshots and product shots —
-              it&apos;s the visual language of your business. Lulu creates
-              cohesive, editorial imagery that attracts your ideal clients and
-              tells the story of your brand with authenticity.
+            <p className="mt-6 leading-relaxed text-foreground/60">
+              Good brand photography is more than a headshot. It&apos;s a set of
+              images that look like they belong together, so your site, feed,
+              and press kit feel consistent.
             </p>
-            <p className="mt-4 leading-relaxed text-foreground/58">
-              From solopreneurs to established businesses, every brand shoot
-              begins with a clear plan to ensure every image serves a purpose.
+            <p className="mt-4 leading-relaxed text-foreground/60">
+              Whether you&apos;re a solo founder or a team, every brand shoot
+              starts with a short plan so each photo has a job.
             </p>
           </FadeIn>
           <FadeIn className="aspect-[4/3] overflow-hidden bg-card">
             <PhotoImage
               src={siteImages.brandDetail}
-              alt="Brand photography session in progress"
+              alt="Brand photography session"
               width={800}
               height={600}
               objectPosition={siteImageFraming.brandDetail.objectPosition}
             />
           </FadeIn>
         </div>
-      </section>
+      </Section>
 
-      <section className="border-t border-foreground/10 bg-surface px-6 py-20 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn className="mb-10">
-            <SectionHeading
-              eyebrow="What You Walk Away With"
-              title="A complete visual library for your brand"
-            />
-          </FadeIn>
-          <FadeInStagger className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {deliverables.map((item) => (
-              <FadeInItem
-                key={item.title}
-                className="border border-foreground/10 bg-card p-6 transition-colors duration-300 hover:border-primary/30"
-              >
-                <div className="mb-4 h-px w-8 bg-primary" />
-                <h3 className="mb-2 font-serif text-lg text-foreground">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-foreground/55">
-                  {item.desc}
-                </p>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
-        </div>
-      </section>
+      <Section tone="surface" bordered>
+        <FadeIn>
+          <SectionHeading eyebrow="What you get" title="Images for every place your brand shows up" />
+        </FadeIn>
+        <FadeInStagger className="mt-12 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          {deliverables.map((item) => (
+            <FadeInItem key={item.title} className="border-t border-foreground/10 pt-6">
+              <h3 className="font-serif text-xl font-light text-foreground">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/60">
+                {item.desc}
+              </p>
+            </FadeInItem>
+          ))}
+        </FadeInStagger>
+      </Section>
 
-      <section className="border-t border-foreground/10 px-6 py-24 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn className="mb-10 text-center">
-            <SectionHeading
-              eyebrow="Investment"
-              title="Brand Photography Packages"
-              align="center"
-            />
-          </FadeIn>
-          <FadeIn className="mb-12">
-            <PricingNotes />
-          </FadeIn>
-          <FadeInStagger className={`grid gap-5 ${gridClass}`}>
-            {brandPackages.map((pkg) => (
-              <FadeInItem key={pkg.id}>
-                <PricingCardCompact
-                  pkg={pkg}
-                  category="Brand Photography"
-                  note={pkg.details}
-                  ctaLabel="Get Estimate"
-                />
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
-        </div>
-      </section>
+      <Section id="packages">
+        <FadeIn>
+          <SectionHeading eyebrow="Pricing" title="Brand photography packages" />
+        </FadeIn>
+        <FadeIn className="mt-10 mb-12">
+          <PricingNotes />
+        </FadeIn>
+        <FadeInStagger className={`grid gap-5 ${gridClass}`}>
+          {brandPackages.map((pkg) => (
+            <FadeInItem key={pkg.id}>
+              <PricingCardCompact
+                pkg={pkg}
+                category="Brand Photography"
+                note={pkg.details}
+                ctaLabel="Get Estimate"
+              />
+            </FadeInItem>
+          ))}
+        </FadeInStagger>
+      </Section>
 
-      <section className="border-t border-foreground/10 bg-surface px-6 py-24 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <FadeIn className="mb-12 text-center">
-            <SectionHeading
-              eyebrow="The Process"
-              title="How It Works"
-              align="center"
-            />
-          </FadeIn>
-          <FadeInStagger className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-            {processSteps.map((step) => (
-              <FadeInItem
-                key={step.n}
-                className="border border-foreground/10 bg-card p-6 transition-colors duration-300 hover:border-primary/30"
-              >
-                <p className="mb-4 text-[11px] tracking-widest text-primary">
-                  {step.n}
-                </p>
-                <h3 className="mb-2 font-serif text-lg text-foreground">
+      <Section tone="surface" bordered>
+        <FadeIn>
+          <SectionHeading eyebrow="The process" title="How it works" />
+        </FadeIn>
+        <ol className="mt-12 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          {processSteps.map((step, i) => (
+            <li key={step.title} className="border-t border-foreground/10 pt-6">
+              <FadeIn delay={i * 0.05}>
+                <p className="text-sm text-primary/80">{i + 1}.</p>
+                <h3 className="mt-2 font-serif text-xl font-light text-foreground">
                   {step.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-foreground/55">
+                <p className="mt-2 text-sm leading-relaxed text-foreground/60">
                   {step.desc}
                 </p>
-              </FadeInItem>
-            ))}
-          </FadeInStagger>
-        </div>
-      </section>
+              </FadeIn>
+            </li>
+          ))}
+        </ol>
+      </Section>
 
-      <CTASection
+      <EstimateCTA
         eyebrow="Brand photography"
-        title="Let's plan your shoot"
+        title="Let's plan your shoot."
         description="Tell Lulu what the photos are for and where they'll live. He'll send back a custom quote for your business."
-        ctaLabel="Estimate Brand Photography"
-        ctaHref="/contact"
-        imageSrc={siteImages.brandDetail}
+        ctaLabel="Get a brand estimate"
       />
     </>
   );

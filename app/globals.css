@@ -54,18 +54,6 @@ h4 {
   letter-spacing: -0.015em;
 }
 
-.prose-lead {
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  color: color-mix(in srgb, var(--foreground) 58%, transparent);
-}
-
-@media (min-width: 1024px) {
-  .prose-lead {
-    font-size: 1.125rem;
-  }
-}
-
 ::selection {
   background: rgba(200, 169, 106, 0.35);
   color: var(--foreground);
@@ -115,74 +103,11 @@ textarea:focus-visible {
   }
 }
 
-@media (min-width: 1024px) {
-  .service-row-image {
-    aspect-ratio: var(--service-aspect, 4 / 3);
-  }
-}
-
-/* ── Editorial flow: dissolve section boundaries ── */
-
-.editorial-flow {
-  --flow-gap: clamp(4rem, 10vw, 7rem);
-}
-
+/* Used by the archived Capture Concierge */
 .glass-panel {
   background: color-mix(in srgb, var(--background) 72%, transparent);
   border: 1px solid color-mix(in srgb, var(--foreground) 8%, transparent);
   backdrop-filter: blur(16px) saturate(1.15);
-}
-
-.glass-panel-subtle {
-  background: color-mix(in srgb, var(--background) 55%, transparent);
-  border: 1px solid color-mix(in srgb, var(--foreground) 6%, transparent);
-  backdrop-filter: blur(12px) saturate(1.1);
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-@keyframes editorial-breathe {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.04);
-  }
-}
-
-.animate-editorial-breathe {
-  animation: editorial-breathe 2.8s ease-in-out infinite;
-}
-
-@keyframes loader-draw {
-  0% {
-    transform: scaleX(0);
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 0.4;
-  }
-}
-
-.animate-loader-draw {
-  transform-origin: left center;
-  animation: loader-draw 1.6s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-editorial-breathe,
-  .animate-loader-draw {
-    animation: none;
-  }
 }
 
 /* Brand loader — lens shutter + viewfinder */
