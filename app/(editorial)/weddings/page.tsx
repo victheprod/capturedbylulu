@@ -8,7 +8,8 @@ import { PricingNotes } from "@/components/ui/PricingNotes";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
+import { FadeIn } from "@/components/ui/FadeIn";
+import { Label, delay } from "@/components/editorial/primitives";
 import { siteImages, weddingsHighlightGallery, weddingsEditorialPair } from "@/data/portfolio";
 import { pageMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
@@ -50,7 +51,7 @@ export default async function WeddingsPage() {
         title={
           <>
             Your wedding, the way it{" "}
-            <em className="not-italic text-primary">actually</em> happened.
+            <em className="italic text-oxblood">actually</em> happened.
           </>
         }
         description="Honest coverage of the planned moments and the unplanned ones, plus portraits worth framing."
@@ -68,22 +69,23 @@ export default async function WeddingsPage() {
               eyebrow="How Lulu works"
               title="Weddings don't run on a script, and the photos shouldn't look like they did."
             />
-            <p className="mt-6 leading-relaxed text-foreground/60">
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-soft">
               Lulu covers the planned moments and the ones nobody planned: the
               first look, the toast that runs long, your aunt taking over the
               dance floor.
             </p>
-            <p className="mt-4 leading-relaxed text-foreground/60">
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
               Most of the day he works quietly in the background. When it&apos;s
               time for portraits, he steps in and directs, so you end up with
               honest moments and photos worth framing.
             </p>
           </FadeIn>
-          <FadeInStagger className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 md:gap-5">
             {weddingsEditorialPair.map((photo, i) => (
-              <FadeInItem
+              <div
                 key={photo.id}
-                className={cn("aspect-[3/4] overflow-hidden bg-card", i === 1 && "mt-12")}
+                className={cn("curtain aspect-[3/4] bg-bone", i === 1 && "mt-16")}
+                style={delay(i * 150)}
               >
                 <PhotoImage
                   src={photo.src}
@@ -92,9 +94,9 @@ export default async function WeddingsPage() {
                   height={800}
                   objectPosition={photo.objectPosition}
                 />
-              </FadeInItem>
+              </div>
             ))}
-          </FadeInStagger>
+          </div>
         </div>
       </Section>
 
@@ -102,7 +104,7 @@ export default async function WeddingsPage() {
         <FadeIn>
           <SectionHeading
             eyebrow="Real weddings"
-            title="Recent celebrations"
+            title="Recent celebrations."
             description="Ceremony, bridal party, and reception moments from recent weddings."
             action={
               <Button href="/portfolio" variant="link">
@@ -111,11 +113,12 @@ export default async function WeddingsPage() {
             }
           />
         </FadeIn>
-        <FadeInStagger className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4">
-          {weddingsHighlightGallery.map((photo) => (
-            <FadeInItem
+        <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+          {weddingsHighlightGallery.map((photo, i) => (
+            <div
               key={photo.id}
-              className="aspect-[3/4] overflow-hidden bg-card md:aspect-[4/5]"
+              className="curtain aspect-[3/4] bg-bone md:aspect-[4/5]"
+              style={delay((i % 3) * 120)}
             >
               <PhotoImage
                 src={photo.src}
@@ -123,43 +126,46 @@ export default async function WeddingsPage() {
                 width={photo.width}
                 height={photo.height}
                 objectPosition={photo.objectPosition}
+                sizes="(max-width: 768px) 50vw, 33vw"
               />
-            </FadeInItem>
+            </div>
           ))}
-        </FadeInStagger>
+        </div>
       </Section>
 
-      <Section id="packages">
-        <FadeIn>
-          <SectionHeading eyebrow="Pricing" title="Wedding and pre-wedding packages" />
-        </FadeIn>
-        <FadeIn className="mt-10 mb-12">
-          <PricingNotes />
-        </FadeIn>
+      <Section id="packages" className="scroll-mt-16">
+        <div className="mb-16 grid grid-cols-12 gap-x-6 gap-y-10">
+          <SectionHeading
+            className="col-span-12 lg:col-span-7"
+            eyebrow="Pricing"
+            title="Wedding and pre-wedding packages."
+          />
+          <PricingNotes className="col-span-12 self-end lg:col-span-4 lg:col-start-9" />
+        </div>
         {weddingsPageCategories.map((section) => (
           <PricingCategorySection key={section.id} section={section} />
         ))}
       </Section>
 
-      <Section tone="surface" bordered innerClassName="max-w-5xl">
-        <FadeIn>
-          <SectionHeading eyebrow="The process" title="What to expect" />
-        </FadeIn>
-        <ol className="mt-12 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2">
-          {processSteps.map((item, i) => (
-            <li key={item.title} className="border-t border-foreground/10 pt-6">
-              <FadeIn delay={i * 0.05}>
-                <p className="text-sm text-primary/80">{i + 1}.</p>
-                <h3 className="mt-2 font-serif text-2xl font-light text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/60">
-                  {item.desc}
-                </p>
-              </FadeIn>
-            </li>
-          ))}
-        </ol>
+      <Section tone="surface" bordered>
+        <div className="grid grid-cols-12 gap-x-6 gap-y-10">
+          <div className="col-span-12 lg:col-span-4">
+            <SectionHeading eyebrow="The process" title="What to expect." />
+          </div>
+          <ol className="col-span-12 grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:col-span-8">
+            {processSteps.map((item, i) => (
+              <li
+                key={item.title}
+                className="reveal border-t border-ink/15 pt-6 pb-10"
+                style={delay((i % 2) * 120)}
+              >
+                <Label className="text-oxblood">Step {String(i + 1).padStart(2, "0")}</Label>
+                <h3 className="mt-3 font-serif text-3xl font-light">{item.title}</h3>
+                <p className="mt-3 max-w-sm leading-relaxed text-ink-soft">{item.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Section>
 
       <EstimateCTA
@@ -167,7 +173,6 @@ export default async function WeddingsPage() {
         title="Lulu takes a limited number of weddings each year."
         description="Send your date and venue and he'll reply with availability and a quote, usually within a day or two."
         ctaLabel="Get a wedding estimate"
-        imageSrc={siteImages.weddingsDetail2}
       />
     </>
   );

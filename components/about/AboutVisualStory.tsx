@@ -1,10 +1,8 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { Label, delay } from "@/components/editorial/primitives";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 
 const visualChapters = [
@@ -29,8 +27,6 @@ const visualChapters = [
 ];
 
 export function AboutVisualStory() {
-  const reduced = useReducedMotion();
-
   return (
     <Section tone="surface" bordered>
       <SectionHeading
@@ -42,33 +38,25 @@ export function AboutVisualStory() {
           </Button>
         }
       />
-      <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">
+      <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-6 lg:gap-8">
         {visualChapters.map((chapter, i) => (
-          <motion.figure
-            key={chapter.caption}
-            initial={reduced ? false : { opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.7, delay: i * 0.08 }}
-          >
-            <div className="relative aspect-[3/4] overflow-hidden bg-card">
+          <figure key={chapter.caption} className={i === 1 ? "md:mt-16" : undefined}>
+            <div className="curtain relative aspect-[3/4] bg-bone" style={delay(i * 120)}>
               <PhotoImage
                 src={chapter.src}
                 alt={`${chapter.caption} photography by CapturedByLulu`}
                 fill
                 objectPosition={chapter.objectPosition}
-                sizes="(max-width: 1024px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
-            <figcaption className="mt-5">
-              <p className="text-[11px] font-medium tracking-[0.24em] uppercase text-primary">
-                {chapter.caption}
-              </p>
-              <p className="mt-2 font-serif text-lg font-light leading-snug text-foreground/75">
-                {chapter.line}
-              </p>
+            <figcaption className="reveal mt-5" style={delay(i * 120 + 200)}>
+              <Label className="text-oxblood">
+                {String(i + 1).padStart(2, "0")} / {chapter.caption}
+              </Label>
+              <p className="mt-2 font-serif text-xl leading-snug font-light italic">{chapter.line}</p>
             </figcaption>
-          </motion.figure>
+          </figure>
         ))}
       </div>
     </Section>

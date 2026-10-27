@@ -53,9 +53,9 @@ function ShowcaseCard({
       type="button"
       onClick={() => onOpen(index)}
       className={cn(
-        "group relative shrink-0 cursor-zoom-in overflow-hidden bg-card text-left",
+        "group relative shrink-0 cursor-zoom-in overflow-hidden bg-bone text-left",
         "h-[min(52dvh,480px)] w-[78vw] sm:w-[54vw] md:w-[38vw] lg:w-[30vw]",
-        "snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+        "snap-center",
         className,
       )}
       aria-label={`View ${item.category} photograph`}
@@ -67,17 +67,15 @@ function ShowcaseCard({
         objectPosition={item.objectPosition}
         className="transition-transform duration-700 group-hover:scale-[1.02]"
         sizes="(max-width: 768px) 78vw, 30vw"
-        priority={index < 3}
+        loading={index < 3 ? "eager" : undefined}
         draggable={false}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent opacity-0 transition-opacity duration-400 group-hover:opacity-100 group-focus-visible:opacity-100" />
-      <div className="absolute right-0 bottom-0 left-0 flex items-end justify-between p-4 opacity-0 transition-opacity duration-400 group-hover:opacity-100 group-focus-visible:opacity-100">
-        <span className="text-[10px] tracking-[0.2em] uppercase text-foreground">
-          {item.category}
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
+      <div className="absolute right-0 bottom-0 left-0 flex items-end justify-between p-5 text-ivory opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+        <span className="font-label text-[10.5px]">
+          {String(index + 1).padStart(2, "0")} / {item.category}
         </span>
-        <span className="text-[10px] tracking-[0.15em] uppercase text-primary">
-          View
-        </span>
+        <span className="font-label text-[10.5px]">View</span>
       </div>
     </button>
   );
@@ -85,18 +83,9 @@ function ShowcaseCard({
 
 function ShowcaseHeader({ count }: { count: number }) {
   return (
-    <div className="relative z-10 flex shrink-0 items-end justify-between px-6 pt-8 pb-6 lg:px-10 lg:pt-10">
-      <div>
-        <p className="mb-2 text-[11px] tracking-[0.3em] uppercase text-primary">
-          Selected work
-        </p>
-        <h2 className="font-serif text-3xl font-light text-foreground sm:text-4xl">
-          Scroll to explore
-        </h2>
-      </div>
-      <p className="hidden text-[10px] tracking-[0.2em] uppercase text-foreground/40 sm:block">
-        {count} photographs
-      </p>
+    <div className="relative z-10 mx-5 flex shrink-0 items-center justify-between gap-6 border-b border-ink/15 pt-6 pb-4 md:mx-10">
+      <h2 className="font-label text-[10.5px] text-oxblood">The highlights</h2>
+      <p className="font-label text-[10.5px] text-ink-soft">{count} photographs</p>
     </div>
   );
 }
@@ -115,8 +104,8 @@ function NativeScrollShowcase({
       {!hideHeader && <ShowcaseHeader count={items.length} />}
       <div
         className={cn(
-          "flex gap-3 overflow-x-auto px-6 pb-2 lg:gap-4 lg:px-10",
-          "snap-x snap-mandatory scroll-px-6 lg:scroll-px-10",
+          "flex gap-3 overflow-x-auto px-5 pb-2 md:px-10 lg:gap-4",
+          "snap-x snap-mandatory scroll-px-5 md:scroll-px-10",
           "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
         )}
       >
@@ -129,7 +118,7 @@ function NativeScrollShowcase({
           />
         ))}
       </div>
-      <p className="mt-6 px-6 text-[10px] tracking-[0.2em] uppercase text-foreground/35 lg:px-10">
+      <p className="font-label mt-6 px-5 text-[10.5px] text-ink-soft md:px-10">
         Swipe to browse
       </p>
     </section>
@@ -155,7 +144,7 @@ function ScrollLinkedShowcase({
         <div className="flex flex-1 items-center overflow-hidden">
           <ScrollXCarouselWrap
             trackRef={trackRef}
-            className="flex items-stretch gap-3 px-6 lg:gap-4 lg:px-10"
+            className="flex items-stretch gap-3 px-5 md:px-10 lg:gap-4"
           >
             {items.map((item, index) => (
               <ShowcaseCard
@@ -168,8 +157,8 @@ function ScrollLinkedShowcase({
           </ScrollXCarouselWrap>
         </div>
 
-        <div className="shrink-0 px-6 pb-10 lg:px-10 lg:pb-12">
-          <ScrollXCarouselProgress className="bg-foreground/10" />
+        <div className="shrink-0 px-5 pb-10 md:px-10 lg:pb-12">
+          <ScrollXCarouselProgress className="bg-ink/15" progressClassName="bg-ink" />
         </div>
       </ScrollXCarouselContainer>
     </ScrollXCarousel>

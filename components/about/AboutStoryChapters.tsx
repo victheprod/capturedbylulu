@@ -1,9 +1,7 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import { PhotoImage } from "@/components/ui/PhotoImage";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Label, delay } from "@/components/editorial/primitives";
 import { siteImages, siteImageFraming } from "@/data/portfolio";
 
 const chapters = [
@@ -22,42 +20,36 @@ const chapters = [
 ];
 
 export function AboutStoryChapters() {
-  const reduced = useReducedMotion();
-
   return (
     <Section>
-      <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-24">
-        <div className="relative aspect-[3/4] overflow-hidden bg-card lg:sticky lg:top-28 lg:self-start">
+      <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
+        <div className="curtain relative aspect-[3/4] bg-bone lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
           <PhotoImage
             src={siteImages.brandDetail}
             alt="Portrait photography by CapturedByLulu"
             fill
             objectPosition={siteImageFraming.brandDetail.objectPosition}
-            sizes="(max-width: 1024px) 100vw, 45vw"
+            sizes="(max-width: 1024px) 100vw, 40vw"
           />
         </div>
 
-        <div>
+        <div className="lg:col-span-6 lg:col-start-7">
           <SectionHeading eyebrow="How I work" title="Three things I keep in mind." />
-          <div className="mt-12 space-y-10">
+          <ol className="mt-14">
             {chapters.map((chapter, i) => (
-              <motion.article
+              <li
                 key={chapter.title}
-                initial={reduced ? false : { opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="border-t border-foreground/10 pt-8"
+                className="reveal grid grid-cols-[3rem_1fr] gap-x-4 border-t border-ink/15 py-8 md:grid-cols-[5rem_1fr]"
+                style={delay(i * 100)}
               >
-                <h3 className="font-serif text-2xl font-light text-foreground">
-                  {chapter.title}
-                </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/60">
-                  {chapter.body}
-                </p>
-              </motion.article>
+                <Label className="pt-2 text-oxblood">{String(i + 1).padStart(2, "0")}</Label>
+                <div>
+                  <h3 className="font-serif text-3xl leading-tight font-light">{chapter.title}</h3>
+                  <p className="mt-3 max-w-md leading-relaxed text-ink-soft">{chapter.body}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </Section>

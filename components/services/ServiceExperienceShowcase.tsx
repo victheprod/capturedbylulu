@@ -2,124 +2,101 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Check, Minus, Plus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Package, PackageCategory } from "@/data/packages";
 import { getContactHref } from "@/data/packages";
+import { Label, delay } from "@/components/editorial/primitives";
 import { cn } from "@/lib/utils";
 
 const categoryStories: Record<string, { headline: string; story: string }> = {
-  Portraits:
-    {
-      headline: "Portraits that feel like you — not a stock photo.",
-      story:
-        "Editorial framing, natural direction, and light that flatters without feeling staged. From mini sessions to full creative portraits.",
-    },
-  Families:
-    {
-      headline: "The way you actually love each other.",
-      story:
-        "Warm, honest family sessions built around connection — not forced poses. Laughter, chaos, and the quiet moments in between.",
-    },
-  Events:
-    {
-      headline: "Milestone moments, documented with energy.",
-      story:
-        "Birthdays, parties, and gatherings, covered start to finish: the toasts, the dance floor, and the details you spent weeks on.",
-    },
-  Headshots:
-    {
-      headline: "Confidence you can see.",
-      story:
-        "Professional headshots and brand-ready portraits with editorial polish — for LinkedIn, teams, and entrepreneurs who want to stand out.",
-    },
+  Portraits: {
+    headline: "Portraits that feel like you, not a stock photo.",
+    story:
+      "Natural direction and light that flatters without feeling staged. From mini sessions to full creative portraits.",
+  },
+  Families: {
+    headline: "The way you actually love each other.",
+    story:
+      "Relaxed family sessions built around connection instead of forced poses. The laughter, the chaos, and the quiet moments in between.",
+  },
+  Events: {
+    headline: "Milestone moments, documented with energy.",
+    story:
+      "Birthdays, parties, and gatherings, covered start to finish: the toasts, the dance floor, and the details you spent weeks on.",
+  },
+  Headshots: {
+    headline: "Confidence you can see.",
+    story:
+      "Professional headshots and brand-ready portraits for LinkedIn, teams, and entrepreneurs who want to stand out.",
+  },
 };
 
 type ServiceExperienceShowcaseProps = {
   categories: PackageCategory[];
 };
 
-export function ServiceExperienceShowcase({
-  categories,
-}: ServiceExperienceShowcaseProps) {
+export function ServiceExperienceShowcase({ categories }: ServiceExperienceShowcaseProps) {
   const [openId, setOpenId] = useState(categories[0]?.id ?? "");
   const [expandedPackage, setExpandedPackage] = useState<string | null>(null);
 
   return (
-    <div className="space-y-3">
+    <div className="border-b border-ink/15">
       {categories.map((category, index) => {
         const isOpen = openId === category.id;
-        const story =
-          categoryStories[category.category] ?? {
-            headline: `${category.category} sessions`,
-            story: "Packages and pricing below.",
-          };
+        const story = categoryStories[category.category] ?? {
+          headline: `${category.category} sessions`,
+          story: "Packages and pricing below.",
+        };
+        const panelId = `service-panel-${category.id}`;
 
         return (
-          <motion.article
-            key={category.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-5%" }}
-            transition={{ duration: 0.6, delay: index * 0.05 }}
-            className={cn(
-              "border transition-colors duration-500",
-              isOpen
-                ? "border-primary/30 bg-card/40"
-                : "border-foreground/10 bg-transparent",
-            )}
-          >
+          <article key={category.id} className="reveal border-t border-ink/15" style={delay(index * 80)}>
             <button
               type="button"
               onClick={() => {
                 setOpenId(isOpen ? "" : category.id);
                 setExpandedPackage(null);
               }}
-              className="flex w-full items-start justify-between gap-6 p-6 text-left sm:p-8"
+              className="group grid w-full grid-cols-[3rem_1fr_auto] items-start gap-x-4 py-8 text-left md:grid-cols-[6rem_1fr_auto] md:py-10"
               aria-expanded={isOpen}
+              aria-controls={panelId}
             >
-              <div className="flex gap-5 sm:gap-8">
-                <span className="font-serif text-4xl font-light text-primary/25 sm:text-5xl">
-                  {String(index + 1).padStart(2, "0")}
+              <Label className="pt-3 text-oxblood">{String(index + 1).padStart(2, "0")}</Label>
+              <span>
+                <span className="block font-serif text-4xl leading-none font-light transition-colors duration-500 group-hover:text-oxblood md:text-6xl">
+                  {category.category}
                 </span>
-                <div>
-                  <h2 className="font-serif text-2xl font-light text-foreground sm:text-3xl">
-                    {category.category}
-                  </h2>
-                  <p className="mt-2 max-w-lg text-sm leading-relaxed text-foreground/50">
-                    {story.headline}
-                  </p>
-                </div>
-              </div>
-              <ChevronDown
-                size={18}
+                <span className="mt-3 block max-w-lg font-serif text-lg italic text-ink-soft">
+                  {story.headline}
+                </span>
+              </span>
+              <span
                 className={cn(
-                  "mt-2 shrink-0 text-primary transition-transform duration-400",
-                  isOpen && "rotate-180",
+                  "mt-2 flex h-10 w-10 items-center justify-center border transition-colors duration-500",
+                  isOpen ? "border-ink bg-ink text-ivory" : "border-ink/20 group-hover:border-ink",
                 )}
-              />
+                aria-hidden
+              >
+                {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+              </span>
             </button>
 
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
+                  id={panelId}
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="border-t border-foreground/10 px-6 pb-8 sm:px-8">
-                    <p className="mb-8 max-w-2xl text-sm leading-relaxed text-foreground/55">
-                      {story.story}
-                    </p>
-                    {category.note && (
-                      <p className="mb-6 text-sm italic text-foreground/45">
-                        {category.note}
-                      </p>
-                    )}
+                  <div className="pb-10 md:pl-[7rem]">
+                    <p className="mb-8 max-w-2xl leading-relaxed text-ink-soft">{story.story}</p>
+                    {category.note && <p className="mb-6 text-sm italic text-ink-soft">{category.note}</p>}
 
-                    <div className="divide-y divide-foreground/10 border-y border-foreground/10">
+                    <div className="divide-y divide-ink/10 border-y border-ink/10">
                       {category.packages.map((pkg) => (
                         <PackageExperienceRow
                           key={pkg.id}
@@ -127,9 +104,7 @@ export function ServiceExperienceShowcase({
                           category={category.category}
                           isExpanded={expandedPackage === pkg.id}
                           onToggle={() =>
-                            setExpandedPackage((current) =>
-                              current === pkg.id ? null : pkg.id,
-                            )
+                            setExpandedPackage((current) => (current === pkg.id ? null : pkg.id))
                           }
                         />
                       ))}
@@ -138,7 +113,7 @@ export function ServiceExperienceShowcase({
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.article>
+          </article>
         );
       })}
     </div>
@@ -163,32 +138,22 @@ function PackageExperienceRow({
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-4 text-left"
+        className="group flex w-full items-center justify-between gap-4 text-left"
         aria-expanded={isExpanded}
       >
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="font-serif text-xl text-foreground sm:text-2xl">
-            {pkg.name}
-          </span>
-          {pkg.popular && (
-            <span className="text-[10px] tracking-[0.15em] uppercase text-primary">
-              Most popular
-            </span>
+        <span className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <span className="font-serif text-2xl transition-colors group-hover:text-oxblood">{pkg.name}</span>
+          {pkg.popular && <Label className="text-oxblood">Most popular</Label>}
+          <span className="text-sm text-ink-soft">{pkg.duration}</span>
+        </span>
+        <span className="flex shrink-0 items-center gap-4">
+          <span className="font-serif text-2xl">{pkg.price}</span>
+          {isExpanded ? (
+            <Minus size={14} className="text-ink-soft" aria-hidden />
+          ) : (
+            <Plus size={14} className="text-ink-soft" aria-hidden />
           )}
-          <span className="text-xs tracking-wide text-foreground/40">
-            {pkg.duration}
-          </span>
-        </div>
-        <div className="flex shrink-0 items-center gap-4">
-          <span className="font-serif text-2xl text-primary">{pkg.price}</span>
-          <ChevronDown
-            size={14}
-            className={cn(
-              "text-foreground/40 transition-transform duration-300",
-              isExpanded && "rotate-180",
-            )}
-          />
-        </div>
+        </span>
       </button>
 
       <AnimatePresence initial={false}>
@@ -200,29 +165,22 @@ function PackageExperienceRow({
             transition={{ duration: 0.35 }}
             className="overflow-hidden"
           >
-            <div className="pt-5 pl-0 sm:pl-2">
-              {pkg.details && (
-                <p className="mb-4 text-sm text-foreground/55">{pkg.details}</p>
-              )}
+            <div className="pt-5">
+              {pkg.details && <p className="mb-4 text-sm text-ink-soft">{pkg.details}</p>}
               <ul className="mb-6 space-y-2">
                 {pkg.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-start gap-2.5 text-sm text-foreground/65"
-                  >
-                    <Check size={14} className="mt-0.5 shrink-0 text-primary" />
+                  <li key={feature} className="flex items-start gap-2.5 text-sm text-ink/80">
+                    <Check size={14} className="mt-0.5 shrink-0 text-oxblood" aria-hidden />
                     {feature}
                   </li>
                 ))}
               </ul>
-              <Link
-                href={href}
-                className="group inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-primary"
-              >
-                Begin with this package
-                <ArrowRight
-                  size={12}
-                  className="transition-transform group-hover:translate-x-0.5"
+              <Link href={href} className="group inline-flex items-center gap-2 text-sm font-medium">
+                <span className="link-line pb-1">Request this package</span>
+                <ArrowUpRight
+                  size={14}
+                  className="text-oxblood transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden
                 />
               </Link>
             </div>

@@ -10,6 +10,7 @@ import { PricingNotes } from "@/components/ui/PricingNotes";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FadeIn, FadeInStagger, FadeInItem } from "@/components/ui/FadeIn";
+import { Label, delay } from "@/components/editorial/primitives";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -70,7 +71,7 @@ export default async function BrandPhotographyPage() {
         title={
           <>
             Brand photos you&apos;ll{" "}
-            <em className="not-italic text-primary">actually</em> use.
+            <em className="italic text-oxblood">actually</em> use.
           </>
         }
         description="Photos for your website, your socials, and your next launch, planned around how you'll use them."
@@ -88,17 +89,17 @@ export default async function BrandPhotographyPage() {
               eyebrow="The approach"
               title="A plan first, then the shoot."
             />
-            <p className="mt-6 leading-relaxed text-foreground/60">
+            <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-soft">
               Good brand photography is more than a headshot. It&apos;s a set of
               images that look like they belong together, so your site, feed,
               and press kit feel consistent.
             </p>
-            <p className="mt-4 leading-relaxed text-foreground/60">
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">
               Whether you&apos;re a solo founder or a team, every brand shoot
               starts with a short plan so each photo has a job.
             </p>
           </FadeIn>
-          <FadeIn className="aspect-[4/3] overflow-hidden bg-card">
+          <div className="curtain aspect-[4/3] bg-bone">
             <PhotoImage
               src={siteImages.brandDetail}
               alt="Brand photography session"
@@ -106,65 +107,57 @@ export default async function BrandPhotographyPage() {
               height={600}
               objectPosition={siteImageFraming.brandDetail.objectPosition}
             />
-          </FadeIn>
+          </div>
         </div>
       </Section>
 
       <Section tone="surface" bordered>
-        <FadeIn>
-          <SectionHeading eyebrow="What you get" title="Images for every place your brand shows up" />
-        </FadeIn>
-        <FadeInStagger className="mt-12 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-          {deliverables.map((item) => (
-            <FadeInItem key={item.title} className="border-t border-foreground/10 pt-6">
-              <h3 className="font-serif text-xl font-light text-foreground">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/60">
-                {item.desc}
-              </p>
-            </FadeInItem>
+        <SectionHeading eyebrow="What you get" title="Images for every place your brand shows up." />
+        <ul className="mt-14 grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
+          {deliverables.map((item, i) => (
+            <li
+              key={item.title}
+              className="reveal border-t border-ink/15 pt-6 pb-10"
+              style={delay((i % 4) * 100)}
+            >
+              <Label className="text-oxblood">{String(i + 1).padStart(2, "0")}</Label>
+              <h3 className="mt-3 font-serif text-2xl font-light">{item.title}</h3>
+              <p className="mt-2 leading-relaxed text-ink-soft">{item.desc}</p>
+            </li>
           ))}
-        </FadeInStagger>
+        </ul>
       </Section>
 
-      <Section id="packages">
-        <FadeIn>
-          <SectionHeading eyebrow="Pricing" title="Brand photography packages" />
-        </FadeIn>
-        <FadeIn className="mt-10 mb-12">
-          <PricingNotes />
-        </FadeIn>
-        <FadeInStagger className={`grid gap-5 ${gridClass}`}>
+      <Section id="packages" className="scroll-mt-16">
+        <div className="mb-14 grid grid-cols-12 gap-x-6 gap-y-10">
+          <SectionHeading
+            className="col-span-12 lg:col-span-7"
+            eyebrow="Pricing"
+            title="Brand photography packages."
+          />
+          <PricingNotes className="col-span-12 self-end lg:col-span-4 lg:col-start-9" />
+        </div>
+        <FadeInStagger className={`grid gap-4 md:gap-6 ${gridClass}`}>
           {brandPackages.map((pkg) => (
             <FadeInItem key={pkg.id}>
-              <PricingCardCompact
-                pkg={pkg}
-                category="Brand Photography"
-                note={pkg.details}
-                ctaLabel="Get Estimate"
-              />
+              <PricingCardCompact pkg={pkg} category="Brand Photography" note={pkg.details} />
             </FadeInItem>
           ))}
         </FadeInStagger>
       </Section>
 
       <Section tone="surface" bordered>
-        <FadeIn>
-          <SectionHeading eyebrow="The process" title="How it works" />
-        </FadeIn>
-        <ol className="mt-12 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading eyebrow="The process" title="How it works." />
+        <ol className="mt-14 grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
           {processSteps.map((step, i) => (
-            <li key={step.title} className="border-t border-foreground/10 pt-6">
-              <FadeIn delay={i * 0.05}>
-                <p className="text-sm text-primary/80">{i + 1}.</p>
-                <h3 className="mt-2 font-serif text-xl font-light text-foreground">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/60">
-                  {step.desc}
-                </p>
-              </FadeIn>
+            <li
+              key={step.title}
+              className="reveal border-t border-ink/15 pt-6 pb-10"
+              style={delay((i % 4) * 100)}
+            >
+              <Label className="text-oxblood">Step {String(i + 1).padStart(2, "0")}</Label>
+              <h3 className="mt-3 font-serif text-2xl font-light">{step.title}</h3>
+              <p className="mt-2 leading-relaxed text-ink-soft">{step.desc}</p>
             </li>
           ))}
         </ol>

@@ -1,4 +1,5 @@
 import { pricingNotes } from "@/data/packages";
+import { Label } from "@/components/editorial/primitives";
 import { cn } from "@/lib/utils";
 
 type PricingNotesProps = {
@@ -14,16 +15,23 @@ export function PricingNotes({
   showDeposit = true,
   showTravel = true,
 }: PricingNotesProps) {
+  const notes = [
+    showServiceArea && pricingNotes.serviceArea,
+    showTravel && pricingNotes.travel,
+    showDeposit && pricingNotes.deposit,
+  ].filter(Boolean) as string[];
+
   return (
-    <div
-      className={cn(
-        "space-y-2 border border-foreground/10 bg-card/50 px-5 py-4 text-sm leading-relaxed text-foreground/55",
-        className,
-      )}
-    >
-      {showServiceArea && <p>{pricingNotes.serviceArea}</p>}
-      {showTravel && <p>{pricingNotes.travel}</p>}
-      {showDeposit && <p>{pricingNotes.deposit}</p>}
-    </div>
+    <aside className={cn("border-t border-ink/15 pt-5", className)} aria-label="Pricing notes">
+      <Label className="text-oxblood">Good to know</Label>
+      <ul className="mt-4 space-y-3 text-sm leading-relaxed text-ink-soft">
+        {notes.map((note) => (
+          <li key={note} className="flex gap-3">
+            <span className="mt-[0.6em] h-px w-3 shrink-0 bg-ink/40" aria-hidden />
+            {note}
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }

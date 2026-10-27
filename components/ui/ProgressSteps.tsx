@@ -1,7 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 type Step = {
   id: string;
@@ -14,67 +15,52 @@ type ProgressStepsProps = {
   className?: string;
 };
 
-export function ProgressSteps({
-  steps,
-  currentStep,
-  className,
-}: ProgressStepsProps) {
-  const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
+export function ProgressSteps({ steps, currentStep, className }: ProgressStepsProps) {
+  const progress = (currentStep / steps.length) * 100;
 
   return (
     <nav aria-label="Estimate request progress" className={cn("mb-10", className)}>
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
-          Your journey
-        </p>
-        <p className="text-[11px] tracking-[0.15em] uppercase text-foreground/40">
-          {currentStep} / {steps.length}
+      <div className="flex items-center justify-between gap-4">
+        <p className="font-label text-[10.5px] text-oxblood">Estimate request</p>
+        <p className="font-label text-[10.5px] text-ink-soft">
+          Step {currentStep} of {steps.length}
         </p>
       </div>
 
-      <div className="relative mb-8 h-px bg-foreground/10">
+      <div className="relative mt-4 h-px bg-ink/15">
         <motion.div
-          className="absolute inset-y-0 left-0 bg-primary/60"
+          className="absolute inset-y-0 left-0 bg-ink"
           initial={false}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
-      <ol className="flex items-start gap-0">
+      <ol className="mt-4 grid grid-cols-4 gap-2">
         {steps.map((step, i) => {
           const stepNum = i + 1;
           const isComplete = stepNum < currentStep;
           const isCurrent = stepNum === currentStep;
 
           return (
-            <li key={step.id} className="flex min-w-0 flex-1 flex-col items-center gap-2">
-              <div
-                className={cn(
-                  "flex h-9 w-9 shrink-0 items-center justify-center border text-[10px] tracking-[0.15em] transition-all duration-400",
-                  isComplete && "border-primary bg-primary text-primary-foreground",
-                  isCurrent && "border-primary bg-primary/10 text-primary shadow-[0_0_0_4px_rgba(200,169,106,0.08)]",
-                  !isComplete && !isCurrent && "border-foreground/15 text-foreground/35",
-                )}
-                aria-current={isCurrent ? "step" : undefined}
-              >
-                {isComplete ? "✓" : String(stepNum).padStart(2, "0")}
-              </div>
-              <span
-                className={cn(
-                  "hidden text-center text-[9px] tracking-[0.14em] uppercase sm:block",
-                  isCurrent ? "text-primary" : "text-foreground/40",
-                )}
-              >
-                {step.label}
-              </span>
+            <li
+              key={step.id}
+              className={cn(
+                "flex items-center gap-1.5 font-label text-[10px] transition-colors duration-500",
+                isCurrent ? "text-oxblood" : isComplete ? "text-ink" : "text-ink/35",
+              )}
+              aria-current={isCurrent ? "step" : undefined}
+            >
+              {isComplete ? (
+                <Check size={11} aria-hidden />
+              ) : (
+                <span aria-hidden>{String(stepNum).padStart(2, "0")}</span>
+              )}
+              <span className={cn(!isCurrent && "hidden sm:inline")}>{step.label}</span>
             </li>
           );
         })}
       </ol>
-      <p className="mt-4 text-center text-[11px] tracking-[0.15em] uppercase text-foreground/45 sm:hidden">
-        {steps[currentStep - 1]?.label}
-      </p>
     </nav>
   );
 }
@@ -89,16 +75,10 @@ function BookingStepIntro({
   description: string;
 }) {
   return (
-    <div className="border-b border-foreground/10 pb-8">
-      <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
-        {step}
-      </p>
-      <h3 className="mt-2 font-serif text-2xl font-light text-foreground lg:text-3xl">
-        {title}
-      </h3>
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/50">
-        {description}
-      </p>
+    <div className="border-b border-ink/15 pb-8">
+      <p className="font-label text-[10.5px] text-oxblood">{step}</p>
+      <h3 className="mt-3 font-serif text-3xl font-light lg:text-4xl">{title}</h3>
+      <p className="mt-3 max-w-md leading-relaxed text-ink-soft">{description}</p>
     </div>
   );
 }

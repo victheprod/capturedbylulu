@@ -1,9 +1,7 @@
-"use client";
-
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { PhotoImage } from "@/components/ui/PhotoImage";
-import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/SectionHeading";
+import { EstimateButton, Label, delay } from "@/components/editorial/primitives";
 import { framingForSrc } from "@/lib/photo-framing";
 import { cn } from "@/lib/utils";
 
@@ -23,21 +21,7 @@ type PageHeaderProps = {
   className?: string;
 };
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-/** Shared inner-page header: label column left, headline right, landscape photo below. */
+/** Shared inner-page header: catalogue rule, oversized serif title, intro, optional landscape plate. */
 export function PageHeader({
   eyebrow,
   tagline,
@@ -51,76 +35,72 @@ export function PageHeader({
   children,
   className,
 }: PageHeaderProps) {
-  const reduced = useReducedMotion();
   const objectPosition =
     imagePosition ?? (imageSrc ? framingForSrc(imageSrc).objectPosition : undefined);
+  const hasAside = description || primaryCta || secondaryCta || children;
 
   return (
-    <header className={cn("relative bg-background", className)}>
-      <motion.div
-        className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pt-32 pb-12 lg:grid-cols-12 lg:gap-10 lg:px-10 lg:pt-40 lg:pb-16"
-        variants={reduced ? undefined : container}
-        initial={reduced ? false : "hidden"}
-        animate="visible"
-      >
-        <motion.div
-          variants={reduced ? undefined : item}
-          className="flex flex-col justify-end gap-3 lg:col-span-4"
-        >
-          <Eyebrow>{eyebrow}</Eyebrow>
-          {tagline && (
-            <p className="max-w-xs text-sm leading-relaxed text-foreground/50">
-              {tagline}
-            </p>
-          )}
-        </motion.div>
+    <header className={cn("relative pt-16 md:pt-20", className)}>
+      <div className="mx-auto max-w-[1600px] px-5 md:px-10">
+        <div className="hero-rise flex items-center justify-between gap-6 border-b border-ink/15 pt-8 pb-4 md:pt-12">
+          <Label className="text-oxblood">{eyebrow}</Label>
+          {tagline && <Label className="hidden text-right text-ink-soft sm:inline">{tagline}</Label>}
+        </div>
 
-        <motion.div
-          variants={reduced ? undefined : item}
-          className="flex flex-col items-start gap-6 lg:col-span-7 lg:col-start-6"
-        >
-          <h1 className="text-balance font-serif text-[clamp(2.5rem,6vw,4.5rem)] font-light leading-[1.03] tracking-[-0.02em] text-foreground">
+        <div className="grid grid-cols-12 gap-x-6 gap-y-8 pt-10 pb-14 md:pt-14 md:pb-20 lg:items-end">
+          <h1
+            className="hero-rise col-span-12 font-serif text-[13vw] leading-[0.92] font-light tracking-[-0.035em] text-balance sm:text-[10vw] lg:col-span-8 lg:text-[6.6vw] 2xl:text-[7.5rem]"
+            style={delay(120)}
+          >
             {title}
           </h1>
-          {description && (
-            <p className="max-w-xl text-base leading-relaxed text-foreground/60">
-              {description}
-            </p>
-          )}
-          {(primaryCta || secondaryCta) && (
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
-              {primaryCta && (
-                <Button href={primaryCta.href}>{primaryCta.label}</Button>
+
+          {hasAside && (
+            <div
+              className="hero-rise col-span-12 flex flex-col items-start gap-7 md:col-span-8 lg:col-span-4"
+              style={delay(300)}
+            >
+              {description && (
+                <p className="max-w-md text-lg leading-relaxed text-ink-soft">{description}</p>
               )}
-              {secondaryCta && (
-                <Button href={secondaryCta.href} variant="link">
-                  {secondaryCta.label}
-                </Button>
+              {(primaryCta || secondaryCta) && (
+                <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                  {primaryCta && <EstimateButton href={primaryCta.href}>{primaryCta.label}</EstimateButton>}
+                  {secondaryCta && (
+                    <Link
+                      href={secondaryCta.href}
+                      className="group inline-flex items-center gap-2 text-sm font-medium"
+                    >
+                      <span className="link-line pb-1">{secondaryCta.label}</span>
+                      <ArrowUpRight
+                        className="h-4 w-4 text-oxblood transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </Link>
+                  )}
+                </div>
               )}
+              {children}
             </div>
           )}
-          {children}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {imageSrc && (
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-7xl px-6 lg:px-10"
-        >
-          <div className="relative aspect-[3/2] overflow-hidden bg-card mask-t-from-85% sm:aspect-[21/9]">
+        <div className="mx-auto max-w-[1600px] md:px-10">
+          <div className="relative aspect-[4/3] overflow-hidden bg-bone sm:aspect-[21/9]">
             <PhotoImage
               src={imageSrc}
               alt={imageAlt}
               fill
-              priority
+              preload
+              fetchPriority="high"
               objectPosition={objectPosition}
-              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="hero-settle"
+              sizes="(max-width: 1600px) 100vw, 1520px"
             />
           </div>
-        </motion.div>
+        </div>
       )}
     </header>
   );

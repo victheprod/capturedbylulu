@@ -64,26 +64,31 @@ export default async function ContactPage({ searchParams }: PageProps) {
         title="Get an estimate."
         description="Tell Lulu about the shoot: what it is, when, and where. The form goes straight to his inbox. Nothing is booked until you both agree."
       />
-      <Section className="border-t border-foreground/10 pt-14 lg:pt-20">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <FadeIn className="order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
-            <Eyebrow className="mb-6">How it works</Eyebrow>
-            <ol className="space-y-4">
+      <Section className="border-t border-ink/15 pt-14 md:pt-20">
+        <div className="grid grid-cols-12 gap-x-6 gap-y-16">
+          <FadeIn className="order-2 col-span-12 lg:order-1 lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
+            <Eyebrow>How it works</Eyebrow>
+            <ol className="mt-6 border-b border-ink/15">
               {journeySteps.map((step, i) => (
-                <li key={step} className="flex items-baseline gap-4 text-sm text-foreground/70">
-                  <span className="text-primary/80">{i + 1}.</span>
-                  {step}
+                <li
+                  key={step}
+                  className="grid grid-cols-[2.5rem_1fr] gap-x-3 border-t border-ink/15 py-4"
+                >
+                  <span className="font-label pt-1 text-[10.5px] text-oxblood">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-serif text-xl leading-snug">{step}</span>
                 </li>
               ))}
             </ol>
 
-            <Eyebrow className="mt-12 mb-6">Other ways to reach Lulu</Eyebrow>
-            <div className="mb-10 space-y-4">
+            <Eyebrow className="mt-14 mb-6">Other ways to reach Lulu</Eyebrow>
+            <div className="mb-12 space-y-4">
               {[
                 {
                   icon: Mail,
                   label: site.email,
-                  href: `mailto:${site.email}`,
+                  href: `mailto:${site.email.toLowerCase()}`,
                 },
                 {
                   icon: Phone,
@@ -102,31 +107,29 @@ export default async function ContactPage({ searchParams }: PageProps) {
                   href: undefined,
                 },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <item.icon size={14} className="shrink-0 text-primary" />
+                <div key={item.label} className="flex items-start gap-3">
+                  <item.icon size={15} className="mt-0.5 shrink-0 text-oxblood" aria-hidden />
                   {item.href ? (
                     <a
                       href={item.href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noopener noreferrer" : undefined}
-                      className="break-all text-sm text-foreground/65 transition-colors hover:text-foreground sm:break-normal"
+                      className="link-line w-fit text-ink"
                     >
                       {item.label}
                     </a>
                   ) : (
-                    <span className="text-sm text-foreground/65">
-                      {item.label}
-                    </span>
+                    <span className="text-ink-soft">{item.label}</span>
                   )}
                 </div>
               ))}
             </div>
 
-            <PricingNotes showDeposit={false} />
+            <PricingNotes showDeposit={false} showServiceArea={false} />
           </FadeIn>
 
-          <FadeIn delay={0.1} className="order-1 lg:order-2">
-            <div className="border border-foreground/10 bg-card p-6 sm:p-9 lg:p-10">
+          <FadeIn delay={0.1} className="order-1 col-span-12 lg:order-2 lg:col-span-7 lg:col-start-6">
+            <div className="border border-ink/15 bg-card p-5 sm:p-9 lg:p-12">
               <BookingForm
                 packageGroups={packageGroups}
                 blockedDates={blockedDates}

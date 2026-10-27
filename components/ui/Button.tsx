@@ -5,15 +5,16 @@ import { cn } from "@/lib/utils";
 type ButtonVariant = "primary" | "outline" | "ghost" | "link";
 
 const base =
-  "inline-flex items-center justify-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase transition-colors duration-300";
+  "inline-flex items-center justify-center gap-3 text-sm font-medium tracking-wide transition-colors duration-500";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-primary px-8 py-3.5 text-primary-foreground hover:bg-[#d4b87a]",
+  primary:
+    "border border-primary bg-primary px-7 py-4 text-primary-foreground hover:border-oxblood hover:bg-oxblood hover:text-ivory",
   outline:
-    "border border-foreground/25 px-8 py-3.5 text-foreground/80 hover:border-primary hover:text-primary",
+    "border border-foreground/30 px-7 py-4 text-foreground hover:border-foreground hover:bg-foreground hover:text-background",
   ghost:
-    "border border-foreground/20 px-8 py-3.5 text-foreground/60 hover:border-primary hover:text-primary",
-  link: "group text-primary hover:text-foreground",
+    "border border-foreground/15 px-7 py-4 text-foreground/70 hover:border-foreground/40 hover:text-foreground",
+  link: "group text-foreground underline decoration-oxblood/60 underline-offset-[6px] hover:text-oxblood",
 };
 
 type ButtonProps = {

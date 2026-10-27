@@ -23,9 +23,9 @@ export type BookingPackageGroup = {
 };
 
 export const pricingNotes = {
-  serviceArea: "Texas-based photographer — available throughout Texas and for travel nationwide.",
+  serviceArea: "Based in Texas, available throughout the state and for travel nationwide.",
   deposit:
-    "This site provides estimates only — nothing is booked online. Lulu finalizes every package, custom quotation, and date by email.",
+    "This site gives estimates only. Nothing is booked online; Lulu confirms every package, custom quote, and date by email.",
   travel:
     "Travel outside the local service area is billed separately (starts at $50), quoted per booking based on distance and location.",
 } as const;

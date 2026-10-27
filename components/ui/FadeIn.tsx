@@ -1,36 +1,25 @@
-"use client";
-
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { delay as delayVar } from "@/components/editorial/primitives";
 import { cn } from "@/lib/utils";
 
-type FadeInProps = HTMLMotionProps<"div"> & {
+type FadeInProps = React.HTMLAttributes<HTMLDivElement> & {
+  /** Seconds, matching the original framer-motion API. */
   delay?: number;
-  direction?: "up" | "down" | "none";
 };
 
-export function FadeIn({
-  children,
-  className,
-  delay = 0,
-  direction = "up",
-  ...props
-}: FadeInProps) {
-  const offset = direction === "up" ? 24 : direction === "down" ? -24 : 0;
-
+/** Scroll reveal driven by `RevealObserver`; content stays visible without JavaScript. */
+export function FadeIn({ children, className, delay = 0, style, ...props }: FadeInProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: offset }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(className)}
+    <div
+      className={cn("reveal", className)}
+      style={delay ? { ...delayVar(delay * 1000), ...style } : style}
       {...props}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
+/** Children rendered with `FadeInItem` reveal in a short cascade. */
 export function FadeInStagger({
   children,
   className,
@@ -38,20 +27,7 @@ export function FadeInStagger({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.1 } },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={cn("reveal-stagger", className)}>{children}</div>;
 }
 
 export function FadeInItem({
@@ -61,19 +37,5 @@ export function FadeInItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={cn("reveal", className)}>{children}</div>;
 }

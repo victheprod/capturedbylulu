@@ -10,9 +10,9 @@ type SectionProps = {
 };
 
 const toneStyles = {
-  default: "py-20 lg:py-28",
-  surface: "bg-surface py-20 lg:py-28",
-  compact: "py-14 lg:py-20",
+  default: "py-20 md:py-32",
+  surface: "bg-surface py-20 md:py-32",
+  compact: "py-14 md:py-20",
 };
 
 export function Section({
@@ -27,13 +27,13 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "px-6 lg:px-10",
+        "px-5 md:px-10",
         toneStyles[tone],
         bordered && "border-y border-foreground/10",
         className,
       )}
     >
-      <div className={cn("mx-auto max-w-7xl", innerClassName)}>{children}</div>
+      <div className={cn("mx-auto max-w-[1520px]", innerClassName)}>{children}</div>
     </section>
   );
 }

@@ -29,12 +29,12 @@ export default async function PortfolioPage() {
         title="The work."
         description="Start with the highlights, then browse everything. It's all real client work from Texas and beyond."
       />
-      <PortfolioScrollShowcase hideHeader />
-      <Section className="border-t border-foreground/10">
+      <PortfolioScrollShowcase />
+      <Section className="border-t border-ink/15">
         <FadeIn>
           <SectionHeading
-            eyebrow="Archive"
-            title="Everything else"
+            eyebrow="The archive"
+            title="Everything else."
             description="Filter by category, then click any photo to view it full screen."
           />
         </FadeIn>

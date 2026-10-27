@@ -1,11 +1,8 @@
-"use client";
+import Link from "next/link";
+import { siteConfig } from "@/data/site";
+import { EstimateButton, Label, delay } from "@/components/editorial/primitives";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { PhotoImage } from "@/components/ui/PhotoImage";
-import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/SectionHeading";
-import { siteImages } from "@/data/portfolio";
-import { framingForSrc } from "@/lib/photo-framing";
+const phoneHref = `tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`;
 
 type EstimateCTAProps = {
   eyebrow?: string;
@@ -13,61 +10,46 @@ type EstimateCTAProps = {
   description?: string;
   ctaLabel?: string;
   ctaHref?: string;
-  imageSrc?: string;
 };
 
+/** Oxblood closing band shared by the inner pages. */
 export function EstimateCTA({
   eyebrow = "Estimates",
   title = "Tell Lulu what you're planning.",
   description = "Send the date, the place, and the idea. Lulu replies by email with a price, usually within a day or two. Nothing is booked until you both agree.",
-  ctaLabel = "Get an estimate",
+  ctaLabel = "Request an estimate",
   ctaHref = "/contact",
-  imageSrc = siteImages.cta,
 }: EstimateCTAProps) {
-  const reduced = useReducedMotion();
-  const framing = framingForSrc(imageSrc);
-
   return (
-    <section
-      className="border-t border-foreground/10 bg-surface"
-      aria-labelledby="estimate-cta-heading"
-    >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-center px-6 py-20 lg:px-10 lg:py-28 lg:pr-16"
-        >
-          <Eyebrow className="mb-5">{eyebrow}</Eyebrow>
+    <section aria-labelledby="estimate-cta-heading" className="bg-oxblood text-ivory">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-12 gap-x-6 gap-y-12 px-5 py-24 md:px-10 md:py-32">
+        <div className="col-span-12 lg:col-span-7">
+          <Label className="reveal block text-ivory/75">{eyebrow}</Label>
           <h2
             id="estimate-cta-heading"
-            className="text-balance font-serif text-[clamp(2rem,4.5vw,3.25rem)] font-light leading-[1.08] text-foreground"
+            className="reveal mt-6 font-serif text-[12vw] leading-[0.95] font-light tracking-[-0.03em] text-balance md:text-[7vw] xl:text-[6.5rem]"
+            style={delay(100)}
           >
             {title}
           </h2>
-          <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-foreground/60">
-            {description}
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <Button href={ctaHref} arrow>
-              {ctaLabel}
-            </Button>
-            <Button href="/contact?quote=custom" variant="link" arrow={false}>
-              Or ask for a custom quote
-            </Button>
-          </div>
-        </motion.div>
+        </div>
 
-        <div className="relative min-h-[22rem] lg:min-h-[34rem]">
-          <PhotoImage
-            src={imageSrc}
-            alt=""
-            fill
-            objectPosition={framing.objectPosition}
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
+        <div className="reveal col-span-12 flex flex-col items-start gap-8 lg:col-span-4 lg:col-start-9 lg:self-end" style={delay(200)}>
+          <p className="max-w-md text-lg leading-relaxed text-ivory/85">{description}</p>
+          <EstimateButton href={ctaHref} tone="light">
+            {ctaLabel}
+          </EstimateButton>
+          <div className="flex flex-col gap-1 text-sm">
+            <Link href="/contact?quote=custom" className="link-line w-fit font-medium">
+              Or ask for a custom quote
+            </Link>
+            <a href={`mailto:${siteConfig.email.toLowerCase()}`} className="link-line w-fit text-ivory/80">
+              {siteConfig.email}
+            </a>
+            <a href={phoneHref} className="link-line w-fit text-ivory/80">
+              {siteConfig.phone}
+            </a>
+          </div>
         </div>
       </div>
     </section>

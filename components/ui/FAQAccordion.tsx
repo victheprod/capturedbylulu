@@ -2,79 +2,76 @@
 
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { FAQSection } from "@/data/faq";
+import { Label } from "@/components/editorial/primitives";
 import { cn } from "@/lib/utils";
 
 export function FAQAccordion({ sections }: { sections: FAQSection[] }) {
   const [openKey, setOpenKey] = useState<string | null>(null);
 
   return (
-    <LayoutGroup>
-      <div className="space-y-14">
-        {sections.map((section, si) => (
-          <div key={section.category}>
-            <p className="mb-6 text-[11px] tracking-[0.28em] uppercase text-primary">
-              {section.category}
-            </p>
-            <div className="divide-y divide-foreground/8">
-              {section.items.map((item, qi) => {
-                const key = `${si}-${qi}`;
-                const isOpen = openKey === key;
+    <div className="space-y-16 md:space-y-20">
+      {sections.map((section, si) => (
+        <section key={section.category} aria-labelledby={`faq-section-${si}`}>
+          <Label as="h2" className="block text-oxblood">
+            <span id={`faq-section-${si}`}>
+              {String(si + 1).padStart(2, "0")} / {section.category}
+            </span>
+          </Label>
+          <div className="mt-6 divide-y divide-ink/12 border-y border-ink/12">
+            {section.items.map((item, qi) => {
+              const key = `${si}-${qi}`;
+              const isOpen = openKey === key;
+              const panelId = `faq-answer-${key}`;
 
-                return (
-                  <div key={key} className="group">
-                    <button
-                      type="button"
-                      className="flex w-full items-start justify-between gap-6 py-6 text-left transition-colors duration-300"
-                      onClick={() => setOpenKey(isOpen ? null : key)}
-                      aria-expanded={isOpen}
-                    >
-                      <span
-                        className={cn(
-                          "font-serif text-lg leading-snug text-foreground transition-colors duration-300 lg:text-xl",
-                          isOpen ? "text-primary" : "group-hover:text-foreground/85",
-                        )}
-                      >
-                        {item.question}
-                      </span>
-                      <motion.span
-                        layout
-                        className={cn(
-                          "mt-1 flex h-8 w-8 shrink-0 items-center justify-center border transition-colors duration-300",
-                          isOpen
-                            ? "border-primary/40 bg-primary/10 text-primary"
-                            : "border-foreground/12 text-foreground/40 group-hover:border-foreground/25",
-                        )}
-                      >
-                        {isOpen ? <Minus size={14} /> : <Plus size={14} />}
-                      </motion.span>
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            duration: 0.4,
-                            ease: [0.22, 1, 0.36, 1],
-                          }}
-                          className="overflow-hidden"
-                        >
-                          <p className="max-w-2xl pb-6 text-sm leading-relaxed text-foreground/58 lg:text-[0.95rem]">
-                            {item.answer}
-                          </p>
-                        </motion.div>
+              return (
+                <div key={key}>
+                  <button
+                    type="button"
+                    className="group flex w-full items-start justify-between gap-6 py-6 text-left md:py-7"
+                    onClick={() => setOpenKey(isOpen ? null : key)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                  >
+                    <span
+                      className={cn(
+                        "font-serif text-xl leading-snug transition-colors duration-500 md:text-2xl",
+                        isOpen ? "text-oxblood" : "group-hover:text-oxblood",
                       )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
+                    >
+                      {item.question}
+                    </span>
+                    <span
+                      className={cn(
+                        "flex h-9 w-9 shrink-0 items-center justify-center border transition-colors duration-500",
+                        isOpen ? "border-ink bg-ink text-ivory" : "border-ink/20 group-hover:border-ink",
+                      )}
+                      aria-hidden
+                    >
+                      {isOpen ? <Minus size={14} /> : <Plus size={14} />}
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={panelId}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="max-w-2xl pb-7 leading-relaxed text-ink-soft">{item.answer}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
-    </LayoutGroup>
+        </section>
+      ))}
+    </div>
   );
 }

@@ -13,7 +13,7 @@ export function VisionOrbitNav({ currentStep, className }: VisionOrbitNavProps) 
   return (
     <nav aria-label="Vision progress" className={cn("flex flex-col", className)}>
       <div className="mb-4 hidden lg:block">
-        <p className="text-[9px] tracking-[0.35em] uppercase text-foreground/30">
+        <p className="font-label text-[10px] text-foreground/30">
           Atelier
         </p>
         <p className="mt-1 font-serif text-2xl font-light text-foreground/70">
@@ -93,7 +93,7 @@ export function VisionOrbitNav({ currentStep, className }: VisionOrbitNavProps) 
             <span
               key={step.id}
               className={cn(
-                "shrink-0 rounded-full px-3 py-1.5 text-[10px] tracking-[0.12em] uppercase transition-colors",
+                "shrink-0 px-3 py-1.5 font-label text-[10.5px] transition-colors",
                 active && "bg-primary/15 text-primary",
                 done && !active && "text-foreground/45",
                 !active && !done && "text-foreground/25",

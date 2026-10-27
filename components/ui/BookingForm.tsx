@@ -68,15 +68,20 @@ const BOOKING_STEPS = [
 ];
 
 const inputClass =
-  "w-full border bg-card px-4 py-3.5 text-sm text-foreground placeholder-foreground/25 transition-colors duration-200 focus:border-primary focus:outline-none";
+  "w-full border bg-ivory px-4 py-3.5 text-base text-ink placeholder:text-ink/35 transition-colors duration-300 focus:border-ink focus:outline-none";
 
-const labelClass =
-  "mb-2 block text-[11px] tracking-[0.15em] uppercase text-foreground/45";
+const labelClass = "font-label mb-2 block text-[10.5px] text-ink-soft";
+
+const choiceClass = (selected: boolean) =>
+  cn(
+    "border text-left transition-colors duration-300",
+    selected ? "border-ink bg-bone" : "border-ink/15 hover:border-ink/45",
+  );
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p className="mt-2 flex items-start gap-1.5 text-xs text-red-400/90">
+    <p className="mt-2 flex items-start gap-1.5 text-sm text-oxblood">
       <AlertCircle size={12} className="mt-0.5 shrink-0" />
       {message}
     </p>
@@ -278,7 +283,7 @@ function BookingFormFields({
       setStatus("success");
       setSuccessMessage(
         payload.message ??
-          "Your estimate request was sent to Lulu. This is not a booking — Lulu will reply by email with a custom quotation and next steps.",
+          "Your estimate request was sent to Lulu. This is not a booking. Lulu will reply by email with a quote and next steps.",
       );
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
@@ -296,55 +301,47 @@ function BookingFormFields({
         animate={{ opacity: 1, y: 0 }}
         className="mx-auto max-w-xl text-center lg:max-w-none"
       >
-        <div className="mx-auto mb-8 flex h-14 w-14 items-center justify-center border border-primary">
-          <Check size={22} className="text-primary" />
+        <div className="mx-auto mb-8 flex h-14 w-14 items-center justify-center bg-ink text-ivory">
+          <Check size={22} aria-hidden />
         </div>
-        <p className="mb-4 text-[11px] tracking-[0.25em] uppercase text-primary">
-          Estimate Request Sent
-        </p>
-        <h2 className="mb-5 font-serif text-4xl font-light text-foreground lg:text-5xl">
-          You&apos;re in good hands
+        <p className="font-label mb-4 text-[10.5px] text-oxblood">Estimate request sent</p>
+        <h2 className="mb-5 font-serif text-4xl font-light lg:text-5xl">
+          Thank you. <em className="italic text-oxblood">Lulu has it.</em>
         </h2>
-        <p className="mb-10 leading-relaxed text-foreground/58">
-          {successMessage}
-        </p>
+        <p className="mb-10 text-lg leading-relaxed text-ink-soft">{successMessage}</p>
 
-        <div className="border border-foreground/10 bg-card p-8 text-left">
-          <p className="mb-7 text-[11px] tracking-[0.25em] uppercase text-primary">
-            What Happens Next
-          </p>
+        <div className="border-t border-ink/15 pt-8 text-left">
+          <p className="font-label mb-7 text-[10.5px] text-oxblood">What happens next</p>
           <div className="space-y-6">
             {[
               {
                 n: "1",
                 t: "Lulu reviews your request",
-                d: "Your estimate lands in Lulu's inbox — nothing is booked on the website.",
+                d: "Your request lands in Lulu's inbox. Nothing is booked on the website.",
               },
               {
                 n: "2",
-                t: "Custom quotation by email",
-                d: "Within 24–48 hours you'll receive a tailored quotation for your session or event.",
+                t: "A quote by email",
+                d: "Usually within a day or two, you'll get a quote for your session or event.",
               },
               {
                 n: "3",
-                t: "Finalize together",
-                d: "Dates, coverage, and investment are confirmed directly with Lulu — never self-serve online.",
+                t: "Agree on the details",
+                d: "Dates, coverage, and price are confirmed directly with Lulu by email.",
               },
               {
                 n: "4",
                 t: "Reserve when you're ready",
-                d: "Only after you approve the quote (and complete any retainer Lulu sends) is your date held.",
+                d: "Your date is only held after you approve the quote and complete any retainer Lulu sends.",
               },
             ].map((item) => (
-              <div key={item.n} className="flex gap-4">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center border border-primary/45">
-                  <span className="text-[11px] text-primary">{item.n}</span>
-                </div>
+              <div key={item.n} className="grid grid-cols-[2.5rem_1fr] gap-x-3">
+                <span className="font-label pt-1 text-[10.5px] text-oxblood">
+                  {item.n.padStart(2, "0")}
+                </span>
                 <div>
-                  <p className="mb-0.5 text-sm font-medium text-foreground">
-                    {item.t}
-                  </p>
-                  <p className="text-xs text-foreground/48">{item.d}</p>
+                  <p className="font-serif text-xl">{item.t}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink-soft">{item.d}</p>
                 </div>
               </div>
             ))}
@@ -361,7 +358,7 @@ function BookingFormFields({
       {formError && (
         <div
           role="alert"
-          className="flex items-start gap-3 border border-red-400/25 bg-red-950/20 px-4 py-3 text-sm text-red-200/90"
+          className="flex items-start gap-3 border border-oxblood/35 bg-oxblood/5 px-4 py-3 text-sm text-oxblood"
         >
           <AlertCircle size={16} className="mt-0.5 shrink-0" />
           <span>{formError}</span>
@@ -378,14 +375,12 @@ function BookingFormFields({
         >
           {step === 1 && (
             <div className="space-y-8">
-              <div className="border-b border-foreground/10 pb-8">
-                <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
-                  Step one
-                </p>
-                <h3 className="mt-2 font-serif text-2xl font-light text-foreground lg:text-3xl">
+              <div className="border-b border-ink/15 pb-8">
+                <p className="font-label text-[10.5px] text-oxblood">Step one</p>
+                <h3 className="mt-3 font-serif text-3xl font-light lg:text-4xl">
                   What are we photographing?
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/50">
+                <p className="mt-3 max-w-md leading-relaxed text-ink-soft">
                   Pick the closest session and package. If it&apos;s something
                   else entirely, ask for a custom quote below.
                 </p>
@@ -400,25 +395,22 @@ function BookingFormFields({
                   }))
                 }
                 className={cn(
-                  "flex w-full items-center justify-between gap-4 border px-5 py-4 text-left transition-colors duration-300",
-                  form.package === CUSTOM_QUOTE_PACKAGE
-                    ? "border-primary bg-primary/10"
-                    : "border-foreground/15 hover:border-primary/60",
+                  choiceClass(form.package === CUSTOM_QUOTE_PACKAGE),
+                  "flex w-full items-center justify-between gap-4 px-5 py-4",
                 )}
+                aria-pressed={form.package === CUSTOM_QUOTE_PACKAGE}
               >
                 <span>
-                  <span className="block text-sm font-medium text-foreground">
-                    Request a custom quote
-                  </span>
-                  <span className="mt-1 block text-xs text-foreground/45">
+                  <span className="block font-medium">Request a custom quote</span>
+                  <span className="mt-1 block text-sm text-ink-soft">
                     Corporate events, multi-day coverage, destination work, or
                     anything not on the price list.
                   </span>
                 </span>
                 {form.package === CUSTOM_QUOTE_PACKAGE ? (
-                  <Check size={16} className="shrink-0 text-primary" />
+                  <Check size={16} className="shrink-0 text-oxblood" aria-hidden />
                 ) : (
-                  <ArrowRight size={16} className="shrink-0 text-foreground/40" />
+                  <ArrowRight size={16} className="shrink-0 text-ink/40" aria-hidden />
                 )}
               </button>
               <div>
@@ -429,12 +421,8 @@ function BookingFormFields({
                       key={type}
                       type="button"
                       onClick={() => handleSessionTypeChange(type)}
-                      className={cn(
-                        "border px-3 py-3 text-left text-xs tracking-wide transition-colors duration-300 sm:text-sm",
-                        form.sessionType === type
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-foreground/12 text-foreground/65 hover:border-foreground/30",
-                      )}
+                      className={cn(choiceClass(form.sessionType === type), "px-3 py-3 text-sm")}
+                      aria-pressed={form.sessionType === type}
                     >
                       {type}
                     </button>
@@ -456,22 +444,11 @@ function BookingFormFields({
                             key={pkg.id}
                             type="button"
                             onClick={() => updateField("package", value)}
-                            className={cn(
-                              "border p-4 text-left transition-colors duration-300",
-                              selected
-                                ? "border-primary bg-primary/10"
-                                : "border-foreground/12 hover:border-foreground/30",
-                            )}
+                            className={cn(choiceClass(selected), "p-4")}
+                            aria-pressed={selected}
                           >
-                            <p
-                              className={cn(
-                                "text-sm font-medium",
-                                selected ? "text-primary" : "text-foreground",
-                              )}
-                            >
-                              {pkg.label}
-                            </p>
-                            <p className="mt-1 text-[10px] tracking-[0.12em] uppercase text-foreground/40">
+                            <p className="font-medium">{pkg.label}</p>
+                            <p className="font-label mt-1 text-[10px] text-ink-soft">
                               {group.category} · Estimate
                             </p>
                           </button>
@@ -486,26 +463,16 @@ function BookingFormFields({
                             updateField("package", CUSTOM_QUOTE_PACKAGE)
                           }
                           className={cn(
-                            "border p-4 text-left transition-colors duration-300 sm:col-span-2",
-                            form.package === CUSTOM_QUOTE_PACKAGE
-                              ? "border-primary bg-primary/10"
-                              : "border-foreground/12 hover:border-foreground/30",
+                            choiceClass(form.package === CUSTOM_QUOTE_PACKAGE),
+                            "p-4 sm:col-span-2",
                           )}
+                          aria-pressed={form.package === CUSTOM_QUOTE_PACKAGE}
                         >
-                          <p
-                            className={cn(
-                              "text-sm font-medium",
-                              form.package === CUSTOM_QUOTE_PACKAGE
-                                ? "text-primary"
-                                : "text-foreground",
-                            )}
-                          >
-                            {CUSTOM_QUOTE_PACKAGE}
-                          </p>
-                          <p className="mt-1 text-xs text-foreground/45">
+                          <p className="font-medium">{CUSTOM_QUOTE_PACKAGE}</p>
+                          <p className="mt-1 text-sm text-ink-soft">
                             Weddings, corporate events, multi-day coverage, or
-                            anything outside listed packages — Lulu will quote
-                            specially by email.
+                            anything outside the listed packages. Lulu will
+                            quote it by email.
                           </p>
                         </button>
                         <button
@@ -514,24 +481,14 @@ function BookingFormFields({
                             updateField("package", NOT_SURE_PACKAGE)
                           }
                           className={cn(
-                            "border p-4 text-left transition-colors duration-300 sm:col-span-2",
-                            form.package === NOT_SURE_PACKAGE
-                              ? "border-primary bg-primary/10"
-                              : "border-foreground/12 hover:border-foreground/30",
+                            choiceClass(form.package === NOT_SURE_PACKAGE),
+                            "p-4 sm:col-span-2",
                           )}
+                          aria-pressed={form.package === NOT_SURE_PACKAGE}
                         >
-                          <p
-                            className={cn(
-                              "text-sm font-medium",
-                              form.package === NOT_SURE_PACKAGE
-                                ? "text-primary"
-                                : "text-foreground",
-                            )}
-                          >
-                            {NOT_SURE_PACKAGE}
-                          </p>
-                          <p className="mt-1 text-xs text-foreground/45">
-                            Lulu will help you find the perfect fit.
+                          <p className="font-medium">{NOT_SURE_PACKAGE}</p>
+                          <p className="mt-1 text-sm text-ink-soft">
+                            Lulu will help you pick the right one.
                           </p>
                         </button>
                       </>
@@ -548,13 +505,13 @@ function BookingFormFields({
               <BookingStepIntro
                 step="Step two"
                 title="A little about you"
-                description="Your estimate goes straight to Lulu's email. Share how to reach you — you'll hear back within 24–48 hours."
+                description="Your estimate goes straight to Lulu's email. Share how to reach you. You'll usually hear back within a day or two."
               />
               <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={labelClass}>
-                    Full Name <span className="text-primary">*</span>
+                    Full Name <span className="text-oxblood">*</span>
                   </label>
                   <input
                     id="name"
@@ -564,8 +521,8 @@ function BookingFormFields({
                     className={cn(
                       inputClass,
                       fieldErrors.name
-                        ? "border-red-400/50"
-                        : "border-foreground/12",
+                        ? "border-oxblood"
+                        : "border-ink/20",
                     )}
                     placeholder="Your name"
                     aria-invalid={Boolean(fieldErrors.name)}
@@ -574,7 +531,7 @@ function BookingFormFields({
                 </div>
                 <div>
                   <label htmlFor="email" className={labelClass}>
-                    Email <span className="text-primary">*</span>
+                    Email <span className="text-oxblood">*</span>
                   </label>
                   <input
                     id="email"
@@ -585,8 +542,8 @@ function BookingFormFields({
                     className={cn(
                       inputClass,
                       fieldErrors.email
-                        ? "border-red-400/50"
-                        : "border-foreground/12",
+                        ? "border-oxblood"
+                        : "border-ink/20",
                     )}
                     placeholder="your@email.com"
                     aria-invalid={Boolean(fieldErrors.email)}
@@ -596,7 +553,7 @@ function BookingFormFields({
               </div>
               <div>
                 <label htmlFor="phone" className={labelClass}>
-                  Phone <span className="text-primary">*</span>
+                  Phone <span className="text-oxblood">*</span>
                 </label>
                 <input
                   id="phone"
@@ -607,8 +564,8 @@ function BookingFormFields({
                   className={cn(
                     inputClass,
                     fieldErrors.phone
-                      ? "border-red-400/50"
-                      : "border-foreground/12",
+                      ? "border-oxblood"
+                      : "border-ink/20",
                   )}
                   placeholder="(346) 000-0000"
                   aria-invalid={Boolean(fieldErrors.phone)}
@@ -624,13 +581,13 @@ function BookingFormFields({
               <BookingStepIntro
                 step="Step three"
                 title="Shape your estimate"
-                description="Share a preferred date, location, and anything Lulu should know — especially for custom event quotations."
+                description="Share a preferred date, location, and anything Lulu should know, especially for custom event quotes."
               />
               <div className="space-y-5">
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="preferredDate" className={labelClass}>
-                    Preferred Date <span className="text-primary">*</span>
+                    Preferred Date <span className="text-oxblood">*</span>
                   </label>
                   <input
                     id="preferredDate"
@@ -642,16 +599,16 @@ function BookingFormFields({
                     min={new Date().toISOString().split("T")[0]}
                     className={cn(
                       inputClass,
-                      "[color-scheme:dark]",
+                      "[color-scheme:light]",
                       fieldErrors.preferredDate
-                        ? "border-red-400/50"
-                        : "border-foreground/12",
+                        ? "border-oxblood"
+                        : "border-ink/20",
                     )}
                     aria-invalid={Boolean(fieldErrors.preferredDate)}
                   />
                   <FieldError message={fieldErrors.preferredDate} />
                   {blockedDates.length > 0 && (
-                    <p className="mt-2 text-xs text-foreground/40">
+                    <p className="mt-2 text-sm text-ink-soft">
                       Some dates may be unavailable. Blocked dates cannot be selected.
                     </p>
                   )}
@@ -664,7 +621,7 @@ function BookingFormFields({
                     id="location"
                     value={form.location}
                     onChange={(e) => updateField("location", e.target.value)}
-                    className={cn(inputClass, "border-foreground/12")}
+                    className={cn(inputClass, "border-ink/20")}
                     placeholder="City / area in Texas"
                   />
                 </div>
@@ -672,7 +629,7 @@ function BookingFormFields({
               <div>
                 <label htmlFor="message" className={labelClass}>
                   Tell Lulu About Your Vision{" "}
-                  <span className="text-primary">*</span>
+                  <span className="text-oxblood">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -683,13 +640,13 @@ function BookingFormFields({
                     inputClass,
                     "resize-none",
                     fieldErrors.message
-                      ? "border-red-400/50"
-                      : "border-foreground/12",
+                      ? "border-oxblood"
+                      : "border-ink/20",
                   )}
                   placeholder={
                     form.package === CUSTOM_QUOTE_PACKAGE
-                      ? "Describe the event or custom coverage you need — timeline, guest count, must-have moments, budget range..."
-                      : "Share anything that feels important — your story, your vision, your must-have shots..."
+                      ? "Describe the event or custom coverage you need: timeline, guest count, must-have moments, budget range..."
+                      : "Share anything that feels important: your story, your vision, your must-have shots..."
                   }
                   aria-invalid={Boolean(fieldErrors.message)}
                 />
@@ -704,9 +661,9 @@ function BookingFormFields({
               <BookingStepIntro
                 step="Step four"
                 title="One last look"
-                description="This sends an estimate request to Lulu's email — not a booking. Lulu will reply with a custom quotation to finalize."
+                description="This sends an estimate request to Lulu's email. It isn't a booking; Lulu will reply with a quote to finalize."
               />
-              <dl className="divide-y divide-foreground/10 border border-foreground/10 bg-card">
+              <dl className="divide-y divide-ink/12 border-y border-ink/15">
                 {[
                   ["Session", form.sessionType],
                   ["Estimate for", form.package],
@@ -719,12 +676,12 @@ function BookingFormFields({
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[140px_1fr]"
+                    className="grid grid-cols-1 gap-1 py-4 sm:grid-cols-[150px_1fr]"
                   >
-                    <dt className="text-[10px] tracking-[0.15em] uppercase text-foreground/40">
+                    <dt className="font-label pt-0.5 text-[10px] text-ink-soft">
                       {label}
                     </dt>
-                    <dd className="text-sm text-foreground/80">{value}</dd>
+                    <dd className="break-words text-ink">{value}</dd>
                   </div>
                 ))}
               </dl>
@@ -739,7 +696,7 @@ function BookingFormFields({
             type="button"
             variant="outline"
             onClick={goBack}
-            className="tracking-[0.18em]"
+            
           >
             <ArrowLeft size={14} />
             Back
@@ -752,7 +709,7 @@ function BookingFormFields({
           <Button
             type="button"
             onClick={goNext}
-            className="tracking-[0.18em] sm:min-w-[160px]"
+            className="sm:min-w-[170px]"
           >
             Continue
             <ArrowRight size={14} />
@@ -760,7 +717,7 @@ function BookingFormFields({
         ) : (
           <Button
             type="submit"
-            className="tracking-[0.18em] sm:min-w-[160px]"
+            className="sm:min-w-[170px]"
             isLoading={status === "loading"}
             disabled={status === "loading"}
           >
@@ -770,17 +727,17 @@ function BookingFormFields({
                 Sending
               </>
             ) : (
-              "Request Estimate"
+              "Send estimate request"
             )}
           </Button>
         )}
       </div>
 
-      <p className="text-center text-xs leading-relaxed text-foreground/35">
+      <p className="text-center text-sm leading-relaxed text-ink-soft">
         {pricingNotes.deposit} Questions? Email{" "}
         <a
-          href={`mailto:${siteConfig.email}`}
-          className="text-foreground/50 underline-offset-2 hover:text-primary hover:underline"
+          href={`mailto:${siteConfig.email.toLowerCase()}`}
+          className="text-ink underline decoration-oxblood/50 underline-offset-4 hover:text-oxblood"
         >
           {siteConfig.email}
         </a>

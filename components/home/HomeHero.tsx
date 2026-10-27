@@ -27,7 +27,7 @@ export function HomeHero({ eyebrow, title, subtitle }: HomeHeroProps) {
   const { desktop, mobile } = heroPhotos;
   const {
     props: { srcSet: desktopSrcSet },
-  } = getImageProps({ ...desktop, sizes: "(min-width: 768px) 84vw, 100vw", quality: 80 });
+  } = getImageProps({ ...desktop, sizes: "(min-width: 768px) 84vw, 100vw", quality: 75 });
   const {
     props: { srcSet: mobileSrcSet, ...imgProps },
   } = getImageProps({ ...mobile, sizes: "100vw", quality: 75 });

@@ -57,7 +57,7 @@ export function VisionSummaryReveal({
         <p className="font-serif text-7xl font-light leading-none text-foreground/10 sm:text-8xl">
           ✦
         </p>
-        <p className="mt-2 text-[10px] tracking-[0.36em] uppercase text-primary">
+        <p className="mt-2 font-label text-[10px] text-oxblood">
           Your Vision
         </p>
         <h2 className="mt-3 font-serif text-[clamp(2rem,4.5vw,3rem)] font-light leading-[1.1] text-foreground">
@@ -69,7 +69,7 @@ export function VisionSummaryReveal({
       <div className="grid gap-4 sm:grid-cols-12 sm:gap-5">
         <motion.article
           {...fade(0.12)}
-          className="vision-atelier col-span-12 rounded-[2rem] p-7 sm:col-span-7 sm:p-9"
+          className="vision-atelier col-span-12 p-7 sm:col-span-7 sm:p-9"
         >
           <p className="text-[9px] tracking-[0.3em] uppercase text-foreground/38">
             Recommended package
@@ -93,7 +93,7 @@ export function VisionSummaryReveal({
 
         <motion.div
           {...fade(0.18)}
-          className="vision-cork col-span-12 flex min-h-[220px] flex-col rounded-[2rem] p-5 sm:col-span-5"
+          className="vision-cork col-span-12 flex min-h-[220px] flex-col p-5 sm:col-span-5"
         >
           <p className="text-[9px] tracking-[0.3em] uppercase text-primary/85">
             Inspiration board
@@ -135,7 +135,7 @@ export function VisionSummaryReveal({
 
         <motion.div
           {...fade(0.24)}
-          className="col-span-12 rounded-[1.75rem] border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
+          className="col-span-12 border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
         >
           <SummaryBlock title="Photography style">
             <ChipRow items={preferredStyles} />
@@ -144,7 +144,7 @@ export function VisionSummaryReveal({
 
         <motion.div
           {...fade(0.28)}
-          className="col-span-12 rounded-[1.75rem] border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
+          className="col-span-12 border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
         >
           <SummaryBlock title="Visual themes">
             <ChipRow items={visualThemes} />
@@ -153,7 +153,7 @@ export function VisionSummaryReveal({
 
         <motion.div
           {...fade(0.32)}
-          className="col-span-12 rounded-[1.75rem] border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
+          className="col-span-12 border border-foreground/10 bg-card/40 p-6 sm:col-span-4"
         >
           <SummaryBlock title="Suggested locations">
             <ul className="space-y-2">
@@ -169,14 +169,14 @@ export function VisionSummaryReveal({
         {addons.length > 0 ? (
           <motion.div
             {...fade(0.36)}
-            className="col-span-12 rounded-[1.75rem] border border-primary/15 bg-primary/[0.04] p-6 sm:p-7"
+            className="col-span-12 border border-primary/15 bg-primary/[0.04] p-6 sm:p-7"
           >
             <SummaryBlock title="Recommended add-ons">
               <div className="grid gap-4 sm:grid-cols-2">
                 {addons.map((addon) => (
                   <div
                     key={addon.name}
-                    className="rounded-2xl border border-foreground/8 bg-background/30 px-4 py-3"
+                    className=" border border-foreground/8 bg-background/30 px-4 py-3"
                   >
                     <p className="text-sm text-foreground/85">
                       {addon.name}{" "}
@@ -195,7 +195,7 @@ export function VisionSummaryReveal({
         {...fade(0.42)}
         className="flex flex-col items-start gap-4 pt-4 sm:flex-row sm:items-center"
       >
-        <Button href={contactHref} className="rounded-full px-10">
+        <Button href={contactHref} className="px-10">
           Request an estimate
           <ArrowRight size={16} />
         </Button>
@@ -214,7 +214,7 @@ export function VisionSummaryReveal({
 function SummaryBlock({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <p className="mb-3 text-[9px] tracking-[0.28em] uppercase text-foreground/35">
+      <p className="mb-3 font-label text-[10px] text-foreground/35">
         {title}
       </p>
       {children}
@@ -228,7 +228,7 @@ function ChipRow({ items }: { items: string[] }) {
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-full border border-foreground/12 bg-background/40 px-3 py-1 text-xs text-foreground/65"
+          className="border border-ink/15 bg-ivory/60 px-3 py-1 text-xs text-ink-soft"
         >
           {item}
         </span>

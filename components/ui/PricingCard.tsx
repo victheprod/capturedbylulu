@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, Plus, Minus } from "lucide-react";
+import { ArrowUpRight, Check, Plus, Minus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Package } from "@/data/packages";
-import { getContactHref, pricingNotes } from "@/data/packages";
+import { getContactHref } from "@/data/packages";
+import { Label } from "@/components/editorial/primitives";
 import { cn } from "@/lib/utils";
 
 type PricingCardProps = {
@@ -14,92 +15,109 @@ type PricingCardProps = {
   contactHref?: string;
 };
 
-export function PricingCard({
-  pkg,
-  category,
-  contactHref,
-}: PricingCardProps) {
-  const [expanded, setExpanded] = useState(false);
-  const href = contactHref ?? getContactHref(category, pkg);
-
+function CardShell({ popular, children }: { popular?: boolean; children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "relative flex h-full flex-col border bg-card p-6 transition-all duration-300 hover:border-primary/35 sm:p-8",
-        pkg.popular ? "border-primary/45 pt-8" : "border-foreground/10",
+        "relative flex h-full flex-col border bg-card p-6 transition-colors duration-500 sm:p-8",
+        popular ? "border-ink" : "border-ink/15 hover:border-ink/40",
       )}
     >
-      {pkg.popular && (
-        <div className="absolute top-0 right-6 -translate-y-1/2 bg-primary px-3 py-1">
-          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-primary-foreground">
-            Most Popular
-          </span>
-        </div>
-      )}
+      {children}
+    </div>
+  );
+}
 
-      <div className="mb-5 flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <h3 className="font-serif text-xl text-foreground">{pkg.name}</h3>
-          <p className="mt-1 text-xs text-foreground/45">{pkg.duration}</p>
-        </div>
-        <p className="shrink-0 font-serif text-2xl text-primary">{pkg.price}</p>
+function CardHeading({ pkg }: { pkg: Package }) {
+  return (
+    <div className="mb-6">
+      <div className="flex min-h-4 items-center justify-between gap-4">
+        <Label className="text-ink-soft">{pkg.duration}</Label>
+        {pkg.popular && <Label className="text-oxblood">Most popular</Label>}
       </div>
+      <h3 className="mt-5 font-serif text-3xl leading-tight font-light">{pkg.name}</h3>
+      <p className="mt-2 font-serif text-4xl">{pkg.price}</p>
+    </div>
+  );
+}
 
-      <ul className="mb-6 flex flex-1 flex-col gap-2.5">
-        {pkg.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2.5">
-            <Check size={12} className="mt-0.5 shrink-0 text-primary" />
-            <span className="text-sm text-foreground/65">{feature}</span>
-          </li>
-        ))}
-      </ul>
+function FeatureList({ features }: { features: string[] }) {
+  return (
+    <ul className="mb-7 flex flex-1 flex-col gap-3 border-t border-ink/12 pt-6">
+      {features.map((feature) => (
+        <li key={feature} className="flex items-start gap-2.5 text-sm leading-relaxed text-ink/80">
+          <Check size={14} className="mt-0.5 shrink-0 text-oxblood" aria-hidden />
+          {feature}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CardCta({ href, popular, children }: { href: string; popular?: boolean; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group mt-auto flex w-full items-center justify-between border px-5 py-4 text-sm font-medium transition-colors duration-500",
+        popular
+          ? "border-ink bg-ink text-ivory hover:border-oxblood hover:bg-oxblood"
+          : "border-ink/25 hover:border-ink hover:bg-ink hover:text-ivory",
+      )}
+    >
+      {children}
+      <ArrowUpRight
+        size={16}
+        className="transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        aria-hidden
+      />
+    </Link>
+  );
+}
+
+export function PricingCard({ pkg, category, contactHref }: PricingCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const href = contactHref ?? getContactHref(category, pkg);
+  const detailsId = `package-details-${pkg.id}`;
+
+  return (
+    <CardShell popular={pkg.popular}>
+      <CardHeading pkg={pkg} />
+      <FeatureList features={pkg.features} />
 
       {pkg.details && (
         <>
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
-            className="mb-4 flex items-center gap-1.5 text-[11px] tracking-[0.12em] uppercase text-primary transition-opacity hover:opacity-70"
+            className="mb-5 flex w-fit items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink"
+            aria-expanded={expanded}
+            aria-controls={detailsId}
           >
-            {expanded ? <Minus size={11} /> : <Plus size={11} />}
+            {expanded ? <Minus size={13} aria-hidden /> : <Plus size={13} aria-hidden />}
             {expanded ? "Less info" : "Package details"}
           </button>
           <AnimatePresence initial={false}>
             {expanded && (
               <motion.div
+                id={detailsId}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="mb-5 border-t border-foreground/10 pt-4">
-                  <p className="text-sm leading-relaxed text-foreground/58">
-                    {pkg.details}
-                  </p>
-                </div>
+                <p className="mb-6 text-sm leading-relaxed text-ink-soft">{pkg.details}</p>
               </motion.div>
             )}
           </AnimatePresence>
         </>
       )}
 
-      <p className="mb-4 text-[10px] leading-relaxed text-foreground/40">
-        {pricingNotes.travel}
-      </p>
-
-      <Link
-        href={href}
-        className={cn(
-          "mt-auto block w-full py-3 text-center text-[11px] tracking-[0.18em] uppercase transition-all duration-300",
-          pkg.popular
-            ? "bg-primary text-primary-foreground hover:bg-[#d4b87a]"
-            : "border border-foreground/20 text-foreground/60 hover:border-primary hover:text-primary",
-        )}
-      >
-        Get Estimate
-      </Link>
-    </div>
+      <CardCta href={href} popular={pkg.popular}>
+        Request an estimate
+      </CardCta>
+    </CardShell>
   );
 }
 
@@ -108,7 +126,7 @@ export function PricingCardCompact({
   category,
   note,
   contactHref,
-  ctaLabel = "Get Estimate",
+  ctaLabel = "Request an estimate",
 }: {
   pkg: Package;
   category: string;
@@ -119,49 +137,13 @@ export function PricingCardCompact({
   const href = contactHref ?? getContactHref(category, pkg);
 
   return (
-    <div
-      className={cn(
-        "relative flex h-full flex-col border bg-card p-6 sm:p-8",
-        pkg.popular ? "border-primary/45 pt-10" : "border-foreground/10",
-      )}
-    >
-      {pkg.popular && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap bg-primary px-4 py-1">
-          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-primary-foreground">
-            Most Popular
-          </span>
-        </div>
-      )}
-      <div className="mb-5">
-        <h3 className="mb-1 font-serif text-2xl text-foreground">{pkg.name}</h3>
-        <p className="text-xs text-foreground/45">{pkg.duration}</p>
-      </div>
-      <p className="mb-7 font-serif text-3xl text-primary">{pkg.price}</p>
-      <ul className="mb-7 flex flex-1 flex-col gap-3">
-        {pkg.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2.5">
-            <Check size={12} className="mt-0.5 shrink-0 text-primary" />
-            <span className="text-sm text-foreground/65">{feature}</span>
-          </li>
-        ))}
-      </ul>
-      {note && (
-        <p className="mb-6 text-xs italic text-foreground/35">{note}</p>
-      )}
-      <p className="mb-4 text-[10px] leading-relaxed text-foreground/40">
-        {pricingNotes.travel}
-      </p>
-      <Link
-        href={href}
-        className={cn(
-          "mt-auto block w-full py-3 text-center text-[11px] tracking-[0.18em] uppercase transition-all duration-300",
-          pkg.popular
-            ? "bg-primary text-primary-foreground hover:bg-[#d4b87a]"
-            : "border border-foreground/20 text-foreground/55 hover:border-primary hover:text-primary",
-        )}
-      >
+    <CardShell popular={pkg.popular}>
+      <CardHeading pkg={pkg} />
+      <FeatureList features={pkg.features} />
+      {note && <p className="mb-6 text-sm italic text-ink-soft">{note}</p>}
+      <CardCta href={href} popular={pkg.popular}>
         {ctaLabel}
-      </Link>
-    </div>
+      </CardCta>
+    </CardShell>
   );
 }

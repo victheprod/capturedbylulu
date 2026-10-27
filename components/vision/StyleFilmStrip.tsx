@@ -39,7 +39,7 @@ export function StyleFilmStrip({ cards, selected, onToggle }: StyleFilmStripProp
             >
               <div
                 className={cn(
-                  "relative aspect-[2/3] overflow-hidden rounded-[1.25rem] transition-all duration-500",
+                  "relative aspect-[2/3] overflow-hidden transition-all duration-500",
                   isSelected
                     ? "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-[0_12px_40px_rgba(200,169,106,0.2)]"
                     : "ring-1 ring-foreground/10 group-hover:ring-foreground/25",

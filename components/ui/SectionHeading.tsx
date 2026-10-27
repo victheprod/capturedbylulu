@@ -8,12 +8,7 @@ export function Eyebrow({
   className?: string;
 }) {
   return (
-    <p
-      className={cn(
-        "text-[11px] font-medium tracking-[0.24em] uppercase text-primary",
-        className,
-      )}
-    >
+    <p className={cn("font-label text-[10.5px] text-oxblood", className)}>
       {children}
     </p>
   );
@@ -51,13 +46,13 @@ export function SectionHeading({
     >
       <div className={cn("max-w-2xl", centered && "mx-auto")}>
         {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
-        <Heading className="text-balance font-serif text-[clamp(2rem,4.5vw,3.25rem)] font-light leading-[1.08] text-foreground">
+        <Heading className="text-balance font-serif text-[clamp(2.4rem,5vw,4.5rem)] font-light leading-[0.98] tracking-[-0.025em] text-foreground">
           {title}
         </Heading>
         {description && (
           <p
             className={cn(
-              "mt-5 max-w-xl text-[0.95rem] leading-relaxed text-foreground/60",
+              "mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg",
               centered && "mx-auto",
             )}
           >

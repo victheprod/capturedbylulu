@@ -33,30 +33,28 @@ export default function AboutPage() {
         secondaryCta={{ label: "See the work", href: "/portfolio" }}
       />
 
-      <Section className="border-t border-foreground/10">
+      <Section>
         <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
-          <FadeIn className="lg:col-span-6">
-            <div className="relative aspect-[4/5] overflow-hidden bg-card">
-              <PhotoImage
-                src={siteImages.about}
-                alt={luluPortrait.alt}
-                fill
-                objectPosition={siteImageFraming.about.objectPosition}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.08} className="lg:col-span-5 lg:col-start-8">
+          <div className="curtain relative aspect-[4/5] bg-bone lg:col-span-6">
+            <PhotoImage
+              src={siteImages.about}
+              alt={luluPortrait.alt}
+              fill
+              objectPosition={siteImageFraming.about.objectPosition}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+          <FadeIn delay={0.15} className="lg:col-span-5 lg:col-start-8">
             <SectionHeading
               eyebrow="Working together"
               title="You work with me, start to finish."
             />
-            <p className="mt-6 leading-relaxed text-foreground/60">
+            <p className="mt-8 text-lg leading-relaxed text-ink-soft">
               There&apos;s no team handing you off. I answer your estimate
               request, plan the shoot with you, take the photos, and edit every
               gallery myself.
             </p>
-            <p className="mt-4 leading-relaxed text-foreground/60">
+            <p className="mt-4 text-lg leading-relaxed text-ink-soft">
               Nothing is booked online. We agree on the details by email first,
               so there are no surprises.
             </p>

@@ -46,7 +46,7 @@ function StepIntro({ step }: { step: VisionStepId }) {
       <p className="mb-3 font-serif text-5xl font-light leading-none text-foreground/12 sm:text-6xl">
         {String(stepNum).padStart(2, "0")}
       </p>
-      <p className="mb-2 text-[10px] tracking-[0.32em] uppercase text-primary/90">
+      <p className="mb-2 font-label text-[10px] text-oxblood">
         {copy.eyebrow}
       </p>
       <h2 className="text-balance font-serif text-[clamp(1.65rem,3.5vw,2.35rem)] font-light leading-[1.14] text-foreground">
@@ -306,7 +306,7 @@ function WelcomeStep({
         <motion.p
           initial={reduceMotion ? false : { opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-[10px] tracking-[0.36em] uppercase text-primary"
+          className="font-label text-[10px] text-oxblood"
         >
           {copy.eyebrow}
         </motion.p>
@@ -322,17 +322,9 @@ function WelcomeStep({
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.14 }}
-          className="mt-5 text-sm leading-relaxed text-foreground/52 sm:text-base"
+          className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg"
         >
           {copy.description}
-        </motion.p>
-        <motion.p
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 border-l-2 border-primary/40 pl-4 text-sm italic text-foreground/45"
-        >
-          Choose the photos and styles that speak to you.
         </motion.p>
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
@@ -340,7 +332,7 @@ function WelcomeStep({
           transition={{ delay: 0.28 }}
           className="mt-10"
         >
-          <Button className="rounded-full px-10 py-4" onClick={onBegin}>
+          <Button className="px-10 py-4" onClick={onBegin}>
             Open the atelier
             <ArrowRight size={16} />
           </Button>
@@ -348,7 +340,7 @@ function WelcomeStep({
       </div>
 
       <div className="relative mx-auto aspect-square w-full max-w-md lg:max-w-none">
-        <div className="vision-cork absolute inset-0 rounded-[2.5rem] rounded-tr-[4rem]" />
+        <div className="vision-cork absolute inset-0" />
         <div className="relative flex h-full items-center justify-center p-8 sm:p-10">
           {previews.map((card, i) => {
             const offsets = [

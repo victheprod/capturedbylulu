@@ -31,7 +31,7 @@ export const stepCopy: Record<VisionStepId, { eyebrow: string; title: string; de
     eyebrow: "Build Your Vision",
     title: "Let's build your dream gallery.",
     description:
-      "Choose the photos and styles that speak to you. We'll shape a living mood board — and a package recommendation tailored to your taste.",
+      "Choose the photos and styles that speak to you. We'll build a mood board as you go, then recommend a package that fits.",
   },
   styles: {
     eyebrow: "Visual language",
@@ -46,7 +46,7 @@ export const stepCopy: Record<VisionStepId, { eyebrow: string; title: string; de
   feel: {
     eyebrow: "Emotion",
     title: "How do you want your photos to feel?",
-    description: "Trust your instinct — there's no wrong answer.",
+    description: "Trust your instinct. There's no wrong answer.",
   },
   moments: {
     eyebrow: "What matters",
@@ -66,7 +66,7 @@ export const stepCopy: Record<VisionStepId, { eyebrow: string; title: string; de
   energy: {
     eyebrow: "Energy",
     title: "Elegant or adventurous?",
-    description: "The spirit of your session — refined and poised, or free-spirited.",
+    description: "The spirit of your session: refined and poised, or free-spirited.",
   },
   era: {
     eyebrow: "Aesthetic era",
@@ -117,7 +117,7 @@ export const editingOptions: StepChoice<EditingStyle>[] = [
 export const settingOptions: StepChoice<SettingPref>[] = [
   { value: "indoor", label: "Mostly indoor", description: "Studios, venues, and interior light." },
   { value: "outdoor", label: "Mostly outdoor", description: "Gardens, open fields, and golden hour." },
-  { value: "both", label: "A mix of both", description: "Indoor ceremony, outdoor portraits — the full picture." },
+  { value: "both", label: "A mix of both", description: "Indoor ceremony, outdoor portraits, the full picture." },
 ];
 
 export const energyOptions: StepChoice<EnergyPref>[] = [

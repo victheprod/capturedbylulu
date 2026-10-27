@@ -32,7 +32,7 @@ export function LiveMoodBoard({
 
   if (variant === "strip" || compact) {
     return (
-      <div className={cn("vision-cork rounded-[1.75rem] p-3 sm:p-4", className)}>
+      <div className={cn("vision-cork p-3 sm:p-4", className)}>
         <BoardHeader count={visible.length} />
         <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <AnimatePresence mode="popLayout">
@@ -59,7 +59,7 @@ export function LiveMoodBoard({
   return (
     <div
       className={cn(
-        "vision-cork relative overflow-hidden rounded-[2rem] p-4 sm:p-5",
+        "vision-cork relative overflow-hidden p-4 sm:p-5",
         "min-h-[280px] sm:min-h-[320px]",
         className,
       )}
@@ -120,7 +120,7 @@ export function LiveMoodBoard({
 function BoardHeader({ count }: { count: number }) {
   return (
     <div className="mb-3 flex items-baseline justify-between gap-2">
-      <p className="text-[9px] tracking-[0.32em] uppercase text-primary/90">
+      <p className="font-label text-[10px] text-oxblood">
         Live board
       </p>
       <p className="text-[9px] text-foreground/40">
@@ -138,12 +138,12 @@ function EmptyBoard({ compact }: { compact?: boolean }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className={cn(
-        "flex items-center justify-center rounded-xl border border-dashed border-foreground/12 bg-background/20 text-center",
+        "flex items-center justify-center border border-dashed border-foreground/12 bg-background/20 text-center",
         compact ? "min-h-[100px] flex-1 px-4 py-6" : "absolute inset-4 px-6",
       )}
     >
       <p className="text-xs leading-relaxed text-foreground/42">
-        Pin styles you love — they&apos;ll land here like polaroids on a board.
+        Pin the styles you love and they&apos;ll land here like polaroids on a board.
       </p>
     </motion.div>
   );

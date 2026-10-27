@@ -115,17 +115,18 @@ export function PortfolioMasonry({
                     key={filter}
                     type="button"
                     onClick={() => setActiveFilter(filter)}
+                    aria-pressed={isActive}
                     className={cn(
-                      "relative px-4 py-2.5 text-[10px] tracking-[0.18em] uppercase transition-colors duration-300 sm:px-5 sm:text-[11px]",
+                      "font-label relative border px-4 py-2.5 text-[10.5px] transition-colors duration-300 sm:px-5",
                       isActive
-                        ? "text-primary-foreground"
-                        : "text-foreground/50 hover:text-foreground/80",
+                        ? "border-ink text-ivory"
+                        : "border-ink/15 text-ink-soft hover:border-ink/50 hover:text-ink",
                     )}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="portfolio-filter-pill"
-                        className="absolute inset-0 border border-primary/80 bg-primary shadow-[0_4px_24px_rgba(200,169,106,0.15)]"
+                        className="absolute -inset-px bg-ink"
                         transition={{ type: "spring", stiffness: 380, damping: 28 }}
                       />
                     )}
@@ -136,18 +137,18 @@ export function PortfolioMasonry({
             </LayoutGroup>
           </div>
           {activeFilter !== "All" && categoryCaptions[activeFilter] && (
-            <p className="max-w-md text-sm italic text-foreground/45">
+            <p className="max-w-md font-serif text-lg italic text-ink-soft">
               {categoryCaptions[activeFilter]}
             </p>
           )}
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
-          <p className="text-[11px] tracking-[0.12em] uppercase text-foreground/40">
+          <p className="font-label text-[10.5px] text-ink-soft">
             {Math.min(visibleCount, filtered.length)} of {filtered.length} on the wall
           </p>
-          <div className="h-px w-32 bg-foreground/10 sm:w-40">
+          <div className="h-px w-32 bg-ink/15 sm:w-40">
             <motion.div
-              className="h-full bg-primary/50"
+              className="h-full bg-ink"
               initial={false}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -156,7 +157,7 @@ export function PortfolioMasonry({
         </div>
       </div>
 
-      <motion.div layout className="columns-2 gap-4 lg:columns-3 lg:gap-5">
+      <motion.div layout className="columns-2 gap-3 md:gap-5 lg:columns-3">
         <AnimatePresence mode="popLayout">
           {visible.map((photo, index) => (
             <motion.button
@@ -168,23 +169,20 @@ export function PortfolioMasonry({
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.45, delay: Math.min(index * 0.02, 0.15) }}
               onClick={() => openLightbox(photo)}
-              className="group relative mb-4 block w-full cursor-zoom-in break-inside-avoid text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              className="group relative mb-3 block w-full cursor-zoom-in break-inside-avoid text-left md:mb-5"
               aria-label={`View ${photo.category} photograph ${index + 1}`}
             >
-              {/* Gallery wall mat */}
-              <div className="bg-[#1a1512] p-2 shadow-[inset_0_0_0_1px_rgba(242,236,224,0.06)] transition-shadow duration-500 group-hover:shadow-[inset_0_0_0_1px_rgba(200,169,106,0.25)] sm:p-2.5">
-                <div className="relative overflow-hidden bg-card">
-                  <Image
-                    src={photo.imageUrl}
-                    alt={`${photo.category} photography by CapturedByLulu`}
-                    width={700}
-                    height={scaledPhotoHeight(photo.width, photo.height, 700)}
-                    className="block h-auto w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
-                    sizes="(max-width: 768px) 50vw, 33vw"
-                    loading={index < 12 ? "eager" : "lazy"}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
-                </div>
+              <div className="relative overflow-hidden bg-bone">
+                <Image
+                  src={photo.imageUrl}
+                  alt={`${photo.category} photography by CapturedByLulu`}
+                  width={700}
+                  height={scaledPhotoHeight(photo.width, photo.height, 700)}
+                  className="block h-auto w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  loading={index < 12 ? "eager" : "lazy"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
               </div>
             </motion.button>
           ))}
@@ -201,7 +199,7 @@ export function PortfolioMasonry({
           >
             Continue through the gallery
           </Button>
-          <p className="text-[10px] tracking-[0.15em] uppercase text-foreground/35">
+          <p className="font-label text-[10.5px] text-ink-soft">
             {filtered.length - visibleCount} more photographs
           </p>
         </div>
@@ -209,7 +207,7 @@ export function PortfolioMasonry({
 
       {!visible.length && (
         <div className="py-20 text-center">
-          <p className="font-serif text-2xl font-light text-foreground/50">
+          <p className="font-serif text-2xl font-light text-ink-soft">
             No photographs in this room yet.
           </p>
         </div>
