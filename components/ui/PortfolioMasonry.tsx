@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import {
@@ -61,7 +61,7 @@ export function PortfolioMasonry({
         category: item.category,
         width: item.width,
         height: item.height,
-        imageUrl: portfolioImageUrl(item, 700),
+        imageUrl: portfolioImageUrl(item),
       }));
     }
     return excludeIds.length ? excludeIdsFromList(list, excludeIds) : list;
@@ -85,9 +85,10 @@ export function PortfolioMasonry({
     ? Math.round((Math.min(visibleCount, filtered.length) / filtered.length) * 100)
     : 0;
 
-  useEffect(() => {
+  const selectFilter = (filter: PortfolioCategory) => {
+    setActiveFilter(filter);
     setVisibleCount(PAGE_SIZE);
-  }, [activeFilter]);
+  };
 
   const openLightbox = (item: LightboxItem) => {
     const idx = filtered.findIndex((p) => p.id === item.id);
@@ -114,7 +115,7 @@ export function PortfolioMasonry({
                   <button
                     key={filter}
                     type="button"
-                    onClick={() => setActiveFilter(filter)}
+                    onClick={() => selectFilter(filter)}
                     aria-pressed={isActive}
                     className={cn(
                       "font-label relative border px-4 py-2.5 text-[10.5px] transition-colors duration-300 sm:px-5",

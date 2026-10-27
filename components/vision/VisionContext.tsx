@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -47,9 +48,11 @@ export function VisionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const session = loadVisionSession();
-    setStepIndex(session.stepIndex);
-    setAnswers(session.answers);
-    setHydrated(true);
+    startTransition(() => {
+      setStepIndex(session.stepIndex);
+      setAnswers(session.answers);
+      setHydrated(true);
+    });
   }, []);
 
   useEffect(() => {

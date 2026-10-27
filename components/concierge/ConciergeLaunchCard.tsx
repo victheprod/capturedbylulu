@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { Aperture, ArrowRight, X } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { conciergeLaunch } from "@/lib/concierge/copy";
 import {
   dismissConciergeLaunch,
@@ -114,12 +114,8 @@ export function useConciergeLaunchVisible(hasProgress: boolean, hydrated: boolea
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!hydrated || hasProgress) {
-      setVisible(false);
-      return;
-    }
-    if (isConciergeLaunchDismissed()) {
-      setVisible(false);
+    if (!hydrated || hasProgress || isConciergeLaunchDismissed()) {
+      startTransition(() => setVisible(false));
       return;
     }
     const timer = window.setTimeout(() => setVisible(true), 1200);

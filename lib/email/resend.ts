@@ -19,6 +19,11 @@ export async function sendOwnerEmail({
   // Resend's test sender only delivers to the account's exact (lowercase) address.
   const to = (process.env.INQUIRY_EMAIL ?? siteConfig.email).trim().toLowerCase();
   const from = process.env.RESEND_FROM ?? "CapturedByLulu <onboarding@resend.dev>";
+  const isPreview = process.env.VERCEL_ENV === "preview";
+  const safeSubject = isPreview ? `[PREVIEW] ${subject}` : subject;
+  const safeText = isPreview
+    ? `*** PREVIEW DEPLOYMENT — not production ***\n\n${text}`
+    : text;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -26,7 +31,13 @@ export async function sendOwnerEmail({
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from, to: [to], reply_to: replyTo, subject, text }),
+    body: JSON.stringify({
+      from,
+      to: [to],
+      reply_to: replyTo,
+      subject: safeSubject,
+      text: safeText,
+    }),
   });
 
   if (!response.ok) {

@@ -1,9 +1,7 @@
 import {
   addons,
-  brandPackages,
   eventPackages,
   familyPackages,
-  headshotPackages,
   portraitPackages,
   preWeddingPackages,
   weddingPackages,
@@ -149,7 +147,7 @@ function buildReasons(pkg: Package, category: string, answers: VisionAnswers): s
   return reasons.slice(0, 4);
 }
 
-function suggestAddons(answers: VisionAnswers, pkg: Package) {
+function suggestAddons(answers: VisionAnswers) {
   const suggestions: VisionRecommendation["addons"] = [];
 
   if (answers.moments.includes("details")) {
@@ -230,7 +228,7 @@ export function recommendFromVision(answers: VisionAnswers): VisionRecommendatio
     preferredStyles: answers.styles.map(styleLabel),
     visualThemes: visualThemes(answers),
     suggestedLocations: locations,
-    addons: suggestAddons(answers, best),
+    addons: suggestAddons(answers),
     reasons: buildReasons(best, category, answers),
     investmentLabel: best.price.includes("Starting") || best.price.includes("+")
       ? best.price

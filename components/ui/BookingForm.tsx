@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, startTransition, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   AlertCircle,
@@ -125,19 +125,23 @@ function BookingFormFields({
 
   useEffect(() => {
     if (initialPackage) {
-      setForm((current) => ({
-        ...current,
-        sessionType: initialPackage.sessionType,
-        package: initialPackage.package,
-      }));
+      startTransition(() => {
+        setForm((current) => ({
+          ...current,
+          sessionType: initialPackage.sessionType,
+          package: initialPackage.package,
+        }));
+      });
       return;
     }
     if (searchParams.get("quote") === "custom") {
-      setForm((current) => ({
-        ...current,
-        sessionType: current.sessionType || "Other / Not sure",
-        package: CUSTOM_QUOTE_PACKAGE,
-      }));
+      startTransition(() => {
+        setForm((current) => ({
+          ...current,
+          sessionType: current.sessionType || "Other / Not sure",
+          package: CUSTOM_QUOTE_PACKAGE,
+        }));
+      });
       return;
     }
     const fromConcierge = searchParams.get("from") === "concierge";
@@ -158,18 +162,20 @@ function BookingFormFields({
     if (packageId) {
       const entry = getPackageEntryById(packageId);
       if (entry) {
-        setForm((current) => ({
-          ...current,
-          sessionType: entry.category,
-          package:
-            storedPrefill?.package ??
-            getPackageBookingValue(entry.category, entry.pkg),
-          location: prefilledLocation || current.location,
-          message:
-            (fromConcierge || fromVision) && prefilledMessage
-              ? prefilledMessage
-              : current.message,
-        }));
+        startTransition(() => {
+          setForm((current) => ({
+            ...current,
+            sessionType: entry.category,
+            package:
+              storedPrefill?.package ??
+              getPackageBookingValue(entry.category, entry.pkg),
+            location: prefilledLocation || current.location,
+            message:
+              (fromConcierge || fromVision) && prefilledMessage
+                ? prefilledMessage
+                : current.message,
+          }));
+        });
         if (storedConciergePrefill) clearConciergePrefill();
         if (storedVisionPrefill) clearVisionPrefill();
         return;
@@ -177,11 +183,13 @@ function BookingFormFields({
     }
 
     if ((fromConcierge || fromVision) && (prefilledMessage || prefilledLocation)) {
-      setForm((current) => ({
-        ...current,
-        location: prefilledLocation || current.location,
-        message: prefilledMessage ? prefilledMessage : current.message,
-      }));
+      startTransition(() => {
+        setForm((current) => ({
+          ...current,
+          location: prefilledLocation || current.location,
+          message: prefilledMessage ? prefilledMessage : current.message,
+        }));
+      });
       if (storedConciergePrefill) clearConciergePrefill();
       if (storedVisionPrefill) clearVisionPrefill();
     }

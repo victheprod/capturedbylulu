@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -47,8 +48,11 @@ export function ConciergeProvider({ children }: { children: React.ReactNode }) {
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setSession(loadConciergeSession());
-    setHydrated(true);
+    const next = loadConciergeSession();
+    startTransition(() => {
+      setSession(next);
+      setHydrated(true);
+    });
   }, []);
 
   useEffect(() => {

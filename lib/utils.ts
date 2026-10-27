@@ -6,10 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /** Local portfolio image path */
-export function portfolioImageUrl(
-  item: { src: string; height?: number },
-  _w = 800,
-) {
+export function portfolioImageUrl(item: { src: string; height?: number }) {
   return item.src;
 }
 

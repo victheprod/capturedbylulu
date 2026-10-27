@@ -71,11 +71,12 @@ export function ConciergeSheet() {
       }
     };
 
+    const trigger = triggerRef.current;
     window.addEventListener("keydown", onKey);
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", onKey);
-      triggerRef.current?.focus({ preventScroll: true });
+      trigger?.focus({ preventScroll: true });
     };
   }, [isOpen, close, triggerRef]);
 
